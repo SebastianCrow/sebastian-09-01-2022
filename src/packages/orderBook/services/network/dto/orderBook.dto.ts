@@ -1,4 +1,4 @@
-type ProductIdDto =
+export type ProductIdDto =
   | 'PI_XBTUSD' // Bitcoin
   | 'PI_ETHUSD'; // Ethereum
 
@@ -74,7 +74,7 @@ export const isSnapshotResponseDto = (
 
 export const isDeltaResponseDto = (
   dto: OrderBookResponseDto
-): dto is SnapshotResponseDto => {
+): dto is DeltaResponseDto => {
   const castedDto = dto as DeltaResponseDto;
   return Boolean(
     castedDto.bids && castedDto.asks && FeedValuesDto.includes(castedDto.feed)

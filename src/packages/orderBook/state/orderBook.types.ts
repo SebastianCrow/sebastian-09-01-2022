@@ -1,3 +1,13 @@
+import { Product } from '../services/network/orderBookNetwork.types';
+
+interface PriceInfo {
+  price: number; // TODO: BrandType
+  size: number; // TODO: BrandType
+  total: number; // TODO: BrandType
+}
+
 export interface OrderBookState {
-  test?: string; // TODO: Add state here
+  product: Product;
+  bids: PriceInfo[] | undefined;
+  asks: PriceInfo[] | undefined;
 }

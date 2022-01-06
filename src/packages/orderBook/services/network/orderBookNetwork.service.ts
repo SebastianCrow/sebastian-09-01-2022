@@ -1,24 +1,47 @@
 import { webSocket } from 'rxjs/webSocket';
 import memoizeOne from 'memoize-one';
+import { throttle } from 'lodash';
 import {
   DeltaReceived,
-  ProductId,
+  Product,
   SnapshotReceived,
 } from './orderBookNetwork.types';
-import { Observable } from 'rxjs';
+import { Observable, Subscriber } from 'rxjs';
 import {
+  DeltaResponseDto,
   isDeltaResponseDto,
   isSnapshotResponseDto,
+  OrderBookResponseDto,
   SubscribeRequestDto,
   UnsubscribeRequestDto,
 } from './dto/orderBook.dto';
+import { convertProductIdToProduct } from './converters/convertProductIdToProduct.converter';
+import { convertProductToProductId } from './converters/convertProductToProductId.converter';
 
 const WEB_SOCKET_ENDPOINT = 'wss://www.cryptofacilities.com/ws/v1';
 
+const RECEIVED_EVENTS_THROTTLE_DURATION = 1000;
+
 export const prices$ = (
-  productIds: ProductId[]
+  products: Product[]
 ): Observable<SnapshotReceived | DeltaReceived> => {
   const subject = getWebSocketSubject();
+
+  const onDeltaResponseThrottled = throttle(
+    (
+      dto: DeltaResponseDto,
+      subscriber: Subscriber<SnapshotReceived | DeltaReceived>
+    ) => {
+      subscriber.next({
+        type: 'DeltaReceived',
+        product: convertProductIdToProduct(dto.product_id),
+        bids: dto.bids,
+        asks: dto.asks,
+      });
+    },
+    RECEIVED_EVENTS_THROTTLE_DURATION
+  );
+
   return new Observable<SnapshotReceived | DeltaReceived>((subscriber) => {
     // Propagate 'snapshot' and 'delta' events
     subject.subscribe({
@@ -26,18 +49,13 @@ export const prices$ = (
         if (isSnapshotResponseDto(dto)) {
           subscriber.next({
             type: 'SnapshotReceived',
-            productId: dto.product_id,
+            product: convertProductIdToProduct(dto.product_id),
             numLevels: dto.numLevels,
             bids: dto.bids,
             asks: dto.asks,
           });
         } else if (isDeltaResponseDto(dto)) {
-          subscriber.next({
-            type: 'DeltaReceived',
-            productId: dto.product_id,
-            bids: dto.bids,
-            asks: dto.asks,
-          });
+          onDeltaResponseThrottled(dto, subscriber);
         }
       },
       error: (err) => subscriber.error(err),
@@ -48,7 +66,7 @@ export const prices$ = (
     const subscribeEvent: SubscribeRequestDto = {
       event: 'subscribe',
       feed: 'book_ui_1',
-      product_ids: productIds,
+      product_ids: products.map(convertProductToProductId),
     };
     subject.next(subscribeEvent);
 
@@ -57,7 +75,7 @@ export const prices$ = (
       const unsubscribeEvent: UnsubscribeRequestDto = {
         event: 'unsubscribe',
         feed: 'book_ui_1',
-        product_ids: productIds, // TODO: Unsubscribe only the given product ids?
+        product_ids: products.map(convertProductToProductId), // TODO: Unsubscribe only the given product ids?
       };
       return subject.next(unsubscribeEvent);
     };
@@ -66,4 +84,4 @@ export const prices$ = (
 
 const getWebSocketSubject = memoizeOne(() =>
   webSocket<any>(WEB_SOCKET_ENDPOINT)
-); // TODO: Casting)
+); // TODO: Casting

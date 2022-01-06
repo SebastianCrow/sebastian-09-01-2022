@@ -1,15 +1,19 @@
 import { OrderBookState } from './orderBook.types';
 import {
-  DeltaReceivedAction,
+  DeltaReceived,
   OrderBookActions,
-  SnapshotReceivedAction,
+  SnapshotReceived,
 } from './orderBook.actions';
 
-const initialState: OrderBookState = {};
+const initialState: OrderBookState = {
+  product: 'Bitcoin',
+  bids: undefined,
+  asks: undefined,
+};
 
 const snapshotReceived = (
   prevState: OrderBookState,
-  action: SnapshotReceivedAction
+  action: SnapshotReceived
 ): OrderBookState => {
   return {
     ...prevState, // TODO: Modify state here
@@ -18,13 +22,16 @@ const snapshotReceived = (
 
 const deltaReceived = (
   prevState: OrderBookState,
-  action: DeltaReceivedAction
+  action: DeltaReceived
 ): OrderBookState => {
   return {
     ...prevState, // TODO: Modify state here
   };
 };
 
+/**
+ * {@link _orderBookReducer} is extracted in order to avoid using `default` inside `switch` and enforce an exhaustiveness check by TS
+ */
 const _orderBookReducer = (
   prevState: OrderBookState = initialState,
   action: OrderBookActions
@@ -32,17 +39,15 @@ const _orderBookReducer = (
   switch (
     action.type // TODO: Investigate exhaustive switch
   ) {
-    case 'SnapshotReceivedAction':
+    case 'ObserveProduct':
+      return prevState;
+    case 'SnapshotReceived':
       return snapshotReceived(prevState, action);
-    case 'DeltaReceivedAction':
+    case 'DeltaReceived':
       return deltaReceived(prevState, action);
   }
-  // return prevState;
 };
 
-/**
- * {@link _orderBookReducer is extracted in order to avoid `default` inside `switch` and enforce an exhaustiveness check by TS}
- */
 export const orderBookReducer = (
   prevState: OrderBookState = initialState,
   action: OrderBookActions

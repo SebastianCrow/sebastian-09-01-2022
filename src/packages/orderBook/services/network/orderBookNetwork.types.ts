@@ -1,10 +1,8 @@
-export type ProductId =
-  | 'PI_XBTUSD' // Bitcoin
-  | 'PI_ETHUSD'; // Ethereum
+export type Product = 'Bitcoin' | 'Ethereum';
 
 export interface SnapshotReceived {
   type: 'SnapshotReceived';
-  productId: ProductId;
+  product: Product;
   numLevels: number;
   bids: [number, number][]; // TODO: [price, size] BrandType
   asks: [number, number][]; // TODO: [price, size] BrandType
@@ -12,7 +10,7 @@ export interface SnapshotReceived {
 
 export interface DeltaReceived {
   type: 'DeltaReceived';
-  productId: ProductId;
+  product: Product;
   bids: [number, number][]; // TODO: [price, size] BrandType
   asks: [number, number][]; // TODO: [price, size] BrandType
 }

@@ -13,7 +13,7 @@ export const OrderBook: FunctionComponent = () => {
   const [productId] = useState<ProductId>('PI_XBTUSD');
 
   useEffect(() => {
-    const a = prices$([productId]).subscribe({
+    prices$([productId]).subscribe({
       next: (v) => console.info(v),
     });
   }, [productId]);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { OrderBook } from './packages/orderBook/orderBook.component';
+import { OrderBook } from './packages/orderBook';
 
 function App() {
   return <OrderBook />;

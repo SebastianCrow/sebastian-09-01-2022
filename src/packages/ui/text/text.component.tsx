@@ -3,7 +3,7 @@ import cns from 'classnames';
 import styles from './text.component.module.scss';
 
 interface TextProps {
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'success' | 'danger';
 }
 
 export const Text: FunctionComponent<TextProps> = ({
@@ -15,6 +15,8 @@ export const Text: FunctionComponent<TextProps> = ({
       className={cns({
         [styles.primary]: variant === 'primary',
         [styles.secondary]: variant === 'secondary',
+        [styles.success]: variant === 'success',
+        [styles.danger]: variant === 'danger',
       })}
     >
       {children}

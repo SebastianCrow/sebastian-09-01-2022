@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from 'react';
+import { Text } from '../../../ui/text/text.component';
 
 const TODO_SPREAD = {
   value: 17.0,
@@ -7,8 +8,6 @@ const TODO_SPREAD = {
 
 export const SpreadHeader: FunctionComponent = () => {
   return (
-    <div
-      style={{ backgroundColor: 'blue' }}
-    >{`Spread: ${TODO_SPREAD.value} (${TODO_SPREAD.percent}%)`}</div>
+    <Text variant="secondary">{`Spread: ${TODO_SPREAD.value} (${TODO_SPREAD.percent}%)`}</Text>
   );
 };

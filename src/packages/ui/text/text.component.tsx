@@ -2,8 +2,10 @@ import React, { FunctionComponent } from 'react';
 import cns from 'classnames';
 import styles from './text.component.module.scss';
 
-interface TextProps {
-  variant?: 'primary' | 'secondary' | 'success' | 'danger';
+export type TextVariant = 'primary' | 'secondary' | 'success' | 'danger';
+
+export interface TextProps {
+  variant?: TextVariant;
 }
 
 export const Text: FunctionComponent<TextProps> = ({

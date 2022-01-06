@@ -11,12 +11,12 @@ import {
   DeltaResponseDto,
   isDeltaResponseDto,
   isSnapshotResponseDto,
-  OrderBookResponseDto,
   SubscribeRequestDto,
   UnsubscribeRequestDto,
 } from './dto/orderBook.dto';
 import { convertProductIdToProduct } from './converters/convertProductIdToProduct.converter';
 import { convertProductToProductId } from './converters/convertProductToProductId.converter';
+import { convertPriceDtoToPriceInfo } from './converters/convertPriceDtoToPriceInfo.converter';
 
 const WEB_SOCKET_ENDPOINT = 'wss://www.cryptofacilities.com/ws/v1';
 
@@ -35,8 +35,8 @@ export const prices$ = (
       subscriber.next({
         type: 'DeltaReceived',
         product: convertProductIdToProduct(dto.product_id),
-        bids: dto.bids,
-        asks: dto.asks,
+        bids: dto.bids.map(convertPriceDtoToPriceInfo),
+        asks: dto.asks.map(convertPriceDtoToPriceInfo),
       });
     },
     RECEIVED_EVENTS_THROTTLE_DURATION
@@ -51,8 +51,8 @@ export const prices$ = (
             type: 'SnapshotReceived',
             product: convertProductIdToProduct(dto.product_id),
             numLevels: dto.numLevels,
-            bids: dto.bids,
-            asks: dto.asks,
+            bids: dto.bids.map(convertPriceDtoToPriceInfo),
+            asks: dto.asks.map(convertPriceDtoToPriceInfo),
           });
         } else if (isDeltaResponseDto(dto)) {
           onDeltaResponseThrottled(dto, subscriber);

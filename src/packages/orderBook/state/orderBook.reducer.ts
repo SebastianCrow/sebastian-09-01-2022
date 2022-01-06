@@ -1,9 +1,11 @@
-import { OrderBookState } from './orderBook.types';
+import { OrderBookState, Price } from './orderBook.types';
 import {
   DeltaReceived,
   OrderBookActions,
   SnapshotReceived,
 } from './orderBook.actions';
+import { PriceInfo } from '../services/network/orderBookNetwork.types';
+import { computePriceInfoRecord } from '../services/computePriceInfoRecord.service';
 
 const initialState: OrderBookState = {
   product: 'Bitcoin',
@@ -11,12 +13,33 @@ const initialState: OrderBookState = {
   asks: undefined,
 };
 
+const updatePriceInfoRecord = (
+  priceInfoRecord: Record<Price, PriceInfo> | undefined,
+  newPriceInfoList: PriceInfo[]
+): Record<Price, PriceInfo> | undefined => {
+  if (!priceInfoRecord || !newPriceInfoList.length) {
+    return priceInfoRecord;
+  }
+
+  const updatedPriceInfoRecord = { ...priceInfoRecord };
+  for (const priceInfo of newPriceInfoList) {
+    if (priceInfo.size > 0) {
+      updatedPriceInfoRecord[priceInfo.price] = priceInfo;
+    } else {
+      delete updatedPriceInfoRecord[priceInfo.price];
+    }
+  }
+  return updatedPriceInfoRecord;
+};
+
 const snapshotReceived = (
   prevState: OrderBookState,
   action: SnapshotReceived
 ): OrderBookState => {
   return {
-    ...prevState, // TODO: Modify state here
+    ...prevState,
+    bids: computePriceInfoRecord(action.bids),
+    asks: computePriceInfoRecord(action.asks),
   };
 };
 
@@ -25,7 +48,9 @@ const deltaReceived = (
   action: DeltaReceived
 ): OrderBookState => {
   return {
-    ...prevState, // TODO: Modify state here
+    ...prevState,
+    bids: updatePriceInfoRecord(prevState.bids, action.bids),
+    asks: updatePriceInfoRecord(prevState.asks, action.asks),
   };
 };
 

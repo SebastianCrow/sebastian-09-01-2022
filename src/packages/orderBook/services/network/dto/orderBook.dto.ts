@@ -1,3 +1,5 @@
+import { Price, Size } from '../../../state/orderBook.types';
+
 export type ProductIdDto =
   | 'PI_XBTUSD' // Bitcoin
   | 'PI_ETHUSD'; // Ethereum
@@ -48,15 +50,15 @@ export interface SnapshotResponseDto {
   feed: FeedSnapshotDto;
   product_id: ProductIdDto;
   numLevels: number;
-  bids: [number, number][]; // TODO: [price, size] BrandType
-  asks: [number, number][]; // TODO: [price, size] BrandType
+  bids: [Price, Size][];
+  asks: [Price, Size][];
 }
 
 export interface DeltaResponseDto {
   feed: FeedDto;
   product_id: ProductIdDto;
-  bids: [number, number][]; // TODO: [price, size] BrandType
-  asks: [number, number][]; // TODO: [price, size] BrandType
+  bids: [Price, Size][];
+  asks: [Price, Size][];
 }
 
 /* Type Guards */

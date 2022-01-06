@@ -5,20 +5,28 @@ import styles from './orderBook.component.module.scss';
 import { Text } from '../../../ui/text/text.component';
 import { OrderBookTable } from '../orderBookTable/orderBookTable.component';
 import { useDispatchOrderBook } from '../../hooks/useDispatchOrderBook.hook';
-import { useSelectOrderBookState } from '../../hooks/useSelectOrderBookState.hook';
+import {
+  useSelectOrderBookAsks,
+  useSelectOrderBookBids,
+  useSelectOrderBookState,
+} from '../../hooks/useSelectOrderBookState.hook';
 
 // TODO: Replace all the inline styles with Sass
 
 export const OrderBook: FunctionComponent = () => {
   const dispatch = useDispatchOrderBook();
-  const state = useSelectOrderBookState();
+
+  const { product } = useSelectOrderBookState();
+  // TODO: Move inside OrderBookTable?
+  const bids = useSelectOrderBookBids();
+  const asks = useSelectOrderBookAsks();
 
   useEffect(() => {
     dispatch({
       type: 'ObserveProduct',
-      product: state.product,
+      product: product,
     });
-  }, [dispatch, state.product]);
+  }, [dispatch, product]);
 
   return (
     <div className={styles.container}>
@@ -32,13 +40,13 @@ export const OrderBook: FunctionComponent = () => {
       </div>
       <div className={styles.tableContainer}>
         <div className={styles.tableColumn}>
-          <OrderBookTable />
+          <OrderBookTable priceInfoList={bids} priceDataType="bids" />
         </div>
         <div className={cns(styles.spreadContainer, 'mobile')}>
           <SpreadHeader />
         </div>
         <div className={styles.tableColumn}>
-          <OrderBookTable />
+          <OrderBookTable priceInfoList={asks} priceDataType="asks" />
         </div>
       </div>
     </div>

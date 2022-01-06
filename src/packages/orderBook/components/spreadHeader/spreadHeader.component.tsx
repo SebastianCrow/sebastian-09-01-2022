@@ -1,13 +1,14 @@
 import React, { FunctionComponent } from 'react';
 import { Text } from '../../../ui/text/text.component';
-
-const TODO_SPREAD = {
-  value: 17.0,
-  percent: 0.05,
-};
+import { useSelectSpreadInfo } from '../../hooks/useSelectOrderBookState.hook';
 
 export const SpreadHeader: FunctionComponent = () => {
+  const spread = useSelectSpreadInfo();
+  // TODO: Placeholder for undefined spread
+  if (!spread) {
+    return null;
+  }
   return (
-    <Text variant="secondary">{`Spread: ${TODO_SPREAD.value} (${TODO_SPREAD.percent}%)`}</Text>
+    <Text variant="secondary">{`Spread: ${spread.value} (${spread.percent}%)`}</Text>
   );
 };

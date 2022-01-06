@@ -1,13 +1,26 @@
-import { Product } from '../services/network/orderBookNetwork.types';
+import { PriceInfo, Product } from '../services/network/orderBookNetwork.types';
 
-interface PriceInfo {
-  price: number; // TODO: BrandType
-  size: number; // TODO: BrandType
-  total: number; // TODO: BrandType
+export type Price = number & { __brand: 'Price' };
+
+export type Size = number & { __brand: 'Size' };
+
+export type Total = number & { __brand: 'Total' };
+
+export type PriceDataType = 'bids' | 'asks';
+
+export interface ComputedPriceInfo {
+  price: Price;
+  size: Size;
+  total: Total;
+}
+
+export interface SpreadInfo {
+  value: number;
+  percent: number;
 }
 
 export interface OrderBookState {
   product: Product;
-  bids: PriceInfo[] | undefined;
-  asks: PriceInfo[] | undefined;
+  bids: Record<Price, PriceInfo> | undefined; // Bids/buy
+  asks: Record<Price, PriceInfo> | undefined; // Asks/sell
 }

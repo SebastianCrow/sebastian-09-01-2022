@@ -1,0 +1,32 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "plugins": [
+    "@typescript-eslint",
+    "import",
+    "react",
+    "react-hooks",
+    "prettier" // it needs to be the last rule
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended"
+  ],
+  "rules": {
+    "no-duplicate-imports": "error",
+    "no-restricted-imports": "error",
+    "quotes": ["error", "single"],
+    "react-hooks/exhaustive-deps": "error"
+  }
+}

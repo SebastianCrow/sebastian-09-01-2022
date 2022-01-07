@@ -4,15 +4,6 @@ import { PartialRecord } from '../../../shared/utils/ts.util';
 import { Button } from '../button/button.component';
 import styles from './notification.component.module.scss';
 
-type NotificationSeverity = 'success' | 'info' | 'warning' | 'error';
-
-interface NotificationAnchor {
-  vertical: 'top' | 'bottom';
-  horizontal: 'left' | 'center' | 'right';
-}
-
-type NotificationBackdropState = 'none' | 'blocking';
-
 const ANCHORS: PartialRecord<NotificationSeverity, NotificationAnchor> = {
   error: {
     vertical: 'top',
@@ -26,6 +17,15 @@ const BACKDROP_STATES: PartialRecord<
 > = {
   error: 'blocking',
 };
+
+type NotificationSeverity = 'success' | 'info' | 'warning' | 'error';
+
+interface NotificationAnchor {
+  vertical: 'top' | 'bottom';
+  horizontal: 'left' | 'center' | 'right';
+}
+
+type NotificationBackdropState = 'none' | 'blocking';
 
 export interface NotificationProps {
   open: boolean;

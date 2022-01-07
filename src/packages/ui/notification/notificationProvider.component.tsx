@@ -8,6 +8,9 @@ import {
 export const NotificationProvider: FunctionComponent = ({ children }) => {
   const [props, setProps] = useState<SettableNotificationProps>();
 
+  const open = useMemo(() => props !== undefined, [props]);
+
+  // Remember the last defined props to avoid jumping UI during the fade out transition
   const definedProps = useRef<SettableNotificationProps>();
   useMemo(() => {
     if (props) {
@@ -15,12 +18,10 @@ export const NotificationProvider: FunctionComponent = ({ children }) => {
     }
   }, [props]);
 
-  const open = useMemo(() => props !== undefined, [props]);
-
   return (
     <NotificationContext.Provider value={setProps}>
       {definedProps.current && (
-        <Notification open={open} {...definedProps.current} />
+        <Notification {...definedProps.current} open={open} />
       )}
       {children}
     </NotificationContext.Provider>

@@ -6,7 +6,7 @@ import { usePrevious } from '../../../shared/hooks/usePrevious.hook';
 
 const isFeatureEnabled = (): boolean => {
   // TODO: It should be replaced by the feature flag mechanism
-  return !localStorage.getItem('stop-connection-disabled');
+  return !localStorage.getItem('orderBook.stopConnection.disabled');
 };
 
 export const useStopObservingProductOnDocumentHidden = () => {

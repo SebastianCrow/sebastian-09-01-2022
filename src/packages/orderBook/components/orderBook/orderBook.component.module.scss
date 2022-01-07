@@ -28,6 +28,7 @@
   .tablesContainer {
     display: flex;
     height: 100%;
+    overflow: hidden;
 
     @include mobile {
       flex-direction: column-reverse;

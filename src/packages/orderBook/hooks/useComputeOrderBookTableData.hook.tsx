@@ -70,6 +70,10 @@ export const useComputeOrderBookTableData = ({
     return priceDataType === 'bids' && layout === 'mobile';
   }, [layout, priceDataType]);
 
+  const asksInMobile = useMemo(() => {
+    return priceDataType === 'asks' && layout === 'mobile';
+  }, [layout, priceDataType]);
+
   const columns: ColumnInfo[] = useMemo(() => {
     const columnsOrder: ColumnKey[] = (() => {
       if (bidsInDesktop) {
@@ -81,7 +85,12 @@ export const useComputeOrderBookTableData = ({
   }, [bidsInDesktop]);
 
   const data: RowInfo[] | undefined = useMemo(() => {
-    return priceInfoList?.map(({ price, size, total }, index) => ({
+    const convertedPriceInfoList =
+      asksInMobile && priceInfoList
+        ? [...priceInfoList].reverse() // TODO: Is it the best place?
+        : priceInfoList;
+
+    return convertedPriceInfoList?.map(({ price, size, total }, index) => ({
       id: index.toString(), // TODO: Is that required?
       cells: {
         price: {
@@ -112,7 +121,7 @@ export const useComputeOrderBookTableData = ({
           }
         : undefined,
     }));
-  }, [priceInfoList, priceDataType, highestTotal, bidsInDesktop]);
+  }, [asksInMobile, priceInfoList, priceDataType, highestTotal, bidsInDesktop]);
 
   return useMemo(
     () => ({

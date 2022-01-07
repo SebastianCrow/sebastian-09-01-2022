@@ -4,9 +4,11 @@ import {
   ComputedPriceInfo,
   OrderBookState,
   SpreadInfo,
+  Total,
 } from '../state/orderBook.types';
 import { computePriceInfoList } from '../services/computePriceInfoList.service';
 import { computeSpreadInfo } from '../services/network/computeSpreadInfo.service';
+import { last } from 'lodash';
 
 export const useSelectOrderBookState = (): OrderBookState => {
   return useSelector((app: AppState) => app.orderBook);
@@ -31,5 +33,14 @@ export const useSelectSpreadInfo = (): SpreadInfo | undefined => {
         sortedBids,
         sortedAsks,
       })
+    : undefined;
+};
+
+// TODO: Is it the best place to do so?
+export const useSelectHighestTotal = (): Total | undefined => {
+  const highestBid = last(useSelectOrderBookBids())?.total;
+  const highestAsk = last(useSelectOrderBookAsks())?.total;
+  return highestBid || highestAsk
+    ? (Math.max(highestBid ?? 0, highestAsk ?? 0) as Total)
     : undefined;
 };

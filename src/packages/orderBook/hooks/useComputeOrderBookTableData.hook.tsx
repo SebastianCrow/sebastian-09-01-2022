@@ -2,6 +2,9 @@ import React, { useMemo } from 'react';
 import { Text, TextVariant } from '../../ui/text/text.component';
 import { ColumnInfo, RowInfo } from '../../ui/table/table.types';
 import { ComputedPriceInfo, PriceDataType } from '../state/orderBook.types';
+import { last } from 'lodash';
+import { useSelectHighestTotal } from './useSelectOrderBookState.hook';
+import { computePercent } from '../../../shared/utils/number.util';
 
 const COLUMNS: ColumnInfo[] = [
   {
@@ -39,6 +42,7 @@ export const useComputeOrderBookTableData = ({
   priceInfoList: ComputedPriceInfo[] | undefined;
   priceDataType: PriceDataType;
 }): TableData => {
+  const highestTotal = useSelectHighestTotal(); // TODO: Should it be here?
   const data: RowInfo[] | undefined = useMemo(() => {
     return priceInfoList?.map(({ price, size, total }, index) => ({
       id: index.toString(), // TODO: Is that required?
@@ -57,8 +61,15 @@ export const useComputeOrderBookTableData = ({
           value: <Text>{total}</Text>,
         },
       },
+      highlight: highestTotal
+        ? {
+            direction: 'left',
+            color: 'rgba(0, 255, 0, 0.2)',
+            percent: computePercent(total, highestTotal),
+          }
+        : undefined,
     }));
-  }, [priceInfoList, priceDataType]);
+  }, [priceInfoList, priceDataType, highestTotal]);
 
   return useMemo(
     () => ({

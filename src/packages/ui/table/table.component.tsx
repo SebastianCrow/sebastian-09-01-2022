@@ -7,10 +7,20 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
-import { ColumnInfo, RowInfo } from './table.types';
+import { ColumnInfo, RowHighlightInfo, RowInfo } from './table.types';
 import { TEXT_ALIGNMENT } from './table.defaults';
 
 // TODO: Forbid using '@mui/material' directly outside of the ui package
+
+const computeBackgroundBar = ({
+  direction,
+  color,
+  percent,
+}: RowHighlightInfo): string => {
+  return `linear-gradient(${
+    direction === 'left' ? 'to left' : 'to right'
+  }, ${color} 0 ${percent}%, transparent ${percent}% 100%)`;
+};
 
 export interface TableProps {
   columns: ColumnInfo[];
@@ -22,6 +32,7 @@ export const Table: FunctionComponent<TableProps> = ({ columns, data }) => {
     <TableContainer>
       <MuiTable size="small">
         <TableHead>
+          {/* TODO: sx or style? */}
           <TableRow>
             {columns.map(({ key, title, textAlignment = TEXT_ALIGNMENT }) => (
               <TableCell key={key} align={textAlignment}>
@@ -32,9 +43,19 @@ export const Table: FunctionComponent<TableProps> = ({ columns, data }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map(({ id, cells }) => {
+          {data.map(({ id, highlight, cells }) => {
+            // TODO: sx or style?
             return (
-              <TableRow key={id}>
+              <TableRow
+                key={id}
+                sx={
+                  highlight
+                    ? {
+                        background: computeBackgroundBar(highlight),
+                      }
+                    : undefined
+                }
+              >
                 {columns.map(({ key }) => {
                   const { value, textAlignment = TEXT_ALIGNMENT } = cells[key]; // TODO: Throw if missing? ErrorBoundary?
                   return (

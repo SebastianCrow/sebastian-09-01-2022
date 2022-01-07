@@ -1,7 +1,8 @@
 import { PriceInfo } from './network/orderBookNetwork.types';
 import { ComputedPriceInfo, Price, Total } from '../state/orderBook.types';
 
-const TODO_ITEMS_LIMIT = 100;
+// TODO: Dynamic limit based on device screen size
+const TODO_ITEMS_LIMIT = 15;
 
 export const computePriceInfoList = (
   priceInfoRecord: Record<Price, PriceInfo>,

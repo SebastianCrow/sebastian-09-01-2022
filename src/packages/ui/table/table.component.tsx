@@ -10,6 +10,7 @@ import {
 import { ColumnInfo, RowInfo, TableInfo } from './table.types';
 import { TEXT_ALIGNMENT } from './table.defaults';
 import styles from './table.component.module.scss';
+import { Loader } from '../loader/loader.component';
 
 // TODO: Forbid using '@mui/material' directly outside of the ui package
 
@@ -25,8 +26,11 @@ export const Table: FunctionComponent<TableProps> = ({
   options: { headerVisible = true } = {},
 }) => {
   if (!data) {
-    // TODO: Loading state
-    return null;
+    return (
+      <div className={styles.loadingOverlay}>
+        <Loader />
+      </div>
+    );
   }
   return (
     <TableContainer>

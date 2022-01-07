@@ -8,8 +8,8 @@ import { useLayout } from '../../../shared/hooks/useLayout.hook';
 import { TableProps } from '../../ui/table/table.component';
 
 const HIGHLIGHT_COLORS: Record<PriceDataType, string> = {
-  bids: 'rgba(18, 163, 90, 0.2)',
-  asks: 'rgba(196, 52, 55, 0.2)',
+  bids: 'rgb(32, 51, 47)', // TODO: Is it a good place for that?
+  asks: 'rgb(53, 32, 39)',
 };
 
 const COLUMNS: Record<ColumnKey, ColumnInfo> = {

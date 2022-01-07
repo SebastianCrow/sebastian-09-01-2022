@@ -4,7 +4,6 @@ import { useSelectSpreadInfo } from '../../hooks/useSelectOrderBookState.hook';
 
 export const SpreadHeader: FunctionComponent = () => {
   const spread = useSelectSpreadInfo();
-  // TODO: Placeholder for undefined spread
   if (!spread) {
     return null;
   }

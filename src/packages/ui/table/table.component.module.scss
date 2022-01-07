@@ -1,5 +1,12 @@
 @import '../../../styles/themes/dark';
 
+.loadingOverlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
 .rowHeader {
   .cell {
     $border: 1px solid $border-color;
@@ -12,8 +19,8 @@
 
 .rowData {
   // TODO: Explore this method
-  //background-image: url('../../../../resources/orderBook/highlightAsks.png');
-  //background-repeat: no-repeat;
+  background-image: url('../../../../resources/orderBook/highlightAsks.png');
+  background-repeat: no-repeat;
 
   .cell {
     border-bottom: none;

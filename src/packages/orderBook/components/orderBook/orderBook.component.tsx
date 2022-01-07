@@ -11,6 +11,7 @@ import {
 } from '../../hooks/useSelectOrderBookState.hook';
 import { Button } from '../../../ui/button/button.component';
 import { useConnectionManager } from '../../hooks/useConnectionManager.hook';
+import { Loader } from '../../../ui/loader/loader.component';
 
 // TODO: Replace all the inline styles with Sass
 
@@ -21,6 +22,8 @@ export const OrderBook: FunctionComponent = () => {
   // TODO: Move inside OrderBookTable?
   const bids = useSelectOrderBookBids();
   const asks = useSelectOrderBookAsks();
+
+  const dataLoaded = Boolean(bids && asks);
 
   const toggleFeed = useCallback(() => {
     observeProduct(product === 'Bitcoin' ? 'Ethereum' : 'Bitcoin');
@@ -37,15 +40,24 @@ export const OrderBook: FunctionComponent = () => {
         </div>
       </div>
       <div className={styles.tablesContainer}>
-        <div className={styles.tableColumn}>
-          <OrderBookTable priceInfoList={bids} priceDataType="bids" />
-        </div>
-        <div className={cns(styles.spreadContainer, 'mobile')}>
-          <SpreadHeader />
-        </div>
-        <div className={styles.tableColumn}>
-          <OrderBookTable priceInfoList={asks} priceDataType="asks" />
-        </div>
+        {!dataLoaded && (
+          <div className={styles.loadingOverlay}>
+            <Loader />
+          </div>
+        )}
+        {bids && asks && (
+          <>
+            <div className={styles.tableColumn}>
+              <OrderBookTable priceInfoList={bids} priceDataType="bids" />
+            </div>
+            <div className={cns(styles.spreadContainer, 'mobile')}>
+              <SpreadHeader />
+            </div>
+            <div className={styles.tableColumn}>
+              <OrderBookTable priceInfoList={asks} priceDataType="asks" />
+            </div>
+          </>
+        )}
       </div>
       <div className={styles.toggleFeedContainer}>
         <Button onClick={toggleFeed}>Toggle Feed</Button>

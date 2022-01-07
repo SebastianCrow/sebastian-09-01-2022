@@ -4,7 +4,7 @@ import { useComputeOrderBookTableData } from '../../hooks/useComputeOrderBookTab
 import { ComputedPriceInfo, PriceDataType } from '../../state/orderBook.types';
 
 interface OrderBookTableProps {
-  priceInfoList: ComputedPriceInfo[] | undefined;
+  priceInfoList: ComputedPriceInfo[];
   priceDataType: PriceDataType;
 }
 

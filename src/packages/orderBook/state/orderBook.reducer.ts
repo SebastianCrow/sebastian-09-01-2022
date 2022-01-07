@@ -17,13 +17,9 @@ const initialState: OrderBookState = {
 };
 
 const updatePriceInfoRecord = (
-  priceInfoRecord: Record<Price, PriceInfo> | undefined,
+  priceInfoRecord: Record<Price, PriceInfo> | undefined = {},
   newPriceInfoList: PriceInfo[]
 ): Record<Price, PriceInfo> | undefined => {
-  if (!priceInfoRecord || !newPriceInfoList.length) {
-    return priceInfoRecord;
-  }
-
   const updatedPriceInfoRecord = { ...priceInfoRecord };
   for (const priceInfo of newPriceInfoList) {
     // Replace with the new price info

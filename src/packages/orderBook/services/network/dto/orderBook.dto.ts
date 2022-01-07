@@ -43,7 +43,7 @@ export interface SubscribedResponseDto {
 export interface UnsubscribedResponseDto {
   event: 'unsubscribed';
   feed: FeedDto;
-  product_ids: ProductIdDto;
+  product_ids: ProductIdDto[];
 }
 
 export interface SnapshotResponseDto {
@@ -62,6 +62,20 @@ export interface DeltaResponseDto {
 }
 
 /* Type Guards */
+
+export const isSubscribedResponseDto = (
+  dto: OrderBookResponseDto
+): dto is SubscribedResponseDto => {
+  const { event } = dto as SubscribedResponseDto;
+  return event === 'subscribed';
+};
+
+export const isUnsubscribedResponseDto = (
+  dto: OrderBookResponseDto
+): dto is UnsubscribedResponseDto => {
+  const { event } = dto as UnsubscribedResponseDto;
+  return event === 'unsubscribed';
+};
 
 export const isSnapshotResponseDto = (
   dto: OrderBookResponseDto

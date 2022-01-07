@@ -12,6 +12,7 @@ import {
 import { Button } from '../../../ui/button/button.component';
 import { useStopObservingProductOnDocumentHidden } from '../../hooks/useStopObservingProductOnDocumentHidden.hook';
 import { useStartObservingProduct } from '../../hooks/useStartObservingProduct.hook';
+import { useLostConnectionNotification } from '../../hooks/useLostConnectionNotification.hook';
 
 // TODO: Replace all the inline styles with Sass
 
@@ -19,7 +20,10 @@ export const OrderBook: FunctionComponent = () => {
   const { observeProduct } = useStartObservingProduct();
   useStopObservingProductOnDocumentHidden();
 
-  const { product } = useSelectOrderBookState();
+  useLostConnectionNotification();
+
+  const { product, connectionStatus } = useSelectOrderBookState();
+  console.info('connectionStatus', connectionStatus);
   // TODO: Move inside OrderBookTable?
   const bids = useSelectOrderBookBids();
   const asks = useSelectOrderBookAsks();

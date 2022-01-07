@@ -7,6 +7,22 @@ export interface PriceInfo {
   size: Size;
 }
 
+export type ReceivedEvents =
+  | SubscribedReceived
+  | UnsubscribedReceived
+  | SnapshotReceived
+  | DeltaReceived;
+
+export interface SubscribedReceived {
+  type: 'SubscribedReceived';
+  product: Product;
+}
+
+export interface UnsubscribedReceived {
+  type: 'UnsubscribedReceived';
+  product: Product;
+}
+
 export interface SnapshotReceived {
   type: 'SnapshotReceived';
   product: Product;

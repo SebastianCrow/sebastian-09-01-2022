@@ -1,14 +1,15 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { OrderBook } from './packages/orderBook';
-import { configureStore } from './shared/state/configureStore';
-import { Provider } from 'react-redux';
+import { NotificationProvider } from './packages/ui/notification/notificationProvider.component';
+import { StoreProvider } from './shared/storeProvider.component';
 
 function App() {
-  const store = useMemo(() => configureStore(), []);
   return (
-    <Provider store={store}>
-      <OrderBook />
-    </Provider>
+    <StoreProvider>
+      <NotificationProvider>
+        <OrderBook />
+      </NotificationProvider>
+    </StoreProvider>
   );
 }
 

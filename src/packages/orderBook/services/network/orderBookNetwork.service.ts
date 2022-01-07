@@ -1,16 +1,14 @@
 import { webSocket } from 'rxjs/webSocket';
 import memoizeOne from 'memoize-one';
 import { throttle } from 'lodash';
-import {
-  DeltaReceived,
-  Product,
-  SnapshotReceived,
-} from './orderBookNetwork.types';
+import { Product, ReceivedEvents } from './orderBookNetwork.types';
 import { EMPTY, Observable, Subscriber, takeUntil } from 'rxjs';
 import {
   DeltaResponseDto,
   isDeltaResponseDto,
   isSnapshotResponseDto,
+  isSubscribedResponseDto,
+  isUnsubscribedResponseDto,
   SubscribeRequestDto,
   UnsubscribeRequestDto,
 } from './dto/orderBook.dto';
@@ -25,14 +23,11 @@ const RECEIVED_EVENTS_THROTTLE_DURATION = 1000;
 export const prices$ = (
   products: Product[],
   cancel$?: Observable<void>
-): Observable<SnapshotReceived | DeltaReceived> => {
+): Observable<ReceivedEvents> => {
   const subject = getWebSocketSubject();
 
   const onDeltaResponseThrottled = throttle(
-    (
-      dto: DeltaResponseDto,
-      subscriber: Subscriber<SnapshotReceived | DeltaReceived>
-    ) => {
+    (dto: DeltaResponseDto, subscriber: Subscriber<ReceivedEvents>) => {
       subscriber.next({
         type: 'DeltaReceived',
         product: convertProductIdToProduct(dto.product_id),
@@ -43,46 +38,54 @@ export const prices$ = (
     RECEIVED_EVENTS_THROTTLE_DURATION
   );
 
-  const events$ = new Observable<SnapshotReceived | DeltaReceived>(
-    (subscriber) => {
-      // Propagate 'snapshot' and 'delta' events
-      subject.subscribe({
-        next: (dto) => {
-          if (isSnapshotResponseDto(dto)) {
-            subscriber.next({
-              type: 'SnapshotReceived',
-              product: convertProductIdToProduct(dto.product_id),
-              numLevels: dto.numLevels,
-              bids: dto.bids.map(convertPriceDtoToPriceInfo),
-              asks: dto.asks.map(convertPriceDtoToPriceInfo),
-            });
-          } else if (isDeltaResponseDto(dto)) {
-            onDeltaResponseThrottled(dto, subscriber);
-          }
-        },
-        error: (err) => subscriber.error(err),
-        complete: () => subscriber.complete(),
-      });
+  const events$ = new Observable<ReceivedEvents>((subscriber) => {
+    // Propagate events
+    subject.subscribe({
+      next: (dto) => {
+        if (isSubscribedResponseDto(dto) && dto.product_ids.length) {
+          subscriber.next({
+            type: 'SubscribedReceived',
+            product: convertProductIdToProduct(dto.product_ids[0]), // TODO: Is that correct?
+          });
+        } else if (isUnsubscribedResponseDto(dto) && dto.product_ids.length) {
+          subscriber.next({
+            type: 'UnsubscribedReceived',
+            product: convertProductIdToProduct(dto.product_ids[0]), // TODO: Is that correct?
+          });
+        } else if (isSnapshotResponseDto(dto)) {
+          subscriber.next({
+            type: 'SnapshotReceived',
+            product: convertProductIdToProduct(dto.product_id),
+            numLevels: dto.numLevels,
+            bids: dto.bids.map(convertPriceDtoToPriceInfo),
+            asks: dto.asks.map(convertPriceDtoToPriceInfo),
+          });
+        } else if (isDeltaResponseDto(dto)) {
+          onDeltaResponseThrottled(dto, subscriber);
+        }
+      },
+      error: (err) => subscriber.error(err),
+      complete: () => subscriber.complete(),
+    });
 
-      // Subscribe to the product ids
-      const subscribeEvent: SubscribeRequestDto = {
-        event: 'subscribe',
+    // Subscribe to the product ids
+    const subscribeEvent: SubscribeRequestDto = {
+      event: 'subscribe',
+      feed: 'book_ui_1',
+      product_ids: products.map(convertProductToProductId),
+    };
+    subject.next(subscribeEvent);
+
+    return () => {
+      // Unsubscribe from listening the product ids
+      const unsubscribeEvent: UnsubscribeRequestDto = {
+        event: 'unsubscribe',
         feed: 'book_ui_1',
-        product_ids: products.map(convertProductToProductId),
+        product_ids: products.map(convertProductToProductId), // TODO: Unsubscribe only the given product ids?
       };
-      subject.next(subscribeEvent);
-
-      return () => {
-        // Unsubscribe from listening the product ids
-        const unsubscribeEvent: UnsubscribeRequestDto = {
-          event: 'unsubscribe',
-          feed: 'book_ui_1',
-          product_ids: products.map(convertProductToProductId), // TODO: Unsubscribe only the given product ids?
-        };
-        return subject.next(unsubscribeEvent);
-      };
-    }
-  );
+      subject.next(unsubscribeEvent);
+    };
+  });
   return events$.pipe(takeUntil(cancel$ ?? EMPTY));
 };
 

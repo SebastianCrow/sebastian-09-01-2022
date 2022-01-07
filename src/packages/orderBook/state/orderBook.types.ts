@@ -19,8 +19,11 @@ export interface SpreadInfo {
   percent: number;
 }
 
+export type ConnectionStatus = 'subscribing' | 'subscribed' | 'unsubscribed';
+
 export interface OrderBookState {
   product: Product;
+  connectionStatus: ConnectionStatus;
   bids: Record<Price, PriceInfo> | undefined; // Bids/buy
   asks: Record<Price, PriceInfo> | undefined; // Asks/sell
 }

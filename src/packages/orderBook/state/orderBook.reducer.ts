@@ -3,6 +3,7 @@ import {
   DeltaReceived,
   ObserveProduct,
   OrderBookActions,
+  SetConnectionStatus,
   SnapshotReceived,
 } from './orderBook.actions';
 import { PriceInfo } from '../services/network/orderBookNetwork.types';
@@ -10,6 +11,7 @@ import { computePriceInfoRecord } from '../services/computePriceInfoRecord.servi
 
 const initialState: OrderBookState = {
   product: 'Bitcoin',
+  connectionStatus: 'unsubscribed',
   bids: undefined,
   asks: undefined,
 };
@@ -24,9 +26,12 @@ const updatePriceInfoRecord = (
 
   const updatedPriceInfoRecord = { ...priceInfoRecord };
   for (const priceInfo of newPriceInfoList) {
+    // Replace with the new price info
     if (priceInfo.size > 0) {
       updatedPriceInfoRecord[priceInfo.price] = priceInfo;
-    } else {
+    }
+    // Delete obsolete price info
+    else {
       delete updatedPriceInfoRecord[priceInfo.price];
     }
   }
@@ -42,6 +47,16 @@ const observeProduct = (
     product: action.product,
     bids: undefined,
     asks: undefined,
+  };
+};
+
+const setConnectionStatus = (
+  prevState: OrderBookState,
+  action: SetConnectionStatus
+): OrderBookState => {
+  return {
+    ...prevState,
+    connectionStatus: action.connectionStatus,
   };
 };
 
@@ -81,6 +96,8 @@ const _orderBookReducer = (
       return observeProduct(prevState, action);
     case 'StopObservingProduct':
       return prevState;
+    case 'SetConnectionStatus':
+      return setConnectionStatus(prevState, action);
     case 'SnapshotReceived':
       return snapshotReceived(prevState, action);
     case 'DeltaReceived':

@@ -1,44 +1,32 @@
-import React, { FunctionComponent, useCallback, useEffect } from 'react';
+import React, { FunctionComponent, useCallback } from 'react';
 import cns from 'classnames';
 import { SpreadHeader } from '../spreadHeader/spreadHeader.component';
 import styles from './orderBook.component.module.scss';
 import { Text } from '../../../ui/text/text.component';
 import { OrderBookTable } from '../orderBookTable/orderBookTable.component';
-import { useDispatchOrderBook } from '../../hooks/useDispatchOrderBook.hook';
 import {
   useSelectOrderBookAsks,
   useSelectOrderBookBids,
   useSelectOrderBookState,
 } from '../../hooks/useSelectOrderBookState.hook';
 import { Button } from '../../../ui/button/button.component';
-import { usePrevious } from '../../../../shared/hooks/usePrevious.hook';
+import { useStopObservingProductOnDocumentHidden } from '../../hooks/useStopObservingProductOnDocumentHidden.hook';
+import { useStartObservingProduct } from '../../hooks/useStartObservingProduct.hook';
 
 // TODO: Replace all the inline styles with Sass
 
 export const OrderBook: FunctionComponent = () => {
-  const dispatch = useDispatchOrderBook();
+  const { observeProduct } = useStartObservingProduct();
+  useStopObservingProductOnDocumentHidden();
 
   const { product } = useSelectOrderBookState();
   // TODO: Move inside OrderBookTable?
   const bids = useSelectOrderBookBids();
   const asks = useSelectOrderBookAsks();
 
-  const prevProduct = usePrevious(product);
-  useEffect(() => {
-    if (!prevProduct) {
-      dispatch({
-        type: 'ObserveProduct',
-        product: product,
-      });
-    }
-  }, [dispatch, prevProduct, product]);
-
   const toggleFeed = useCallback(() => {
-    dispatch({
-      type: 'ObserveProduct',
-      product: product === 'Bitcoin' ? 'Ethereum' : 'Bitcoin',
-    });
-  }, [dispatch, product]);
+    observeProduct(product === 'Bitcoin' ? 'Ethereum' : 'Bitcoin');
+  }, [observeProduct, product]);
 
   return (
     <div className={styles.container}>

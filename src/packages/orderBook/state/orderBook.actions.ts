@@ -5,6 +5,11 @@ export interface ObserveProduct {
   product: Product;
 }
 
+export interface StopObservingProduct {
+  type: 'StopObservingProduct';
+  product: Product;
+}
+
 export interface SnapshotReceived {
   type: 'SnapshotReceived';
   product: Product;
@@ -22,5 +27,6 @@ export interface DeltaReceived {
 
 export type OrderBookActions =
   | ObserveProduct
+  | StopObservingProduct
   | SnapshotReceived
   | DeltaReceived;

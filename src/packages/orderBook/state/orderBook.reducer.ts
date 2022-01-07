@@ -79,6 +79,8 @@ const _orderBookReducer = (
   ) {
     case 'ObserveProduct':
       return observeProduct(prevState, action);
+    case 'StopObservingProduct':
+      return prevState;
     case 'SnapshotReceived':
       return snapshotReceived(prevState, action);
     case 'DeltaReceived':

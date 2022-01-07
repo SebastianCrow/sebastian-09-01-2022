@@ -28,12 +28,14 @@ const BACKDROP_STATES: PartialRecord<
 };
 
 export interface NotificationProps {
+  open: boolean;
   message: string;
   severity?: NotificationSeverity;
   onActionClick?: () => void;
 }
 
 export const Notification: FunctionComponent<NotificationProps> = ({
+  open,
   message,
   severity = 'info',
   onActionClick,
@@ -53,13 +55,13 @@ export const Notification: FunctionComponent<NotificationProps> = ({
 
   return (
     <>
-      <Snackbar anchorOrigin={anchorOrigin} open>
+      <Snackbar anchorOrigin={anchorOrigin} open={open}>
         <Alert severity={severity} action={action} className={styles.alert}>
           {message}
         </Alert>
       </Snackbar>
       {/* TODO: Check if backdrop blocks events below (e.g. button click) */}
-      <Backdrop open={BACKDROP_STATES[severity] === 'blocking'} />
+      <Backdrop open={open && BACKDROP_STATES[severity] === 'blocking'} />
     </>
   );
 };

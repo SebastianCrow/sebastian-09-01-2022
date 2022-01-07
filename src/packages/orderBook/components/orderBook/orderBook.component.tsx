@@ -10,20 +10,14 @@ import {
   useSelectOrderBookState,
 } from '../../hooks/useSelectOrderBookState.hook';
 import { Button } from '../../../ui/button/button.component';
-import { useStopObservingProductOnDocumentHidden } from '../../hooks/useStopObservingProductOnDocumentHidden.hook';
-import { useStartObservingProduct } from '../../hooks/useStartObservingProduct.hook';
-import { useLostConnectionNotification } from '../../hooks/useLostConnectionNotification.hook';
+import { useConnectionManager } from '../../hooks/useConnectionManager.hook';
 
 // TODO: Replace all the inline styles with Sass
 
 export const OrderBook: FunctionComponent = () => {
-  const { observeProduct } = useStartObservingProduct();
-  useStopObservingProductOnDocumentHidden();
+  const { observeProduct } = useConnectionManager();
 
-  useLostConnectionNotification();
-
-  const { product, connectionStatus } = useSelectOrderBookState();
-  console.info('connectionStatus', connectionStatus);
+  const { product } = useSelectOrderBookState();
   // TODO: Move inside OrderBookTable?
   const bids = useSelectOrderBookBids();
   const asks = useSelectOrderBookAsks();

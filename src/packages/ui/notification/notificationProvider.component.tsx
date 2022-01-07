@@ -1,12 +1,27 @@
-import React, { FunctionComponent, useState } from 'react';
-import { Notification, NotificationProps } from './notification.component';
-import { NotificationContext } from './useSetNotification.hook';
+import React, { FunctionComponent, useMemo, useRef, useState } from 'react';
+import { Notification } from './notification.component';
+import {
+  NotificationContext,
+  SettableNotificationProps,
+} from './useSetNotification.hook';
 
 export const NotificationProvider: FunctionComponent = ({ children }) => {
-  const [props, setProps] = useState<NotificationProps>();
+  const [props, setProps] = useState<SettableNotificationProps>();
+
+  const definedProps = useRef<SettableNotificationProps>();
+  useMemo(() => {
+    if (props) {
+      definedProps.current = props;
+    }
+  }, [props]);
+
+  const open = useMemo(() => props !== undefined, [props]);
+
   return (
     <NotificationContext.Provider value={setProps}>
-      {props && <Notification {...props} />}
+      {definedProps.current && (
+        <Notification open={open} {...definedProps.current} />
+      )}
       {children}
     </NotificationContext.Provider>
   );

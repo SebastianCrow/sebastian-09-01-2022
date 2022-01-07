@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { CSSProperties, ReactNode } from 'react';
 
 export interface ColumnInfo {
   key: string;
@@ -8,14 +8,8 @@ export interface ColumnInfo {
 
 export interface RowInfo {
   id: string; // TODO: How to make it better?
+  rowStyle?: CSSProperties;
   cells: Record<string, CellInfo>; // TODO: Type safety with generics?
-  highlight?: RowHighlightInfo;
-}
-
-export interface RowHighlightInfo {
-  direction: 'left' | 'right';
-  color: string; // TODO: Is there any type for CSS color?
-  percent: number; // 0 - 100
 }
 
 interface CellInfo {

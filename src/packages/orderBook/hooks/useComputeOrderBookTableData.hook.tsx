@@ -35,6 +35,20 @@ const computePriceTextVariant = (priceDataType: PriceDataType): TextVariant => {
   }
 };
 
+const computeBackgroundBar = ({
+  direction,
+  color,
+  percent,
+}: {
+  direction: 'left' | 'right';
+  color: string; // TODO: Is there any type for CSS color?
+  percent: number; // 0 - 100
+}): string => {
+  return `linear-gradient(${
+    direction === 'left' ? 'to left' : 'to right'
+  }, ${color} 0 ${percent}%, transparent ${percent}% 100%)`;
+};
+
 type ColumnKey = 'price' | 'size' | 'total';
 
 interface TableData {
@@ -84,11 +98,17 @@ export const useComputeOrderBookTableData = ({
           value: <Text>{total}</Text>,
         },
       },
-      highlight: highestTotal
+      rowStyle: highestTotal
         ? {
-            direction: bidsInDesktop ? 'left' : 'right',
-            color: HIGHLIGHT_COLORS[priceDataType],
-            percent: computePercent(total, highestTotal),
+            // TODO: Explore this method
+            // backgroundSize: `${highlight.percent}% 100%`,
+            // backgroundPositionX:
+            //   highlight.direction === 'left' ? 'right' : 'left',
+            background: computeBackgroundBar({
+              direction: bidsInDesktop ? 'left' : 'right',
+              color: HIGHLIGHT_COLORS[priceDataType],
+              percent: computePercent(total, highestTotal),
+            }),
           }
         : undefined,
     }));

@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { FunctionComponent, useCallback, useEffect } from 'react';
 import cns from 'classnames';
 import { SpreadHeader } from '../spreadHeader/spreadHeader.component';
 import styles from './orderBook.component.module.scss';
@@ -10,6 +10,8 @@ import {
   useSelectOrderBookBids,
   useSelectOrderBookState,
 } from '../../hooks/useSelectOrderBookState.hook';
+import { Button } from '../../../ui/button/button.component';
+import { usePrevious } from '../../../../shared/hooks/usePrevious.hook';
 
 // TODO: Replace all the inline styles with Sass
 
@@ -21,10 +23,20 @@ export const OrderBook: FunctionComponent = () => {
   const bids = useSelectOrderBookBids();
   const asks = useSelectOrderBookAsks();
 
+  const prevProduct = usePrevious(product);
   useEffect(() => {
+    if (!prevProduct) {
+      dispatch({
+        type: 'ObserveProduct',
+        product: product,
+      });
+    }
+  }, [dispatch, prevProduct, product]);
+
+  const toggleFeed = useCallback(() => {
     dispatch({
       type: 'ObserveProduct',
-      product: product,
+      product: product === 'Bitcoin' ? 'Ethereum' : 'Bitcoin',
     });
   }, [dispatch, product]);
 
@@ -48,6 +60,9 @@ export const OrderBook: FunctionComponent = () => {
         <div className={styles.tableColumn}>
           <OrderBookTable priceInfoList={asks} priceDataType="asks" />
         </div>
+      </div>
+      <div className={styles.toggleFeedContainer}>
+        <Button onClick={toggleFeed}>Toggle Feed</Button>
       </div>
     </div>
   );

@@ -10,7 +10,7 @@ import {
 import { ColumnInfo, RowInfo } from './table.types';
 import { TEXT_ALIGNMENT } from './table.defaults';
 
-// TODO: Forbid using Table or TableProps from '@mui/material' with ESLint
+// TODO: Forbid using '@mui/material' directly outside of the ui package
 
 export interface TableProps {
   columns: ColumnInfo[];

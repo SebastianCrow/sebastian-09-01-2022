@@ -1,6 +1,7 @@
 import { OrderBookState, Price } from './orderBook.types';
 import {
   DeltaReceived,
+  ObserveProduct,
   OrderBookActions,
   SnapshotReceived,
 } from './orderBook.actions';
@@ -30,6 +31,18 @@ const updatePriceInfoRecord = (
     }
   }
   return updatedPriceInfoRecord;
+};
+
+const observeProduct = (
+  prevState: OrderBookState,
+  action: ObserveProduct
+): OrderBookState => {
+  return {
+    ...prevState,
+    product: action.product,
+    bids: undefined,
+    asks: undefined,
+  };
 };
 
 const snapshotReceived = (
@@ -65,7 +78,7 @@ const _orderBookReducer = (
     action.type // TODO: Investigate exhaustive switch
   ) {
     case 'ObserveProduct':
-      return prevState;
+      return observeProduct(prevState, action);
     case 'SnapshotReceived':
       return snapshotReceived(prevState, action);
     case 'DeltaReceived':

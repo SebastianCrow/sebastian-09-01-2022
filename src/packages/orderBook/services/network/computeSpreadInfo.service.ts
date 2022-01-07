@@ -19,9 +19,9 @@ export const computeSpreadInfo = ({
   const askPrice = sortedAsks[0]?.price ?? 0;
   const bidPrice = sortedBids[0]?.price ?? 0;
 
-  const value = Math.abs(askPrice - bidPrice);
+  const value = askPrice - bidPrice;
   return {
     value,
-    percent: roundToDecimalPoints(computePercent(value, bidPrice), 2), // TODO: Clarify whether the computations are correct
+    percent: roundToDecimalPoints(computePercent(value, askPrice), 2), // TODO: Clarify whether the computations are correct
   };
 };

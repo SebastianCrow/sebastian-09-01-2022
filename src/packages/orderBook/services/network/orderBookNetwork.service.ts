@@ -19,7 +19,7 @@ import { convertPriceDtoToPriceInfo } from './converters/convertPriceDtoToPriceI
 const WEB_SOCKET_ENDPOINT = 'wss://www.cryptofacilities.com/ws/v1';
 
 // TODO: Throttling based on device performance
-const RECEIVED_EVENTS_THROTTLE_DURATION = 100;
+const RECEIVED_EVENTS_THROTTLE_DURATION = 1000;
 
 export const prices$ = (
   products: Product[],

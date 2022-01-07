@@ -1,6 +1,8 @@
 import { PriceInfo } from './network/orderBookNetwork.types';
 import { ComputedPriceInfo, Price, Total } from '../state/orderBook.types';
 
+const TODO_ITEMS_LIMIT = 100;
+
 export const computePriceInfoList = (
   priceInfoRecord: Record<Price, PriceInfo>,
   sort: 'asc' | 'desc'
@@ -10,12 +12,14 @@ export const computePriceInfoList = (
   );
 
   let total = 0;
-  return sortedList.map(({ price, size }) => {
-    total += size;
-    return {
-      price,
-      size,
-      total: total as Total,
-    };
-  });
+  return sortedList
+    .map(({ price, size }) => {
+      total += size;
+      return {
+        price,
+        size,
+        total: total as Total,
+      };
+    })
+    .slice(0, TODO_ITEMS_LIMIT);
 };

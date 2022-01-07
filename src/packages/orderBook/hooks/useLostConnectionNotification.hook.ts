@@ -24,7 +24,8 @@ export const useLostConnectionNotification = () => {
     }
     if (prevConnectionStatus && connectionStatus === 'unsubscribed') {
       setNotification({
-        message: 'lol!',
+        // TODO: Improve ESLint and Prettier
+        message: "Ups... we've lost the connection. Sorry.", // eslint-disable-line quotes
         severity: 'error',
         onActionClick: reconnect,
       });

@@ -1,5 +1,21 @@
-.row {
+@import '../../../styles/themes/dark';
+
+.rowHeader {
+  .cell {
+    $border: 1px solid $border-color;
+    border-top: $border;
+    border-bottom: $border;
+
+    text-transform: uppercase;
+  }
+}
+
+.rowData {
   // TODO: Explore this method
   //background-image: url('../../../../resources/orderBook/highlightAsks.png');
   //background-repeat: no-repeat;
+
+  .cell {
+    border-bottom: none;
+  }
 }

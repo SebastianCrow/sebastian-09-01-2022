@@ -75,11 +75,13 @@ const deltaReceived = (
   prevState: OrderBookState,
   action: DeltaReceived
 ): OrderBookState => {
-  return {
-    ...prevState,
-    bids: updatePriceInfoRecord(prevState.bids, action.bids),
-    asks: updatePriceInfoRecord(prevState.asks, action.asks),
-  };
+  return prevState;
+  // TODO: Restore
+  // return {
+  //   ...prevState,
+  //   bids: updatePriceInfoRecord(prevState.bids, action.bids),
+  //   asks: updatePriceInfoRecord(prevState.asks, action.asks),
+  // };
 };
 
 /**

@@ -9,6 +9,6 @@ export const SpreadHeader: FunctionComponent = () => {
     return null;
   }
   return (
-    <Text variant="secondary">{`Spread: ${spread.value} (${spread.percent}%)`}</Text>
+    <Text color="secondary">{`Spread: ${spread.value} (${spread.percent}%)`}</Text>
   );
 };

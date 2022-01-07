@@ -2,23 +2,28 @@ import React, { FunctionComponent } from 'react';
 import cns from 'classnames';
 import styles from './text.component.module.scss';
 
-export type TextVariant = 'primary' | 'secondary' | 'success' | 'danger';
+type TextVariant = 'regular' | 'title';
+
+export type TextColor = 'primary' | 'secondary' | 'success' | 'danger';
 
 export interface TextProps {
   variant?: TextVariant;
+  color?: TextColor; // TODO: Is it the best name?
 }
 
 export const Text: FunctionComponent<TextProps> = ({
-  variant = 'primary',
+  variant,
+  color = 'primary',
   children,
 }) => {
   return (
     <div
       className={cns({
-        [styles.primary]: variant === 'primary',
-        [styles.secondary]: variant === 'secondary',
-        [styles.success]: variant === 'success',
-        [styles.danger]: variant === 'danger',
+        [styles.title]: variant === 'title',
+        [styles.primary]: color === 'primary',
+        [styles.secondary]: color === 'secondary',
+        [styles.success]: color === 'success',
+        [styles.danger]: color === 'danger',
       })}
     >
       {children}

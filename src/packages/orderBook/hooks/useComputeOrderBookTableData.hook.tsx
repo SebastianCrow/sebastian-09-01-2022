@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Text, TextVariant } from '../../ui/text/text.component';
+import { Text, TextColor } from '../../ui/text/text.component';
 import { ColumnInfo, RowInfo } from '../../ui/table/table.types';
 import { ComputedPriceInfo, PriceDataType } from '../state/orderBook.types';
 import { useSelectHighestTotal } from './useSelectOrderBookState.hook';
@@ -14,19 +14,19 @@ const HIGHLIGHT_COLORS: Record<PriceDataType, string> = {
 const COLUMNS: Record<ColumnKey, ColumnInfo> = {
   price: {
     key: 'price',
-    title: <Text variant="secondary">Price</Text>,
+    title: <Text color="secondary">Price</Text>,
   },
   size: {
     key: 'size',
-    title: <Text variant="secondary">Size</Text>,
+    title: <Text color="secondary">Size</Text>,
   },
   total: {
     key: 'total',
-    title: <Text variant="secondary">Total</Text>,
+    title: <Text color="secondary">Total</Text>,
   },
 };
 
-const computePriceTextVariant = (priceDataType: PriceDataType): TextVariant => {
+const computePriceTextColor = (priceDataType: PriceDataType): TextColor => {
   switch (priceDataType) {
     case 'bids':
       return 'success';
@@ -86,9 +86,7 @@ export const useComputeOrderBookTableData = ({
       cells: {
         price: {
           value: (
-            <Text variant={computePriceTextVariant(priceDataType)}>
-              {price}
-            </Text>
+            <Text color={computePriceTextColor(priceDataType)}>{price}</Text>
           ),
         },
         size: {

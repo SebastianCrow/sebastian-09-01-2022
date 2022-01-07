@@ -30,13 +30,13 @@ export const OrderBook: FunctionComponent = () => {
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.title}>
-          <Text>Order Book</Text>
+          <Text variant="title">Order Book</Text>
         </div>
         <div className={cns(styles.spreadContainer, 'desktop')}>
           <SpreadHeader />
         </div>
       </div>
-      <div className={styles.tableContainer}>
+      <div className={styles.tablesContainer}>
         <div className={styles.tableColumn}>
           <OrderBookTable priceInfoList={bids} priceDataType="bids" />
         </div>

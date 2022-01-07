@@ -5,10 +5,11 @@ import { ComputedPriceInfo, PriceDataType } from '../state/orderBook.types';
 import { useSelectHighestTotal } from './useSelectOrderBookState.hook';
 import { computePercent } from '../../../shared/utils/number.util';
 import { useLayout } from '../../../shared/hooks/useLayout.hook';
+import { TableProps } from '../../ui/table/table.component';
 
 const HIGHLIGHT_COLORS: Record<PriceDataType, string> = {
-  bids: 'rgba(0, 255, 0, 0.2)',
-  asks: 'rgba(255, 0, 0, 0.2)',
+  bids: 'rgba(18, 163, 90, 0.2)',
+  asks: 'rgba(196, 52, 55, 0.2)',
 };
 
 const COLUMNS: Record<ColumnKey, ColumnInfo> = {
@@ -51,23 +52,22 @@ const computeBackgroundBar = ({
 
 type ColumnKey = 'price' | 'size' | 'total';
 
-interface TableData {
-  columns: ColumnInfo[];
-  data: RowInfo[] | undefined;
-}
-
 export const useComputeOrderBookTableData = ({
   priceInfoList,
   priceDataType,
 }: {
   priceInfoList: ComputedPriceInfo[] | undefined;
   priceDataType: PriceDataType;
-}): TableData => {
+}): TableProps => {
   const layout = useLayout();
   const highestTotal = useSelectHighestTotal(); // TODO: Should it be here?
 
   const bidsInDesktop = useMemo(() => {
     return priceDataType === 'bids' && layout === 'desktop';
+  }, [layout, priceDataType]);
+
+  const bidsInMobile = useMemo(() => {
+    return priceDataType === 'bids' && layout === 'mobile';
   }, [layout, priceDataType]);
 
   const columns: ColumnInfo[] = useMemo(() => {
@@ -86,14 +86,16 @@ export const useComputeOrderBookTableData = ({
       cells: {
         price: {
           value: (
-            <Text color={computePriceTextColor(priceDataType)}>{price}</Text>
+            <Text variant="code" color={computePriceTextColor(priceDataType)}>
+              {price.toFixed(2)}
+            </Text>
           ),
         },
         size: {
-          value: <Text>{size}</Text>,
+          value: <Text variant="code">{size}</Text>,
         },
         total: {
-          value: <Text>{total}</Text>,
+          value: <Text variant="code">{total}</Text>,
         },
       },
       rowStyle: highestTotal
@@ -116,7 +118,12 @@ export const useComputeOrderBookTableData = ({
     () => ({
       columns,
       data,
+      options: bidsInMobile
+        ? {
+            headerVisible: false,
+          }
+        : undefined,
     }),
-    [columns, data]
+    [bidsInMobile, columns, data]
   );
 };

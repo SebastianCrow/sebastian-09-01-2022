@@ -1,9 +1,6 @@
 import { PriceInfo } from './orderBookNetwork.types';
 import { SpreadInfo } from '../../state/orderBook.types';
-import {
-  computePercent,
-  roundToDecimalPoints,
-} from '../../../../shared/utils/number.util';
+import { computePercent } from '../../../../shared/utils/number.util';
 
 export const computeSpreadInfo = ({
   sortedBids,
@@ -22,6 +19,6 @@ export const computeSpreadInfo = ({
   const value = askPrice - bidPrice;
   return {
     value,
-    percent: roundToDecimalPoints(computePercent(value, askPrice), 2), // TODO: Clarify whether the computations are correct
+    percent: computePercent(value, askPrice), // TODO: Clarify whether the computations are correct
   };
 };

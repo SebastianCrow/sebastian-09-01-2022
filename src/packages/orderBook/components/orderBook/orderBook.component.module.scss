@@ -19,6 +19,10 @@
     display: flex;
     justify-content: center;
     width: 100%;
+
+    @include mobile {
+      padding: $spacing (2 * $spacing);
+    }
   }
 
   .tablesContainer {
@@ -40,5 +44,6 @@
   .toggleFeedContainer {
     display: flex;
     justify-content: center;
+    padding: 2 * $spacing;
   }
 }

@@ -7,7 +7,7 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
-import { ColumnInfo, RowInfo } from './table.types';
+import { ColumnInfo, RowInfo, TableInfo } from './table.types';
 import { TEXT_ALIGNMENT } from './table.defaults';
 import styles from './table.component.module.scss';
 
@@ -15,27 +15,38 @@ import styles from './table.component.module.scss';
 
 export interface TableProps {
   columns: ColumnInfo[];
-  data: RowInfo[];
+  data?: RowInfo[];
+  options?: TableInfo;
 }
 
-export const Table: FunctionComponent<TableProps> = ({ columns, data }) => {
+export const Table: FunctionComponent<TableProps> = ({
+  columns,
+  data,
+  options: { headerVisible = true } = {},
+}) => {
+  if (!data) {
+    // TODO: Loading state
+    return null;
+  }
   return (
     <TableContainer>
       <MuiTable size="small">
-        <TableHead>
-          <TableRow className={styles.rowHeader}>
-            {columns.map(({ key, title, textAlignment = TEXT_ALIGNMENT }) => (
-              <TableCell
-                key={key}
-                align={textAlignment}
-                className={styles.cell}
-              >
-                {/* TODO: Wrap title with <Text /> if it's not a custom component */}
-                {title}
-              </TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
+        {headerVisible && (
+          <TableHead>
+            <TableRow className={styles.rowHeader}>
+              {columns.map(({ key, title, textAlignment = TEXT_ALIGNMENT }) => (
+                <TableCell
+                  key={key}
+                  align={textAlignment}
+                  className={styles.cell}
+                >
+                  {/* TODO: Wrap title with <Text /> if it's not a custom component */}
+                  {title}
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+        )}
         <TableBody>
           {data.map(({ id, rowStyle, cells }) => {
             // TODO: sx or style?

@@ -3,7 +3,7 @@ import { CSSProperties, ReactNode } from 'react';
 export interface ColumnInfo {
   key: string;
   title: ReactNode;
-  textAlignment?: 'left' | 'right';
+  textAlignment?: TextAlignment;
 }
 
 export interface RowInfo {
@@ -18,3 +18,7 @@ interface CellInfo {
 }
 
 export type TextAlignment = 'left' | 'right';
+
+export interface TableInfo {
+  headerVisible?: boolean;
+}

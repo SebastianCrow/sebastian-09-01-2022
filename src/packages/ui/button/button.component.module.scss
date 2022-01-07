@@ -1,0 +1,6 @@
+@import '../../../styles/themes/dark';
+
+.primary {
+  text-transform: capitalize !important; // TODO: Are important! required?
+  background-color: $background-color-action !important;
+}

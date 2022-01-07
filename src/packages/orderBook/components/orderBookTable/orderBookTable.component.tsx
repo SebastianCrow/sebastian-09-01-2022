@@ -12,11 +12,9 @@ export const OrderBookTable: FunctionComponent<OrderBookTableProps> = ({
   priceInfoList,
   priceDataType,
 }) => {
-  const { columns, data } = useComputeOrderBookTableData({
+  const { columns, data, options } = useComputeOrderBookTableData({
     priceInfoList,
     priceDataType,
   });
-  return (
-    <Table columns={columns} data={data ?? [] /* TODO: Loading state */} />
-  );
+  return <Table columns={columns} data={data} options={options} />;
 };

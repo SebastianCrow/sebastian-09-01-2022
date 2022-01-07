@@ -1,5 +1,7 @@
 import React, { FunctionComponent, MouseEventHandler, useMemo } from 'react';
+import cns from 'classnames';
 import { Button as MuiButton } from '@mui/material';
+import styles from './button.component.module.scss';
 
 const computeMuiVariant = (
   variant: ButtonVariant
@@ -14,16 +16,21 @@ const computeMuiVariant = (
   }
 };
 
+type ButtonType = 'primary';
+
 type ButtonVariant = 'solid' | 'text' | 'outlined';
+
 type ButtonSize = 'small' | 'medium';
 
 interface ButtonProps {
+  type?: ButtonType;
   variant?: ButtonVariant;
   size?: ButtonSize;
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
 export const Button: FunctionComponent<ButtonProps> = ({
+  type = 'primary',
   variant = 'solid',
   size = 'medium',
   onClick,
@@ -31,7 +38,14 @@ export const Button: FunctionComponent<ButtonProps> = ({
 }) => {
   const muiVariant = useMemo(() => computeMuiVariant(variant), [variant]);
   return (
-    <MuiButton variant={muiVariant} size={size} onClick={onClick}>
+    <MuiButton
+      variant={muiVariant}
+      size={size}
+      className={cns({
+        [styles.primary]: type === 'primary',
+      })}
+      onClick={onClick}
+    >
       {children}
     </MuiButton>
   );

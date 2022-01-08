@@ -45,7 +45,7 @@ export const observeProductEpic: Epic<
             }),
             map((event) => {
               if (event.type === 'SubscribedReceived') {
-                console.info(`Subscribed: ${product}`); // TODO: Logger
+                console.debug(`Subscribed: ${product}`); // TODO: Logger
                 return {
                   type: 'SetConnectionStatus' as const, // TODO: Is it required?
                   connectionStatus: 'subscribed' as const, // TODO: Is it required?

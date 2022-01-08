@@ -71,7 +71,6 @@ const deltaReceived = (
   prevState: OrderBookState,
   action: DeltaReceived
 ): OrderBookState => {
-  console.info('delta ---------------------------------');
   return {
     ...prevState,
     bids: updatePriceInfoRecord(prevState.bids, action.bids),

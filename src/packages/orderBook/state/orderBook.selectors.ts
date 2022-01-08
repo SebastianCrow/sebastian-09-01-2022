@@ -13,7 +13,6 @@ export const selectOrderBookState = (app: AppState): OrderBookState => {
 export const selectOrderBookBids = createSelector(
   selectOrderBookState,
   ({ bids }): ComputedPriceInfo[] | undefined => {
-    console.info('bids');
     return bids ? computePriceInfoList(bids, 'desc') : undefined;
   }
 );
@@ -21,7 +20,6 @@ export const selectOrderBookBids = createSelector(
 const selectOrderBookTopBid = createSelector(
   selectOrderBookBids,
   (bids): ComputedPriceInfo | undefined => {
-    console.info('top bid');
     return head(bids);
   }
 );
@@ -29,7 +27,6 @@ const selectOrderBookTopBid = createSelector(
 const selectOrderBookBottomBid = createSelector(
   selectOrderBookBids,
   (bids): ComputedPriceInfo | undefined => {
-    console.info('bottom bid');
     return last(bids);
   }
 );
@@ -37,7 +34,6 @@ const selectOrderBookBottomBid = createSelector(
 export const selectOrderBookAsks = createSelector(
   selectOrderBookState,
   ({ asks }): ComputedPriceInfo[] | undefined => {
-    console.info('asks');
     return asks ? computePriceInfoList(asks, 'asc') : undefined;
   }
 );
@@ -45,7 +41,6 @@ export const selectOrderBookAsks = createSelector(
 const selectOrderBookTopAsk = createSelector(
   selectOrderBookAsks,
   (asks): ComputedPriceInfo | undefined => {
-    console.info('top ask');
     return head(asks);
   }
 );
@@ -53,7 +48,6 @@ const selectOrderBookTopAsk = createSelector(
 const selectOrderBookBottomAsk = createSelector(
   selectOrderBookAsks,
   (asks): ComputedPriceInfo | undefined => {
-    console.info('bottom ask');
     return last(asks);
   }
 );
@@ -62,7 +56,6 @@ export const selectSpreadInfo = createSelector(
   selectOrderBookTopBid,
   selectOrderBookTopAsk,
   (topBid, topAsk) => {
-    console.info('spread');
     return computeSpreadInfo({
       topBid,
       topAsk,
@@ -74,7 +67,6 @@ export const selectHighestTotal = createSelector(
   selectOrderBookBottomBid,
   selectOrderBookBottomAsk,
   (bottomBid, bottomAsk): Total | undefined => {
-    console.info('highest total');
     return computeHighestTotal({
       bottomBid,
       bottomAsk,

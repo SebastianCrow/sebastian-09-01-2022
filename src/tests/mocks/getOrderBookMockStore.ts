@@ -7,9 +7,10 @@ import {
 } from '../../packages/orderBook/state/orderBook.types';
 import { createEpicMiddleware } from 'redux-observable';
 import { rootEpic } from '../../shared/state/rootEpic';
+import { Product } from '../../packages/orderBook/services/network/orderBookNetwork.types';
 
 const ORDER_BOOK_STATE_MOCK: OrderBookState = {
-  product: 'Bitcoin',
+  product: Product.Bitcoin_USD,
   connectionStatus: 'subscribed',
   bids: {
     [asPrice(34062.5)]: {

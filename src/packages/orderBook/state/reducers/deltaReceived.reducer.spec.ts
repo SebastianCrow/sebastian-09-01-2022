@@ -1,7 +1,8 @@
 import { getOrderBookMockState } from '../../../../tests/mocks/getOrderBookMockStore';
-import { DeltaReceived, SnapshotReceived } from '../orderBook.actions';
+import { DeltaReceived } from '../orderBook.actions';
 import { orderBookReducer } from './orderBook.reducer';
 import { asPrice, asSize } from '../orderBook.types';
+import { Product } from '../../services/network/orderBookNetwork.types';
 
 describe('deltaReceived.reducer', () => {
   test('adds price level for missing data', () => {
@@ -11,7 +12,7 @@ describe('deltaReceived.reducer', () => {
     });
     const action: DeltaReceived = {
       type: 'DeltaReceived',
-      product: 'Bitcoin',
+      product: Product.Bitcoin_USD,
       bids: [
         { price: asPrice(1), size: asSize(2) },
         { price: asPrice(3), size: asSize(4) },
@@ -47,7 +48,7 @@ describe('deltaReceived.reducer', () => {
     });
     const action: DeltaReceived = {
       type: 'DeltaReceived',
-      product: 'Bitcoin',
+      product: Product.Bitcoin_USD,
       bids: [
         { price: asPrice(9), size: asSize(10) },
         { price: asPrice(11), size: asSize(12) },
@@ -87,7 +88,7 @@ describe('deltaReceived.reducer', () => {
     });
     const action: DeltaReceived = {
       type: 'DeltaReceived',
-      product: 'Bitcoin',
+      product: Product.Bitcoin_USD,
       bids: [{ price: asPrice(1), size: asSize(10) }],
       asks: [{ price: asPrice(5), size: asSize(15) }],
     };
@@ -115,7 +116,7 @@ describe('deltaReceived.reducer', () => {
     });
     const action: DeltaReceived = {
       type: 'DeltaReceived',
-      product: 'Bitcoin',
+      product: Product.Bitcoin_USD,
       bids: [
         { price: asPrice(1), size: asSize(0) },
         { price: asPrice(5), size: asSize(0) },
@@ -139,7 +140,7 @@ describe('deltaReceived.reducer', () => {
     });
     const action: DeltaReceived = {
       type: 'DeltaReceived',
-      product: 'Bitcoin',
+      product: Product.Bitcoin_USD,
       bids: [{ price: asPrice(1), size: asSize(0) }],
       asks: [{ price: asPrice(3), size: asSize(0) }],
     };
@@ -163,7 +164,7 @@ describe('deltaReceived.reducer', () => {
     });
     const action: DeltaReceived = {
       type: 'DeltaReceived',
-      product: 'Bitcoin',
+      product: Product.Bitcoin_USD,
       bids: [
         { price: asPrice(1), size: asSize(0) },
         { price: asPrice(3), size: asSize(13) },

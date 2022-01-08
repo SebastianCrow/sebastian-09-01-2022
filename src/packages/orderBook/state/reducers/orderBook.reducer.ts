@@ -6,11 +6,14 @@ import {
   SetConnectionStatus,
   SnapshotReceived,
 } from '../orderBook.actions';
-import { PriceInfo } from '../../services/network/orderBookNetwork.types';
+import {
+  PriceInfo,
+  Product,
+} from '../../services/network/orderBookNetwork.types';
 import { computePriceInfoRecord } from '../../services/computePriceInfoRecord.service';
 
 const initialState: OrderBookState = {
-  product: 'Bitcoin',
+  product: Product.Bitcoin_USD,
   connectionStatus: 'unsubscribed',
   bids: undefined,
   asks: undefined,

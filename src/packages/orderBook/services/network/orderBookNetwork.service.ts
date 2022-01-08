@@ -13,7 +13,6 @@ import {
   UnsubscribeRequestDto,
 } from './dto/orderBook.dto';
 import { convertProductIdToProduct } from './converters/convertProductIdToProduct.converter';
-import { convertProductToProductId } from './converters/convertProductToProductId.converter';
 import { convertPriceDtoToPriceInfo } from './converters/convertPriceDtoToPriceInfo.converter';
 
 const WEB_SOCKET_ENDPOINT = 'wss://www.cryptofacilities.com/ws/v1';
@@ -73,7 +72,7 @@ export const prices$ = (
     const subscribeEvent: SubscribeRequestDto = {
       event: 'subscribe',
       feed: 'book_ui_1',
-      product_ids: products.map(convertProductToProductId),
+      product_ids: products,
     };
     subject.next(subscribeEvent);
 
@@ -82,7 +81,7 @@ export const prices$ = (
       const unsubscribeEvent: UnsubscribeRequestDto = {
         event: 'unsubscribe',
         feed: 'book_ui_1',
-        product_ids: products.map(convertProductToProductId), // TODO: Unsubscribe only the given product ids?
+        product_ids: products,
       };
       subject.next(unsubscribeEvent);
     };

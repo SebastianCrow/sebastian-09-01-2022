@@ -2,6 +2,7 @@ import { getOrderBookMockState } from '../../../../tests/mocks/getOrderBookMockS
 import { SnapshotReceived } from '../orderBook.actions';
 import { orderBookReducer } from './orderBook.reducer';
 import { asPrice, asSize } from '../orderBook.types';
+import { Product } from '../../services/network/orderBookNetwork.types';
 
 describe('snapshotReceived.reducer', () => {
   test('replaces missing price levels', () => {
@@ -11,7 +12,7 @@ describe('snapshotReceived.reducer', () => {
     });
     const action: SnapshotReceived = {
       type: 'SnapshotReceived',
-      product: 'Bitcoin',
+      product: Product.Bitcoin_USD,
       numLevels: 15,
       bids: [
         { price: asPrice(1), size: asSize(2) },
@@ -48,7 +49,7 @@ describe('snapshotReceived.reducer', () => {
     });
     const action: SnapshotReceived = {
       type: 'SnapshotReceived',
-      product: 'Bitcoin',
+      product: Product.Bitcoin_USD,
       numLevels: 15,
       bids: [
         { price: asPrice(9), size: asSize(10) },

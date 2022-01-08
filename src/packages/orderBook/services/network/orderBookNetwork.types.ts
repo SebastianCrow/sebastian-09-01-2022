@@ -1,6 +1,9 @@
 import { Price, Size } from '../../state/orderBook.types';
 
-export type Product = 'Bitcoin' | 'Ethereum';
+export enum Product {
+  Bitcoin_USD = 'PI_XBTUSD',
+  Ethereum_USD = 'PI_ETHUSD',
+}
 
 export interface PriceInfo {
   price: Price;

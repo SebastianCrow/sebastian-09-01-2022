@@ -1,18 +1,19 @@
 import { getOrderBookMockState } from '../../../../tests/mocks/getOrderBookMockStore';
 import { ObserveProduct } from '../orderBook.actions';
 import { orderBookReducer } from './orderBook.reducer';
+import { Product } from '../../services/network/orderBookNetwork.types';
 
 describe('observeProduct.reducer', () => {
   test('observeProduct', () => {
     const input = getOrderBookMockState({
-      product: 'Bitcoin',
+      product: Product.Bitcoin_USD,
     });
     const action: ObserveProduct = {
       type: 'ObserveProduct',
-      product: 'Ethereum',
+      product: Product.Ethereum_USD,
     };
     const output = getOrderBookMockState({
-      product: 'Ethereum',
+      product: Product.Ethereum_USD,
       bids: undefined,
       asks: undefined,
     });

@@ -15,7 +15,11 @@ export const OrderBookFooter: FunctionComponent<OrderBookFooterProps> = ({
   const { product, connectionStatus } = useSelectOrderBookState();
 
   const toggleFeed = useCallback(() => {
-    observeProduct(product === 'Bitcoin' ? 'Ethereum' : 'Bitcoin');
+    observeProduct(
+      product === Product.Bitcoin_USD
+        ? Product.Ethereum_USD
+        : Product.Bitcoin_USD
+    );
   }, [observeProduct, product]);
 
   return (

@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import cns from 'classnames';
+import { Typography } from '@mui/material';
 import styles from './text.component.module.scss';
 
 export type TextVariant = 'regular' | 'title' | 'code';
@@ -17,7 +18,7 @@ export const Text: FunctionComponent<TextProps> = ({
   children,
 }) => {
   return (
-    <div
+    <Typography
       className={cns({
         [styles.title]: variant === 'title',
         [styles.code]: variant === 'code',
@@ -28,6 +29,6 @@ export const Text: FunctionComponent<TextProps> = ({
       })}
     >
       {children}
-    </div>
+    </Typography>
   );
 };

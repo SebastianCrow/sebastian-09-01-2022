@@ -43,9 +43,6 @@ export const prices$ = (
     // Propagate events
     subject.subscribe({
       next: (dto) => {
-        // subscriber.error(new Error('hah!'));
-        // return;
-
         if (isSubscribedResponseDto(dto) && dto.product_ids.length) {
           subscriber.next({
             type: 'SubscribedReceived',

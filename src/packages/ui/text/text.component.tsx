@@ -8,7 +8,7 @@ export type TextColor = 'primary' | 'secondary' | 'success' | 'danger';
 
 export interface TextProps {
   variant?: TextVariant;
-  color?: TextColor; // TODO: Is it the best name?
+  color?: TextColor;
 }
 
 export const Text: FunctionComponent<TextProps> = ({

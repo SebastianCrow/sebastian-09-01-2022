@@ -85,9 +85,7 @@ const _orderBookReducer = (
   prevState: OrderBookState = initialState,
   action: OrderBookActions
 ): OrderBookState => {
-  switch (
-    action.type // TODO: Investigate exhaustive switch
-  ) {
+  switch (action.type) {
     case 'ObserveProduct':
       return observeProduct(prevState, action);
     case 'StopObservingProduct':

@@ -53,7 +53,7 @@ export const useComputeOrderBookTableData = ({
   priceDataType: PriceDataType;
 }): TableProps => {
   const layout = useLayout();
-  const highestTotal = useSelectHighestTotal(); // TODO: Should it be here?
+  const highestTotal = useSelectHighestTotal();
 
   const bidsInDesktop = useMemo(() => {
     return priceDataType === 'bids' && layout === 'desktop';
@@ -105,8 +105,8 @@ export const useComputeOrderBookTableData = ({
         : undefined,
     });
 
-    return convertedPriceInfoList?.map(({ price, size, total }, index) => ({
-      id: index.toString(), // TODO: Is that required?
+    return convertedPriceInfoList?.map(({ price, size, total }) => ({
+      id: price.toString(),
       cells: {
         price: {
           value: (

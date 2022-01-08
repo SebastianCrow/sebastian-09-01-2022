@@ -4,7 +4,7 @@ import { orderBookReducer } from '../../packages/orderBook/state/orderBook.reduc
 
 export interface AppState {
   orderBook: OrderBookState;
-} // TODO: Add state here
+}
 
 export const rootReducer = combineReducers({
   orderBook: orderBookReducer,

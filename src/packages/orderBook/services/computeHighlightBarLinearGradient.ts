@@ -1,8 +1,8 @@
 import { PriceDataType } from '../state/orderBook.types';
 
 const HIGHLIGHT_COLORS: Record<PriceDataType, string> = {
-  bids: 'rgb(32, 51, 47)', // TODO: Is it a good place for that?
-  asks: 'rgb(53, 32, 39)', // TODO: Is there any type for CSS color?
+  bids: 'rgb(32, 51, 47)',
+  asks: 'rgb(53, 32, 39)',
 };
 
 export const computeHighlightBarBackgroundBar = ({

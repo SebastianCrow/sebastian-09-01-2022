@@ -10,7 +10,6 @@ import {
 } from '../../hooks/useSelectOrderBookState.hook';
 
 export const OrderBookContent: FunctionComponent = () => {
-  // TODO: Move inside OrderBookTable?
   const bids = useSelectOrderBookBids();
   const asks = useSelectOrderBookAsks();
 

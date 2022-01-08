@@ -7,7 +7,7 @@ export interface ColumnInfo {
 }
 
 export interface RowInfo {
-  id: string; // TODO: How to make it better?
+  id: string;
   rowClass?: string;
   rowStyle?: CSSProperties;
   cells: Record<string, CellInfo>; // TODO: Type safety with generics?

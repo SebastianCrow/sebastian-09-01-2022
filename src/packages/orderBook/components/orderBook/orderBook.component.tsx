@@ -6,8 +6,6 @@ import { OrderBookContent } from '../orderBookContent/orderBookContent.component
 import { useSelectOrderBookState } from '../../hooks/useSelectOrderBookState.hook';
 import { useConnectionManager } from '../../hooks/useConnectionManager.hook';
 
-// TODO: Replace all the inline styles with Sass
-
 export const OrderBook: FunctionComponent = () => {
   const { connectionStatus } = useSelectOrderBookState();
   const { observeProduct } = useConnectionManager();

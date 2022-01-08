@@ -61,30 +61,27 @@ export const Table: FunctionComponent<TableProps> = ({
           </TableHead>
         )}
         <TableBody>
-          {data.map(({ id, rowClass, rowStyle, cells }) => {
-            // TODO: sx or style?
-            return (
-              <TableRow
-                key={id}
-                className={cns(styles.rowData, rowClass)}
-                style={rowStyle}
-              >
-                {columns.map(({ key }) => {
-                  const { value, textAlignment = TEXT_ALIGNMENT } = cells[key]; // TODO: Throw if missing? ErrorBoundary?
-                  return (
-                    <TableCell
-                      key={key}
-                      align={textAlignment}
-                      className={styles.cell}
-                    >
-                      {/* TODO: Wrap value with <Text /> if it's not a custom component */}
-                      {value}
-                    </TableCell>
-                  );
-                })}
-              </TableRow>
-            );
-          })}
+          {data.map(({ id, rowClass, rowStyle, cells }) => (
+            <TableRow
+              key={id}
+              className={cns(styles.rowData, rowClass)}
+              style={rowStyle}
+            >
+              {columns.map(({ key }) => {
+                const { value, textAlignment = TEXT_ALIGNMENT } = cells[key]; // TODO: Throw if missing? ErrorBoundary?
+                return (
+                  <TableCell
+                    key={key}
+                    align={textAlignment}
+                    className={styles.cell}
+                  >
+                    {/* TODO: Wrap value with <Text /> if it's not a custom component */}
+                    {value}
+                  </TableCell>
+                );
+              })}
+            </TableRow>
+          ))}
         </TableBody>
       </MuiTable>
     </TableContainer>

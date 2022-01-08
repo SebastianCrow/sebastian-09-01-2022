@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { Store } from '@reduxjs/toolkit';
 import { IntlProvider } from 'react-intl';
 import { NotificationProvider } from '../../ui/notification/notificationProvider.component';
-import { StoreProvider } from '../../../shared/storeProvider.component';
+import { StoreProvider } from '../../../shared/state/storeProvider.component';
 import {
   CURRENT_LOCALE,
   DEFAULT_LOCALE,

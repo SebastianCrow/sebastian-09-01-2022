@@ -15,6 +15,16 @@ exports[`orderBookHeader.component renders 1`] = `
   </div>
   <div
     className="spreadContainer desktop"
-  />
+  >
+    <p
+      className="MuiTypography-root MuiTypography-body1 secondary css-ahj2mt-MuiTypography-root"
+    >
+      Spread: 
+      17.00
+       (
+      0.05
+      %)
+    </p>
+  </div>
 </div>
 `;

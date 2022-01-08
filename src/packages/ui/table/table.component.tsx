@@ -25,6 +25,9 @@ export const Table: FunctionComponent<TableProps> = ({
   data,
   options: { headerVisible = true } = {},
 }) => {
+  if (columns.length === 0) {
+    throw new Error('There needs to be at least one column definition');
+  }
   if (!data) {
     return (
       <div className={styles.loadingOverlay}>
@@ -35,6 +38,11 @@ export const Table: FunctionComponent<TableProps> = ({
   return (
     <TableContainer>
       <MuiTable size="small">
+        <colgroup>
+          {columns.map(({ key }) => (
+            <col key={key} style={{ width: `${100 / columns.length}%` }} />
+          ))}
+        </colgroup>
         {headerVisible && (
           <TableHead>
             <TableRow className={styles.rowHeader}>

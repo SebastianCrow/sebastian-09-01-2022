@@ -9,3 +9,19 @@ $color-danger: rgb(196, 52, 55);
 $color-action: rgb(87, 65, 217);
 
 $border-color: rgb(32, 40, 53);
+
+@mixin scrollbar {
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: $border-color;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: $color-action;
+    border-radius: 2px;
+  }
+}

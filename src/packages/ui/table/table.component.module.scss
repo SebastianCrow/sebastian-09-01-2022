@@ -1,4 +1,7 @@
+@import '../../../styles/variables';
 @import '../../../styles/themes/dark';
+
+$padding-horizontal-cell: 5 * $spacing;
 
 .loadingOverlay {
   display: flex;
@@ -7,8 +10,15 @@
   height: 100%;
 }
 
+.cellBase {
+  padding-left: $padding-horizontal-cell;
+  padding-right: $padding-horizontal-cell;
+}
+
 .rowHeader {
   .cell {
+    @extend .cellBase;
+
     $border: 1px solid $border-color;
     border-top: $border;
     border-bottom: $border;
@@ -19,10 +29,11 @@
 
 .rowData {
   // TODO: Explore this method
-  background-image: url('../../../../resources/orderBook/highlightAsks.png');
-  background-repeat: no-repeat;
+  //background-image: url('../../../../resources/orderBook/highlightAsks.png');
+  //background-repeat: no-repeat;
 
   .cell {
+    @extend .cellBase;
     border-bottom: none;
   }
 }

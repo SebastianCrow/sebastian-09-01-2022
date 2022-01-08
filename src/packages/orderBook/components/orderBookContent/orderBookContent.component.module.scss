@@ -1,0 +1,41 @@
+@import '../../../../styles/layout';
+
+.tablesContainer {
+  display: flex;
+  height: 100%;
+  overflow-y: auto;
+
+  .loadingOverlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .tablesContent {
+    display: flex;
+    width: 100%;
+    // `align-items: center` is problematic when the content overflows the flex parent (cannot scroll to part of the content).
+    // Internal wrapper with `margin: auto` centers the content and makes it always accessible.
+    margin: auto;
+
+    @include mobile {
+      flex-direction: column-reverse;
+    }
+
+    .spreadContainer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: $spacing;
+    }
+  }
+
+  @include desktop {
+    align-items: center;
+
+    .tableColumn {
+      flex: 1;
+    }
+  }
+}

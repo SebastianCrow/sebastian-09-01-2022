@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`orderBookHeader.component renders 1`] = `
+<div
+  className="header"
+>
+  <div
+    className="title"
+  >
+    <p
+      className="MuiTypography-root MuiTypography-body1 title primary css-ahj2mt-MuiTypography-root"
+    >
+      Order Book
+    </p>
+  </div>
+  <div
+    className="spreadContainer desktop"
+  />
+</div>
+`;

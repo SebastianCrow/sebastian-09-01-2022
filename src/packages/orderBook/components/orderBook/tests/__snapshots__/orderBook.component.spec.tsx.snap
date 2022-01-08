@@ -1,0 +1,135 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`orderBook.component renders 1`] = `
+<div
+  className="container"
+>
+  <div
+    className="header"
+  >
+    <div
+      className="title"
+    >
+      <p
+        className="MuiTypography-root MuiTypography-body1 title primary css-ahj2mt-MuiTypography-root"
+      >
+        Order Book
+      </p>
+    </div>
+    <div
+      className="spreadContainer desktop"
+    />
+  </div>
+  <div
+    className="tablesContainer"
+  >
+    <div
+      className="loadingOverlay"
+    >
+      <span
+        className="MuiCircularProgress-root MuiCircularProgress-indeterminate MuiCircularProgress-colorPrimary loader css-18lrjg1-MuiCircularProgress-root"
+        role="progressbar"
+        style={
+          Object {
+            "height": 40,
+            "width": 40,
+          }
+        }
+      >
+        <svg
+          className="MuiCircularProgress-svg css-1idz92c-MuiCircularProgress-svg"
+          viewBox="22 22 44 44"
+        >
+          <circle
+            className="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate css-176wh8e-MuiCircularProgress-circle"
+            cx={44}
+            cy={44}
+            fill="none"
+            r={20.2}
+            strokeWidth={3.6}
+            style={Object {}}
+          />
+        </svg>
+      </span>
+    </div>
+  </div>
+  <div
+    className="toggleFeedContainer"
+  >
+    <button
+      className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButtonBase-root primary css-sghohy-MuiButtonBase-root-MuiButton-root"
+      data-testid="toggle-feed-button"
+      disabled={false}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onContextMenu={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex={0}
+      type="button"
+    >
+      Toggle Feed
+      <span
+        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+      />
+    </button>
+  </div>
+</div>
+`;
+
+exports[`orderBook.component renders with \`error\` connection status 1`] = `
+<div
+  className="container"
+>
+  <div
+    className="header"
+  >
+    <div
+      className="title"
+    >
+      <p
+        className="MuiTypography-root MuiTypography-body1 title primary css-ahj2mt-MuiTypography-root"
+      >
+        Order Book
+      </p>
+    </div>
+    <div
+      className="spreadContainer desktop"
+    />
+  </div>
+  <div
+    className="toggleFeedContainer"
+  >
+    <button
+      className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButtonBase-root Mui-disabled primary css-sghohy-MuiButtonBase-root-MuiButton-root"
+      data-testid="toggle-feed-button"
+      disabled={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onContextMenu={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex={-1}
+      type="button"
+    >
+      Toggle Feed
+    </button>
+  </div>
+</div>
+`;

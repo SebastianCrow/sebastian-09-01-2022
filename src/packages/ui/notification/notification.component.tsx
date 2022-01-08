@@ -61,7 +61,10 @@ export const Notification: FunctionComponent<NotificationProps> = ({
         </Alert>
       </Snackbar>
       {/* TODO: Check if backdrop blocks events below (e.g. button click) */}
-      <Backdrop open={open && BACKDROP_STATES[severity] === 'blocking'} />
+      <Backdrop
+        open={open && BACKDROP_STATES[severity] === 'blocking'}
+        className={styles.backdrop}
+      />
     </>
   );
 };

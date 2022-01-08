@@ -7,7 +7,16 @@ import {
   SnapshotReceived,
   StopObservingProduct,
 } from './orderBook.actions';
-import { filter, map, merge, Observable, of, switchMap, takeUntil } from 'rxjs';
+import {
+  catchError,
+  filter,
+  map,
+  merge,
+  Observable,
+  of,
+  switchMap,
+  takeUntil,
+} from 'rxjs';
 import { prices$ } from '../services/network/orderBookNetwork.service';
 import { AppState } from '../../../shared/state/rootReducer';
 
@@ -49,6 +58,12 @@ export const observeProductEpic: Epic<
               } else {
                 return event;
               }
+            }),
+            catchError(() => {
+              return of({
+                type: 'SetConnectionStatus' as const, // TODO: Is it required?
+                connectionStatus: 'error' as const, // TODO: Is it required?
+              });
             }),
             takeUntil(action$.pipe(ofType('StopObservingProduct')))
           )

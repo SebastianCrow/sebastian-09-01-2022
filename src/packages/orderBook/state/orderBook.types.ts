@@ -19,7 +19,11 @@ export interface SpreadInfo {
   percent: number;
 }
 
-export type ConnectionStatus = 'subscribing' | 'subscribed' | 'unsubscribed';
+export type ConnectionStatus =
+  | 'subscribing'
+  | 'subscribed'
+  | 'unsubscribed'
+  | 'error';
 
 export interface OrderBookState {
   product: Product;

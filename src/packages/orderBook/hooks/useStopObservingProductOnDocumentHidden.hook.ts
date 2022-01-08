@@ -13,18 +13,28 @@ export const useStopObservingProductOnDocumentHidden = () => {
   const dispatch = useDispatchOrderBook();
 
   const visibilityState = useDocumentVisibilityState();
-  const { product } = useSelectOrderBookState();
+  const { product, connectionStatus } = useSelectOrderBookState();
 
   const prevVisibilityState = usePrevious(visibilityState);
   useEffect(() => {
     if (!isFeatureEnabled()) {
       return;
     }
-    if (prevVisibilityState !== 'hidden' && visibilityState === 'hidden') {
+    if (
+      prevVisibilityState !== 'hidden' &&
+      visibilityState === 'hidden' &&
+      connectionStatus !== 'error'
+    ) {
       dispatch({
         type: 'StopObservingProduct',
         product,
       });
     }
-  }, [prevVisibilityState, product, visibilityState, dispatch]);
+  }, [
+    product,
+    prevVisibilityState,
+    visibilityState,
+    connectionStatus,
+    dispatch,
+  ]);
 };

@@ -26,6 +26,7 @@ interface ButtonProps {
   type?: ButtonType;
   variant?: ButtonVariant;
   size?: ButtonSize;
+  disabled?: boolean;
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
@@ -33,6 +34,7 @@ export const Button: FunctionComponent<ButtonProps> = ({
   type = 'primary',
   variant = 'solid',
   size = 'medium',
+  disabled,
   onClick,
   children,
 }) => {
@@ -45,6 +47,7 @@ export const Button: FunctionComponent<ButtonProps> = ({
         [styles.primary]: type === 'primary',
       })}
       onClick={onClick}
+      disabled={disabled}
     >
       {children}
     </MuiButton>

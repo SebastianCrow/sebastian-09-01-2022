@@ -11,6 +11,7 @@ import { ColumnInfo, RowInfo, TableInfo } from './table.types';
 import { TEXT_ALIGNMENT } from './table.defaults';
 import styles from './table.component.module.scss';
 import { Loader } from '../loader/loader.component';
+import cns from 'classnames';
 
 // TODO: Forbid using '@mui/material' directly outside of the ui package
 
@@ -60,10 +61,14 @@ export const Table: FunctionComponent<TableProps> = ({
           </TableHead>
         )}
         <TableBody>
-          {data.map(({ id, rowStyle, cells }) => {
+          {data.map(({ id, rowClass, rowStyle, cells }) => {
             // TODO: sx or style?
             return (
-              <TableRow key={id} className={styles.rowData} style={rowStyle}>
+              <TableRow
+                key={id}
+                className={cns(styles.rowData, rowClass)}
+                style={rowStyle}
+              >
                 {columns.map(({ key }) => {
                   const { value, textAlignment = TEXT_ALIGNMENT } = cells[key]; // TODO: Throw if missing? ErrorBoundary?
                   return (

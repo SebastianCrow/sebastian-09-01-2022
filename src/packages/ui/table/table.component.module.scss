@@ -28,10 +28,6 @@ $padding-horizontal-cell: 5 * $spacing;
 }
 
 .rowData {
-  // TODO: Explore this method
-  //background-image: url('../../../../resources/orderBook/highlightAsks.png');
-  //background-repeat: no-repeat;
-
   .cell {
     @extend .cellBase;
     border-bottom: none;

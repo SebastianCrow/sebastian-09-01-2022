@@ -6,6 +6,7 @@ import { useSelectHighestTotal } from './useSelectOrderBookState.hook';
 import { computePercent } from '../../../shared/utils/number.util';
 import { useLayout } from '../../../shared/hooks/useLayout.hook';
 import { TableProps } from '../../ui/table/table.component';
+import styles from './useComputeOrderBookTableData.hook.module.scss';
 
 const HIGHLIGHT_COLORS: Record<PriceDataType, string> = {
   bids: 'rgb(32, 51, 47)', // TODO: Is it a good place for that?
@@ -107,17 +108,17 @@ export const useComputeOrderBookTableData = ({
           value: <Text variant="code">{total}</Text>,
         },
       },
+      rowClass: priceDataType === 'bids' ? styles.rowBid : styles.rowAsk,
       rowStyle: highestTotal
         ? {
             // TODO: Explore this method
-            // backgroundSize: `${highlight.percent}% 100%`,
-            // backgroundPositionX:
-            //   highlight.direction === 'left' ? 'right' : 'left',
-            background: computeBackgroundBar({
-              direction: bidsInDesktop ? 'left' : 'right',
-              color: HIGHLIGHT_COLORS[priceDataType],
-              percent: computePercent(total, highestTotal),
-            }),
+            backgroundSize: `${computePercent(total, highestTotal)}% 100%`,
+            backgroundPositionX: bidsInDesktop ? 'right' : 'left',
+            // background: computeBackgroundBar({
+            //   direction: bidsInDesktop ? 'left' : 'right',
+            //   color: HIGHLIGHT_COLORS[priceDataType],
+            //   percent: computePercent(total, highestTotal),
+            // }),
           }
         : undefined,
     }));

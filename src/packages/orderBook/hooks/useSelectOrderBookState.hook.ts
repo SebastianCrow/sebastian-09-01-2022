@@ -11,7 +11,7 @@ import {
   selectOrderBookBids,
   selectOrderBookState,
   selectSpreadInfo,
-} from '../state/orderBook.selectors';
+} from '../state/selectors/orderBook.selectors';
 
 export const useSelectOrderBookState = (): OrderBookState => {
   return useSelector(selectOrderBookState);

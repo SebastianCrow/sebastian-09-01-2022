@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { Table } from '../../../ui/table/table.component';
-import { useComputeOrderBookTableData } from '../../hooks/useComputeOrderBookTableData.hook';
+import { useComputeOrderBookTableData } from '../../hooks/useComputeOrderBookTableData/useComputeOrderBookTableData.hook';
 import { ComputedPriceInfo, PriceDataType } from '../../state/orderBook.types';
 
 interface OrderBookTableProps {

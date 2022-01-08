@@ -34,5 +34,7 @@ describe('orderBookFooter.component', () => {
       })
     );
     expect(observeProduct).toHaveBeenCalledTimes(1);
+    // Product has been toggled
+    expect(observeProduct).toHaveBeenCalledWith('Ethereum');
   });
 });

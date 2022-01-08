@@ -1,13 +1,13 @@
-import { OrderBookState, Price } from './orderBook.types';
+import { OrderBookState, Price } from '../orderBook.types';
 import {
   DeltaReceived,
   ObserveProduct,
   OrderBookActions,
   SetConnectionStatus,
   SnapshotReceived,
-} from './orderBook.actions';
-import { PriceInfo } from '../services/network/orderBookNetwork.types';
-import { computePriceInfoRecord } from '../services/computePriceInfoRecord.service';
+} from '../orderBook.actions';
+import { PriceInfo } from '../../services/network/orderBookNetwork.types';
+import { computePriceInfoRecord } from '../../services/computePriceInfoRecord.service';
 
 const initialState: OrderBookState = {
   product: 'Bitcoin',

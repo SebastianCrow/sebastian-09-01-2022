@@ -1,10 +1,13 @@
 import { PriceInfo, Product } from '../services/network/orderBookNetwork.types';
 
 export type Price = number & { __brand: 'Price' };
+export const asPrice = (price: number): Price => price as Price;
 
 export type Size = number & { __brand: 'Size' };
+export const asSize = (size: number): Size => size as Size;
 
 export type Total = number & { __brand: 'Total' };
+export const asTotal = (total: number): Total => total as Total;
 
 export type PriceDataType = 'bids' | 'asks';
 

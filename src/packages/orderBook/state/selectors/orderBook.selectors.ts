@@ -1,10 +1,10 @@
-import { AppState } from '../../../shared/state/rootReducer';
-import { ComputedPriceInfo, OrderBookState, Total } from './orderBook.types';
+import { AppState } from '../../../../shared/state/rootReducer';
+import { ComputedPriceInfo, OrderBookState, Total } from '../orderBook.types';
 import { createSelector } from '@reduxjs/toolkit';
-import { computePriceInfoList } from '../services/computePriceInfoList.service';
-import { computeSpreadInfo } from '../services/network/computeSpreadInfo.service';
+import { computePriceInfoList } from '../../services/computePriceInfoList.service';
+import { computeSpreadInfo } from '../../services/network/computeSpreadInfo.service';
 import { head, last } from 'lodash';
-import { computeHighestTotal } from '../services/network/computeHighestTotal.service';
+import { computeHighestTotal } from '../../services/network/computeHighestTotal.service';
 
 export const selectOrderBookState = (app: AppState): OrderBookState => {
   return app.orderBook;
@@ -17,14 +17,14 @@ export const selectOrderBookBids = createSelector(
   }
 );
 
-const selectOrderBookTopBid = createSelector(
+export const selectOrderBookTopBid = createSelector(
   selectOrderBookBids,
   (bids): ComputedPriceInfo | undefined => {
     return head(bids);
   }
 );
 
-const selectOrderBookBottomBid = createSelector(
+export const selectOrderBookBottomBid = createSelector(
   selectOrderBookBids,
   (bids): ComputedPriceInfo | undefined => {
     return last(bids);
@@ -38,14 +38,14 @@ export const selectOrderBookAsks = createSelector(
   }
 );
 
-const selectOrderBookTopAsk = createSelector(
+export const selectOrderBookTopAsk = createSelector(
   selectOrderBookAsks,
   (asks): ComputedPriceInfo | undefined => {
     return head(asks);
   }
 );
 
-const selectOrderBookBottomAsk = createSelector(
+export const selectOrderBookBottomAsk = createSelector(
   selectOrderBookAsks,
   (asks): ComputedPriceInfo | undefined => {
     return last(asks);

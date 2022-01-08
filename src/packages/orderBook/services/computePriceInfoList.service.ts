@@ -1,5 +1,5 @@
 import { PriceInfo } from './network/orderBookNetwork.types';
-import { ComputedPriceInfo, Price, Total } from '../state/orderBook.types';
+import { asTotal, ComputedPriceInfo, Price } from '../state/orderBook.types';
 
 // TODO: Dynamic limit based on device screen size
 const TODO_ITEMS_LIMIT = 15;
@@ -19,7 +19,7 @@ export const computePriceInfoList = (
       return {
         price,
         size,
-        total: total as Total,
+        total: asTotal(total),
       };
     })
     .slice(0, TODO_ITEMS_LIMIT);

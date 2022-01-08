@@ -17,9 +17,7 @@ describe('orderBookHeader.component', () => {
     expect(renderer.toJSON()).toMatchSnapshot();
     expect(renderer.root.findAllByType(Text)).toHaveLength(1);
     expect(findByDataTestId(renderer.root, 'title')).toBeTruthy();
+    // TODO: Some kind of visual testing to check media queries (`mobile` and `desktop` classes) to check <SpreadHeader /> display
     expect(renderer.root.findAllByType(SpreadHeader)).toHaveLength(1);
   });
-
-  // TODO: Some kind of visual testing to check media queries (`mobile` and `desktop` classes).
-  // E.g. <SpreadHeader /> wrapped in <OrderBookHeader />
 });

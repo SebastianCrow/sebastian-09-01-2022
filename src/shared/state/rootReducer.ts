@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { OrderBookState } from '../../packages/orderBook/state/orderBook.types';
-import { orderBookReducer } from '../../packages/orderBook/state/orderBook.reducer';
+import { orderBookReducer } from '../../packages/orderBook/state/reducers/orderBook.reducer';
 
 export interface AppState {
   orderBook: OrderBookState;

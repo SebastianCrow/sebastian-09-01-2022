@@ -9,11 +9,11 @@ export const computeSpreadInfo = ({
   topAsk: ComputedPriceInfo | undefined;
 }): SpreadInfo | undefined => {
   // No data
-  if (topAsk === undefined && topBid === undefined) {
+  if (topAsk === undefined || topBid === undefined) {
     return;
   }
-  const askPrice = topAsk?.price ?? 0;
-  const bidPrice = topBid?.price ?? 0;
+  const askPrice = topAsk.price;
+  const bidPrice = topBid.price;
 
   const value = askPrice - bidPrice;
   return {

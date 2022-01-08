@@ -1,4 +1,4 @@
-import { ComputedPriceInfo, Total } from '../../state/orderBook.types';
+import { asTotal, ComputedPriceInfo, Total } from '../../state/orderBook.types';
 
 export const computeHighestTotal = ({
   bottomBid,
@@ -10,6 +10,6 @@ export const computeHighestTotal = ({
   const bidTotal = bottomBid?.total;
   const askTotal = bottomAsk?.total;
   return bidTotal || askTotal
-    ? (Math.max(bidTotal ?? 0, askTotal ?? 0) as Total)
+    ? asTotal(Math.max(bidTotal ?? 0, askTotal ?? 0))
     : undefined;
 };

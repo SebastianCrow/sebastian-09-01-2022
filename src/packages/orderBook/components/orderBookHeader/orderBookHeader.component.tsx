@@ -9,7 +9,7 @@ export const OrderBookHeader: FunctionComponent = () => {
   return (
     <div className={styles.header}>
       <div className={styles.title}>
-        <Text variant="title">
+        <Text variant="title" data-testid="title">
           <FormattedMessage id="Order Book" />
         </Text>
       </div>

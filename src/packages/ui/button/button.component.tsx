@@ -28,6 +28,7 @@ interface ButtonProps {
   size?: ButtonSize;
   disabled?: boolean;
   onClick?: MouseEventHandler<HTMLButtonElement>;
+  'data-testid'?: string;
 }
 
 export const Button: FunctionComponent<ButtonProps> = ({
@@ -36,6 +37,7 @@ export const Button: FunctionComponent<ButtonProps> = ({
   size = 'medium',
   disabled,
   onClick,
+  'data-testid': dataTestId,
   children,
 }) => {
   const muiVariant = useMemo(() => computeMuiVariant(variant), [variant]);
@@ -48,6 +50,7 @@ export const Button: FunctionComponent<ButtonProps> = ({
       })}
       onClick={onClick}
       disabled={disabled}
+      data-testid={dataTestId}
     >
       {children}
     </MuiButton>

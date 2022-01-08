@@ -3,6 +3,7 @@ import { Alert, Backdrop, Snackbar, SnackbarOrigin } from '@mui/material';
 import { PartialRecord } from '../../../shared/utils/ts.util';
 import { Button } from '../button/button.component';
 import styles from './notification.component.module.scss';
+import { FormattedMessage } from 'react-intl';
 
 const ANCHORS: PartialRecord<NotificationSeverity, NotificationAnchor> = {
   error: {
@@ -31,33 +32,40 @@ export interface NotificationProps {
   open: boolean;
   message: string;
   severity?: NotificationSeverity;
-  onActionClick?: () => void;
+  action?: {
+    title: string;
+    onClick: () => void;
+  };
 }
 
 export const Notification: FunctionComponent<NotificationProps> = ({
   open,
   message,
   severity = 'info',
-  onActionClick,
+  action,
 }) => {
   const anchorOrigin: SnackbarOrigin | undefined = useMemo(
     () => ANCHORS[severity],
     [severity]
   );
 
-  const action: ReactNode = useMemo(() => {
-    return onActionClick ? (
-      <Button size="small" onClick={onActionClick}>
-        Reconnect
+  const actionComponent: ReactNode = useMemo(() => {
+    return action ? (
+      <Button size="small" onClick={action.onClick}>
+        <FormattedMessage id={action.title} />
       </Button>
     ) : undefined;
-  }, [onActionClick]);
+  }, [action]);
 
   return (
     <>
       <Snackbar anchorOrigin={anchorOrigin} open={open}>
-        <Alert severity={severity} action={action} className={styles.alert}>
-          {message}
+        <Alert
+          severity={severity}
+          action={actionComponent}
+          className={styles.alert}
+        >
+          <FormattedMessage id={message} />
         </Alert>
       </Snackbar>
       <Backdrop

@@ -28,7 +28,10 @@ export const useLostConnectionNotification = (
         // TODO: Improve ESLint and Prettier
         message: "Ups... we've lost connection. Sorry.", // eslint-disable-line quotes
         severity: 'error',
-        onActionClick: reconnect,
+        action: {
+          title: 'Reconnect',
+          onClick: reconnect,
+        },
       });
     } else {
       setNotification(undefined);

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/index.scss';
-import App from './App';
+import App from './app';
 import reportWebVitals from './reportWebVitals';
 
 // The same id as in the public/index.html. They need to be synced.

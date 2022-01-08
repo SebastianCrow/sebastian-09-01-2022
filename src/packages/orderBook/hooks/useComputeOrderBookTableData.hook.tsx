@@ -14,6 +14,8 @@ import styles from './useComputeOrderBookTableData.hook.module.scss';
 import { isFeatureFlagEnabled } from '../../../shared/services/featureFlags/featureFlags.service';
 import { FeatureFlag } from '../../../shared/services/featureFlags/featureFlags.types';
 import { computeHighlightBarBackgroundBar } from '../services/computeHighlightBarLinearGradient';
+import { FormattedNumber } from '../../../translations/components/formattedNumber.component';
+import { FormattedMessage } from 'react-intl';
 
 const linearGradientFeatureEnabled = isFeatureFlagEnabled(
   FeatureFlag.OrderBook_highlightBars_linearGradient
@@ -22,15 +24,27 @@ const linearGradientFeatureEnabled = isFeatureFlagEnabled(
 const COLUMNS: Record<ColumnKey, ColumnInfo> = {
   price: {
     key: 'price',
-    title: <Text color="secondary">Price</Text>,
+    title: (
+      <Text color="secondary">
+        <FormattedMessage id="Price" />
+      </Text>
+    ),
   },
   size: {
     key: 'size',
-    title: <Text color="secondary">Size</Text>,
+    title: (
+      <Text color="secondary">
+        <FormattedMessage id="Size" />
+      </Text>
+    ),
   },
   total: {
     key: 'total',
-    title: <Text color="secondary">Total</Text>,
+    title: (
+      <Text color="secondary">
+        <FormattedMessage id="Total" />
+      </Text>
+    ),
   },
 };
 
@@ -111,18 +125,23 @@ export const useComputeOrderBookTableData = ({
         price: {
           value: (
             <Text variant="code" color={computePriceTextColor(priceDataType)}>
-              {price.toLocaleString(undefined, {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              })}
+              <FormattedNumber value={price} fractionDigits={2} />
             </Text>
           ),
         },
         size: {
-          value: <Text variant="code">{size.toLocaleString()}</Text>,
+          value: (
+            <Text variant="code">
+              <FormattedNumber value={size} />
+            </Text>
+          ),
         },
         total: {
-          value: <Text variant="code">{total.toLocaleString()}</Text>,
+          value: (
+            <Text variant="code">
+              <FormattedNumber value={total} />
+            </Text>
+          ),
         },
       },
       ...(linearGradientFeatureEnabled

@@ -3,11 +3,12 @@ import { useDocumentVisibilityState } from '../../../shared/hooks/useDocumentVis
 import { useEffect } from 'react';
 import { useSelectOrderBookState } from './useSelectOrderBookState.hook';
 import { usePrevious } from '../../../shared/hooks/usePrevious.hook';
+import { isFeatureFlagEnabled } from '../../../shared/services/featureFlags/featureFlags.service';
+import { FeatureFlag } from '../../../shared/services/featureFlags/featureFlags.types';
 
-const isFeatureEnabled = (): boolean => {
-  // TODO: It should be replaced by the feature flag mechanism
-  return !localStorage.getItem('orderBook.stopConnection.disabled');
-};
+const featureEnabled = !isFeatureFlagEnabled(
+  FeatureFlag.OrderBook_stopConnection_disabled
+);
 
 export const useStopObservingProductOnDocumentHidden = () => {
   const dispatch = useDispatchOrderBook();
@@ -17,7 +18,7 @@ export const useStopObservingProductOnDocumentHidden = () => {
 
   const prevVisibilityState = usePrevious(visibilityState);
   useEffect(() => {
-    if (!isFeatureEnabled()) {
+    if (!featureEnabled) {
       return;
     }
     if (

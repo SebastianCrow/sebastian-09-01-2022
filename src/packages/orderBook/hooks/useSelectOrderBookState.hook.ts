@@ -1,46 +1,34 @@
 import { useSelector } from 'react-redux';
-import { AppState } from '../../../shared/state/rootReducer';
 import {
   ComputedPriceInfo,
   OrderBookState,
   SpreadInfo,
   Total,
 } from '../state/orderBook.types';
-import { computePriceInfoList } from '../services/computePriceInfoList.service';
-import { computeSpreadInfo } from '../services/network/computeSpreadInfo.service';
-import { last } from 'lodash';
+import {
+  selectHighestTotal,
+  selectOrderBookAsks,
+  selectOrderBookBids,
+  selectOrderBookState,
+  selectSpreadInfo,
+} from '../state/orderBook.selectors';
 
 export const useSelectOrderBookState = (): OrderBookState => {
-  return useSelector((app: AppState) => app.orderBook);
+  return useSelector(selectOrderBookState);
 };
 
 export const useSelectOrderBookBids = (): ComputedPriceInfo[] | undefined => {
-  const { bids } = useSelectOrderBookState();
-  return bids ? computePriceInfoList(bids, 'desc') : undefined;
+  return useSelector(selectOrderBookBids);
 };
 
 export const useSelectOrderBookAsks = (): ComputedPriceInfo[] | undefined => {
-  const { asks } = useSelectOrderBookState();
-  return asks ? computePriceInfoList(asks, 'asc') : undefined;
+  return useSelector(selectOrderBookAsks);
 };
 
-// TODO: Is it the best place to do so?
 export const useSelectSpreadInfo = (): SpreadInfo | undefined => {
-  const sortedBids = useSelectOrderBookBids();
-  const sortedAsks = useSelectOrderBookAsks();
-  return sortedBids && sortedAsks
-    ? computeSpreadInfo({
-        sortedBids,
-        sortedAsks,
-      })
-    : undefined;
+  return useSelector(selectSpreadInfo);
 };
 
-// TODO: Is it the best place to do so?
 export const useSelectHighestTotal = (): Total | undefined => {
-  const highestBid = last(useSelectOrderBookBids())?.total;
-  const highestAsk = last(useSelectOrderBookAsks())?.total;
-  return highestBid || highestAsk
-    ? (Math.max(highestBid ?? 0, highestAsk ?? 0) as Total)
-    : undefined;
+  return useSelector(selectHighestTotal);
 };

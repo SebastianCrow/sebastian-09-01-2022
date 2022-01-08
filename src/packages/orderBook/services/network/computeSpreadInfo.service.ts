@@ -1,20 +1,19 @@
-import { PriceInfo } from './orderBookNetwork.types';
-import { SpreadInfo } from '../../state/orderBook.types';
+import { ComputedPriceInfo, SpreadInfo } from '../../state/orderBook.types';
 import { computePercent } from '../../../../shared/utils/number.util';
 
 export const computeSpreadInfo = ({
-  sortedBids,
-  sortedAsks,
+  topBid,
+  topAsk,
 }: {
-  sortedBids: PriceInfo[];
-  sortedAsks: PriceInfo[];
+  topBid: ComputedPriceInfo | undefined;
+  topAsk: ComputedPriceInfo | undefined;
 }): SpreadInfo | undefined => {
   // No data
-  if (!sortedAsks.length && !sortedBids.length) {
+  if (topAsk === undefined && topBid === undefined) {
     return;
   }
-  const askPrice = sortedAsks[0]?.price ?? 0;
-  const bidPrice = sortedBids[0]?.price ?? 0;
+  const askPrice = topAsk?.price ?? 0;
+  const bidPrice = topBid?.price ?? 0;
 
   const value = askPrice - bidPrice;
   return {

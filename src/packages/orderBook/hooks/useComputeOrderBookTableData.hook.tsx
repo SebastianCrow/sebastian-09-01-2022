@@ -1,17 +1,23 @@
 import React, { useMemo } from 'react';
 import { Text, TextColor } from '../../ui/text/text.component';
 import { ColumnInfo, RowInfo } from '../../ui/table/table.types';
-import { ComputedPriceInfo, PriceDataType } from '../state/orderBook.types';
+import {
+  ComputedPriceInfo,
+  PriceDataType,
+  Total,
+} from '../state/orderBook.types';
 import { useSelectHighestTotal } from './useSelectOrderBookState.hook';
 import { computePercent } from '../../../shared/utils/number.util';
 import { useLayout } from '../../../shared/hooks/useLayout.hook';
 import { TableProps } from '../../ui/table/table.component';
 import styles from './useComputeOrderBookTableData.hook.module.scss';
+import { isFeatureFlagEnabled } from '../../../shared/services/featureFlags/featureFlags.service';
+import { FeatureFlag } from '../../../shared/services/featureFlags/featureFlags.types';
+import { computeHighlightBarBackgroundBar } from '../services/computeHighlightBarLinearGradient';
 
-const HIGHLIGHT_COLORS: Record<PriceDataType, string> = {
-  bids: 'rgb(32, 51, 47)', // TODO: Is it a good place for that?
-  asks: 'rgb(53, 32, 39)',
-};
+const linearGradientFeatureEnabled = isFeatureFlagEnabled(
+  FeatureFlag.OrderBook_highlightBars_linearGradient
+);
 
 const COLUMNS: Record<ColumnKey, ColumnInfo> = {
   price: {
@@ -35,20 +41,6 @@ const computePriceTextColor = (priceDataType: PriceDataType): TextColor => {
     case 'asks':
       return 'danger';
   }
-};
-
-const computeBackgroundBar = ({
-  direction,
-  color,
-  percent,
-}: {
-  direction: 'left' | 'right';
-  color: string; // TODO: Is there any type for CSS color?
-  percent: number; // 0 - 100
-}): string => {
-  return `linear-gradient(${
-    direction === 'left' ? 'to left' : 'to right'
-  }, ${color} 0 ${percent}%, transparent ${percent}% 100%)`;
 };
 
 type ColumnKey = 'price' | 'size' | 'total';
@@ -91,6 +83,28 @@ export const useComputeOrderBookTableData = ({
         ? [...priceInfoList].reverse() // TODO: Is it the best place?
         : priceInfoList;
 
+    const getLinearGradientRowOptions = (total: Total) => ({
+      rowStyle: highestTotal
+        ? {
+            background: computeHighlightBarBackgroundBar({
+              direction: bidsInDesktop ? 'left' : 'right',
+              percent: computePercent(total, highestTotal),
+              priceDataType,
+            }),
+          }
+        : undefined,
+    });
+
+    const getBackgroundImageRowOptions = (total: Total) => ({
+      rowClass: priceDataType === 'bids' ? styles.rowBid : styles.rowAsk,
+      rowStyle: highestTotal
+        ? {
+            backgroundSize: `${computePercent(total, highestTotal)}% 100%`,
+            backgroundPositionX: bidsInDesktop ? 'right' : 'left',
+          }
+        : undefined,
+    });
+
     return convertedPriceInfoList?.map(({ price, size, total }, index) => ({
       id: index.toString(), // TODO: Is that required?
       cells: {
@@ -108,19 +122,9 @@ export const useComputeOrderBookTableData = ({
           value: <Text variant="code">{total}</Text>,
         },
       },
-      rowClass: priceDataType === 'bids' ? styles.rowBid : styles.rowAsk,
-      rowStyle: highestTotal
-        ? {
-            // TODO: Explore this method
-            backgroundSize: `${computePercent(total, highestTotal)}% 100%`,
-            backgroundPositionX: bidsInDesktop ? 'right' : 'left',
-            // background: computeBackgroundBar({
-            //   direction: bidsInDesktop ? 'left' : 'right',
-            //   color: HIGHLIGHT_COLORS[priceDataType],
-            //   percent: computePercent(total, highestTotal),
-            // }),
-          }
-        : undefined,
+      ...(linearGradientFeatureEnabled
+        ? getLinearGradientRowOptions(total)
+        : getBackgroundImageRowOptions(total)),
     }));
   }, [asksInMobile, priceInfoList, priceDataType, highestTotal, bidsInDesktop]);
 

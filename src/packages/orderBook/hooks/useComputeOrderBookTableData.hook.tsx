@@ -111,15 +111,18 @@ export const useComputeOrderBookTableData = ({
         price: {
           value: (
             <Text variant="code" color={computePriceTextColor(priceDataType)}>
-              {price.toFixed(2)}
+              {price.toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}
             </Text>
           ),
         },
         size: {
-          value: <Text variant="code">{size}</Text>,
+          value: <Text variant="code">{size.toLocaleString()}</Text>,
         },
         total: {
-          value: <Text variant="code">{total}</Text>,
+          value: <Text variant="code">{total.toLocaleString()}</Text>,
         },
       },
       ...(linearGradientFeatureEnabled

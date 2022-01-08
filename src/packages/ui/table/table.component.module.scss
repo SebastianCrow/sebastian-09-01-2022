@@ -11,8 +11,12 @@ $padding-horizontal-cell: 5 * $spacing;
 }
 
 .cellBase {
-  padding-left: $padding-horizontal-cell;
-  padding-right: $padding-horizontal-cell;
+  &:first-of-type {
+    padding-left: $padding-horizontal-cell;
+  }
+  &:last-of-type {
+    padding-right: $padding-horizontal-cell;
+  }
 }
 
 .rowHeader {

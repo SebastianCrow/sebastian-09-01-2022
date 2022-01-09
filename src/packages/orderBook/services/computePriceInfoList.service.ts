@@ -7,6 +7,11 @@ const LEVELS_LIMIT = parseInt(
   getFeatureValue(FeatureValue.OrderBook_levels_limit, '15')
 );
 
+/**
+ * Compute price levels list from the given price levels record sliced to the {@link LEVELS_LIMIT}
+ * @param priceInfoRecord Price levels record
+ * @param sort Sort direction
+ */
 export const computePriceInfoList = (
   priceInfoRecord: Record<Price, PriceInfo>,
   sort: 'asc' | 'desc'

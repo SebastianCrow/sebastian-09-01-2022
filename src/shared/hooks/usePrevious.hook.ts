@@ -1,5 +1,9 @@
 import { useEffect, useRef } from 'react';
 
+/**
+ * Remember the previous value of the given {@param value}
+ * @param value Value to store
+ */
 export const usePrevious = <T>(value: T): T | undefined => {
   const ref = useRef<T>();
 

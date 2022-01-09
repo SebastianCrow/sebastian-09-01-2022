@@ -4,6 +4,11 @@ import React, { ReactElement } from 'react';
 import { MockStoreEnhanced } from 'redux-mock-store';
 import { AppState } from '../../shared/state/rootReducer';
 
+/**
+ * Render {@param Component} wrapped with given or default store
+ * @param Component Component to render
+ * @param store Store
+ */
 export const renderWithStore = (
   Component: ReactElement,
   store: MockStoreEnhanced<AppState>

@@ -10,6 +10,9 @@ interface ErrorBoundaryState {
   hasError: boolean;
 }
 
+/**
+ * Catch exceptions coming from the children component and give user a way to recover by clicking the 'Try Again' button
+ */
 export class ErrorBoundary extends Component<
   ErrorBoundaryProps,
   ErrorBoundaryState

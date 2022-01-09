@@ -10,6 +10,10 @@ const featureEnabled = !isFeatureFlagEnabled(
   FeatureFlag.OrderBook_stopConnection_disabled
 );
 
+/**
+ * Stop observing the product when document visibility changes to `hidden`.
+ * Don't do anything if the connection is already in the `error` state.
+ */
 export const useStopObservingProductOnDocumentHidden = () => {
   const dispatch = useDispatchOrderBook();
 

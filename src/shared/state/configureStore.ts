@@ -6,6 +6,9 @@ import { rootEpic } from './rootEpic';
 import { Store } from '@reduxjs/toolkit';
 import { OrderBookActions } from '../../packages/orderBook/state/orderBook.actions';
 
+/**
+ * Configure Redux store with Epic and Dev Tools middlewares
+ */
 export const configureStore = (): Store<AppState> => {
   const epicMiddleware = createEpicMiddleware();
 

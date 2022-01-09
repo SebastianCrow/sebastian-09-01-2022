@@ -1,5 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 
+/**
+ * Notify changes in the {@link document.visibilityState}
+ */
 export const useDocumentVisibilityState = (): VisibilityState => {
   const [visibilityState, setVisibilityState] = useState(
     document.visibilityState

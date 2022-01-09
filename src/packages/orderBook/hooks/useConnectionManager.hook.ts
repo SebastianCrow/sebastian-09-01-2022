@@ -3,6 +3,12 @@ import { useStopObservingProductOnDocumentHidden } from './useStopObservingProdu
 import { useLostConnectionNotification } from './useLostConnectionNotification.hook';
 import { useStartObservingProduct } from './useStartObservingProduct.hook';
 
+/**
+ * Hook managing the network connection:
+ * 1. Establishing the connection
+ * 2. Stop listening when the document is hidden
+ * 3. Displaying the warning in UI about lost connection
+ */
 export const useConnectionManager = (): {
   observeProduct: (product: Product) => void;
 } => {

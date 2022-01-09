@@ -6,6 +6,12 @@ interface FormattedNumberProps {
   fractionDigits?: number;
 }
 
+/**
+ * Format number to the current locale optionally speicifying an exact number of fraction digits
+ * @param value Value to format
+ * @param fractionDigits Fraction digits
+ * @constructor
+ */
 export const FormattedNumber: FunctionComponent<FormattedNumberProps> = ({
   value,
   fractionDigits,

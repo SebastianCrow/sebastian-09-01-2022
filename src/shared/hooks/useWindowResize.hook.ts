@@ -5,6 +5,9 @@ interface Size {
   height: number;
 }
 
+/**
+ * Notify changes in the window's size
+ */
 export const useWindowResize = (): Size => {
   const [size, setSize] = useState<Size>({
     width: window.innerWidth,

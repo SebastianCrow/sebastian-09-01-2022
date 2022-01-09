@@ -7,6 +7,10 @@ import { ConnectionStatus } from '../state/orderBook.types';
 
 const FAULTY_STATUSES: ConnectionStatus[] = ['unsubscribed', 'error'];
 
+/**
+ * Display the UI notification when connection is lost
+ * @param observeProduct Callback triggered when user tries to reconnect
+ */
 export const useLostConnectionNotification = (
   observeProduct: (product: Product) => void
 ): void => {

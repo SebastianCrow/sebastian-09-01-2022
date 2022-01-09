@@ -20,8 +20,9 @@ import {
 import { prices$ as pricesNetwork$ } from '../../services/network/orderBookNetwork.service';
 
 /**
+ * Start observing the prices network and propagate received events.
  * Injectable {@param prices$} for testing purposes.
- * @param prices$
+ * @param prices$ Prices network handler
  */
 export const observeProductEpic =
   (prices$ = pricesNetwork$) =>
@@ -34,11 +35,12 @@ export const observeProductEpic =
         }): Observable<
           SetConnectionStatus | SnapshotReceived | DeltaReceived
         > => {
+          const setConnectionStatus: SetConnectionStatus = {
+            type: 'SetConnectionStatus',
+            connectionStatus: 'subscribing',
+          };
           return merge(
-            of({
-              type: 'SetConnectionStatus' as const,
-              connectionStatus: 'subscribing' as const,
-            }),
+            of(setConnectionStatus),
             prices$({
               products: [product],
             }).pipe(
@@ -46,26 +48,30 @@ export const observeProductEpic =
                 // Ignore late events coming for the previous product
                 return product === event.product;
               }),
-              map((event) => {
-                if (event.type === 'SubscribedReceived') {
-                  console.debug(`Subscribed: ${product}`); // TODO: Proper logger
-                  return {
-                    type: 'SetConnectionStatus' as const,
-                    connectionStatus: 'subscribed' as const,
-                  };
-                } else if (event.type === 'UnsubscribedReceived') {
-                  return {
-                    type: 'SetConnectionStatus' as const,
-                    connectionStatus: 'unsubscribed' as const,
-                  };
-                } else {
-                  return event;
+              map(
+                (
+                  event
+                ): SetConnectionStatus | SnapshotReceived | DeltaReceived => {
+                  if (event.type === 'SubscribedReceived') {
+                    console.debug(`Subscribed: ${product}`); // TODO: Proper logger
+                    return {
+                      type: 'SetConnectionStatus',
+                      connectionStatus: 'subscribed',
+                    };
+                  } else if (event.type === 'UnsubscribedReceived') {
+                    return {
+                      type: 'SetConnectionStatus',
+                      connectionStatus: 'unsubscribed',
+                    };
+                  } else {
+                    return event;
+                  }
                 }
-              }),
-              catchError(() => {
+              ),
+              catchError((): Observable<SetConnectionStatus> => {
                 return of({
-                  type: 'SetConnectionStatus' as const,
-                  connectionStatus: 'error' as const,
+                  type: 'SetConnectionStatus',
+                  connectionStatus: 'error',
                 });
               }),
               takeUntil(action$.pipe(ofType('StopObservingProduct')))
@@ -75,6 +81,9 @@ export const observeProductEpic =
       )
     );
 
+/**
+ * Set connection status to `unsubscribed`
+ */
 export const stopObservingProductEpic = (
   action$: Observable<OrderBookActions>
 ): Observable<SetConnectionStatus> =>

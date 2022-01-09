@@ -4,6 +4,9 @@ import { useSelectOrderBookState } from './useSelectOrderBookState.hook';
 import { usePrevious } from '../../../shared/hooks/usePrevious.hook';
 import { Product } from '../services/network/orderBookNetwork.types';
 
+/**
+ * Start observing current product on mount
+ */
 export const useStartObservingProduct = (): {
   observeProduct: (product: Product) => void;
 } => {

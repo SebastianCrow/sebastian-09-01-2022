@@ -13,6 +13,9 @@ interface AppProvidersProps {
   store?: Store;
 }
 
+/**
+ * Wrap app with the required providers
+ */
 export const AppProviders: FunctionComponent<AppProvidersProps> = ({
   store,
   children,

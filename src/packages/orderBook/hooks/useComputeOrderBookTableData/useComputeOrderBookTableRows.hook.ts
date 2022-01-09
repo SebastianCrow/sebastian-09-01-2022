@@ -22,7 +22,7 @@ import { FeatureValue } from '../../../../shared/services/featureFlags/featureFl
  * Throttle rendering of the table's data
  */
 const RENDER_DATA_THROTTLE_DURATION = parseInt(
-  getFeatureValue(FeatureValue.OrderBook_throttle_duration, '150')
+  getFeatureValue(FeatureValue.OrderBook_throttle_duration, '100')
 );
 
 export const useComputeOrderBookTableRows = ({

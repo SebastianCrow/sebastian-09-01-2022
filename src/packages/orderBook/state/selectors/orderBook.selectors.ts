@@ -26,6 +26,9 @@ export const selectOrderBookState = (app: AppState): OrderBookState => {
   return app.orderBook;
 };
 
+/**
+ * Select price levels limit defined either by the dynamic property or received from the backend endpoint (depending on feature flag)
+ */
 const selectPriceLevelsLimit = createSelector(
   selectOrderBookState,
   ({ prices }): number => {

@@ -6,7 +6,7 @@ import { rootEpic } from './rootEpic';
 import { Store } from '@reduxjs/toolkit';
 import { OrderBookActions } from '../../packages/orderBook/state/orderBook.actions';
 
-export const configureStore = (): Store<AppState, OrderBookActions> => {
+export const configureStore = (): Store<AppState> => {
   const epicMiddleware = createEpicMiddleware();
 
   const store = createStore<AppState, OrderBookActions, unknown, unknown>(
@@ -15,5 +15,5 @@ export const configureStore = (): Store<AppState, OrderBookActions> => {
   );
   epicMiddleware.run(rootEpic as Epic);
 
-  return store;
+  return store as unknown as Store<AppState>;
 };

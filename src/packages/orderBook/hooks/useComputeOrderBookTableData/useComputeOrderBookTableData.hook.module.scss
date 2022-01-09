@@ -13,6 +13,7 @@
   }
 }
 
+// Approach with the existing background images is more performant than the programmatically generated `background: linear-gradient`
 .rowBid {
   background-image: url('../../../../../resources/orderBook/highlightBids.png');
   background-repeat: no-repeat;

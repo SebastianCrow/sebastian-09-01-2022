@@ -17,24 +17,27 @@ describe('selectHighestTotal.selector', () => {
       outputHighestTotal: Total | undefined
     ) => {
       const orderBook = getOrderBookMockState({
-        bids:
-          bottomBidTotal !== undefined
-            ? {
-                [asPrice(1)]: {
-                  price: asPrice(1),
-                  size: asSize(bottomBidTotal),
-                },
-              }
-            : undefined,
-        asks:
-          bottomAskTotal !== undefined
-            ? {
-                [bottomAskTotal]: {
-                  price: asPrice(1),
-                  size: asSize(bottomAskTotal),
-                },
-              }
-            : undefined,
+        prices: {
+          numLevels: 15,
+          bids:
+            bottomBidTotal !== undefined
+              ? {
+                  [asPrice(1)]: {
+                    price: asPrice(1),
+                    size: asSize(bottomBidTotal),
+                  },
+                }
+              : {},
+          asks:
+            bottomAskTotal !== undefined
+              ? {
+                  [bottomAskTotal]: {
+                    price: asPrice(1),
+                    size: asSize(bottomAskTotal),
+                  },
+                }
+              : {},
+        },
       });
       expect(selectHighestTotal({ orderBook })).toStrictEqual(
         outputHighestTotal

@@ -14,8 +14,7 @@ describe('observeProduct.reducer', () => {
     };
     const output = getOrderBookMockState({
       product: Product.Ethereum_USD,
-      bids: undefined,
-      asks: undefined,
+      prices: undefined,
     });
     expect(orderBookReducer(input, action)).toStrictEqual(output);
   });

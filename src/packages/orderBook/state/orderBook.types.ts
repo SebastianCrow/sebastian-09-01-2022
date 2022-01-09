@@ -31,6 +31,11 @@ export type ConnectionStatus =
 export interface OrderBookState {
   product: Product;
   connectionStatus: ConnectionStatus;
-  bids: Record<Price, PriceInfo> | undefined; // Bids/buy
-  asks: Record<Price, PriceInfo> | undefined; // Asks/sell
+  prices:
+    | {
+        numLevels: number;
+        bids: Record<Price, PriceInfo>; // Bids/buy
+        asks: Record<Price, PriceInfo>; // Asks/sell
+      }
+    | undefined;
 }

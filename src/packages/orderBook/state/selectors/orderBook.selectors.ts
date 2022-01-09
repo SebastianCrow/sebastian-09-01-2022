@@ -5,15 +5,44 @@ import { computePriceInfoList } from '../../services/computePriceInfoList.servic
 import { computeSpreadInfo } from '../../services/network/computeSpreadInfo.service';
 import { head, last } from 'lodash';
 import { computeHighestTotal } from '../../services/network/computeHighestTotal.service';
+import {
+  getFeatureValue,
+  isFeatureFlagEnabled,
+} from '../../../../shared/services/featureFlags/featureFlags.service';
+import {
+  FeatureFlag,
+  FeatureValue,
+} from '../../../../shared/services/featureFlags/featureFlags.types';
+
+const LEVELS_FROM_ENDPOINT = isFeatureFlagEnabled(
+  FeatureFlag.OrderBook_levels_endpoint
+);
+
+const LEVELS_LIMIT = parseInt(
+  getFeatureValue(FeatureValue.OrderBook_levels_limit, '15')
+);
 
 export const selectOrderBookState = (app: AppState): OrderBookState => {
   return app.orderBook;
 };
 
+const selectPriceLevelsLimit = createSelector(
+  selectOrderBookState,
+  ({ prices }): number => {
+    if (!LEVELS_FROM_ENDPOINT) {
+      return LEVELS_LIMIT;
+    }
+    return prices?.numLevels ?? LEVELS_LIMIT;
+  }
+);
+
 export const selectOrderBookBids = createSelector(
   selectOrderBookState,
-  ({ bids }): ComputedPriceInfo[] | undefined => {
-    return bids ? computePriceInfoList(bids, 'desc') : undefined;
+  selectPriceLevelsLimit,
+  ({ prices }, limit): ComputedPriceInfo[] | undefined => {
+    return prices?.bids
+      ? computePriceInfoList(prices.bids, 'desc', limit)
+      : undefined;
   }
 );
 
@@ -33,8 +62,11 @@ export const selectOrderBookBottomBid = createSelector(
 
 export const selectOrderBookAsks = createSelector(
   selectOrderBookState,
-  ({ asks }): ComputedPriceInfo[] | undefined => {
-    return asks ? computePriceInfoList(asks, 'asc') : undefined;
+  selectPriceLevelsLimit,
+  ({ prices }, limit): ComputedPriceInfo[] | undefined => {
+    return prices?.asks
+      ? computePriceInfoList(prices.asks, 'asc', limit)
+      : undefined;
   }
 );
 

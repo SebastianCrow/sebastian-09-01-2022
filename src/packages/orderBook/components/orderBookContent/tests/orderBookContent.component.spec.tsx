@@ -21,8 +21,7 @@ describe('orderBookContent.component', () => {
     const renderer = createRendererWithStore(
       <OrderBookContent />,
       getOrderBookMockStore({
-        bids: undefined,
-        asks: undefined,
+        prices: undefined,
       })
     );
 

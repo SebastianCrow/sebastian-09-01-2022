@@ -8,7 +8,7 @@ const HIGHLIGHT_COLORS: Record<PriceDataType, string> = {
 /**
  * Compute linear gradient for the horizontal higlight bars
  * @param direction Direction of the bar
- * @param percent Percent of background to occupy
+ * @param percent Percent of background to paint
  * @param priceDataType Type of the data to choose the background color
  */
 export const computeHighlightBarBackgroundBar = ({

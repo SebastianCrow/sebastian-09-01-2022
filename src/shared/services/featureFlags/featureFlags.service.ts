@@ -11,6 +11,7 @@ export const isFeatureFlagEnabled = (flag: FeatureFlag): boolean => {
 
 /**
  * Simple mechanism to get dynamic value behind the particular key.
+ * The values are usually assigned once on startup so it's the safest to reload app after changing value in the local storage.
  * TODO: Replace with the real dynamic values mechanism
  */
 export const getFeatureValue = (

@@ -1,5 +1,10 @@
 import { asTotal, ComputedPriceInfo, Total } from '../../state/orderBook.types';
 
+/**
+ * Compute the highest total value among bottom bid and ask price info
+ * @param bottomBid Bottom bid price info
+ * @param bottomAsk Bottom ask price info
+ */
 export const computeHighestTotal = ({
   bottomBid,
   bottomAsk,

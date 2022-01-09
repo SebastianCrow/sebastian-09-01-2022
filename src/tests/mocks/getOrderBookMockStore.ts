@@ -12,16 +12,19 @@ import { Product } from '../../packages/orderBook/services/network/orderBookNetw
 const ORDER_BOOK_STATE_MOCK: OrderBookState = {
   product: Product.Bitcoin_USD,
   connectionStatus: 'subscribed',
-  bids: {
-    [asPrice(34062.5)]: {
-      price: asPrice(34062.5),
-      size: asSize(1200),
+  prices: {
+    numLevels: 15,
+    bids: {
+      [asPrice(34062.5)]: {
+        price: asPrice(34062.5),
+        size: asSize(1200),
+      },
     },
-  },
-  asks: {
-    [asPrice(34079.5)]: {
-      price: asPrice(34079.5),
-      size: asSize(3356),
+    asks: {
+      [asPrice(34079.5)]: {
+        price: asPrice(34079.5),
+        size: asSize(3356),
+      },
     },
   },
 };

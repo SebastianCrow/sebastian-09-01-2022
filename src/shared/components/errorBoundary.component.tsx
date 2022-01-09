@@ -3,6 +3,7 @@ import { Text } from '../../packages/ui/text/text.component';
 import { Button } from '../../packages/ui/button/button.component';
 import { FormattedMessage } from 'react-intl';
 import styles from './errorBoundary.component.module.scss';
+import { logError } from '../services/logger/logger';
 
 type ErrorBoundaryProps = unknown;
 
@@ -29,7 +30,7 @@ export class ErrorBoundary extends Component<
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     // You can also log the error to an error reporting service
-    console.error(error, errorInfo);
+    logError(error, errorInfo);
   }
 
   private tryAgain() {

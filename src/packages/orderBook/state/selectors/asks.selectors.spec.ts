@@ -38,7 +38,13 @@ describe('asks.selectors', () => {
       outputList: ComputedPriceInfo[] | undefined
     ) => {
       const orderBook = getOrderBookMockState({
-        asks: inputRecord,
+        prices: inputRecord
+          ? {
+              numLevels: 15,
+              bids: inputRecord,
+              asks: inputRecord,
+            }
+          : undefined,
       });
       expect(selectOrderBookAsks({ orderBook })).toStrictEqual(outputList);
     }
@@ -63,7 +69,13 @@ describe('asks.selectors', () => {
       outputList: ComputedPriceInfo | undefined
     ) => {
       const orderBook = getOrderBookMockState({
-        asks: inputRecord,
+        prices: inputRecord
+          ? {
+              numLevels: 15,
+              bids: inputRecord,
+              asks: inputRecord,
+            }
+          : undefined,
       });
       expect(selectOrderBookTopAsk({ orderBook })).toStrictEqual(outputList);
     }
@@ -88,7 +100,13 @@ describe('asks.selectors', () => {
       outputList: ComputedPriceInfo | undefined
     ) => {
       const orderBook = getOrderBookMockState({
-        asks: inputRecord,
+        prices: inputRecord
+          ? {
+              numLevels: 15,
+              bids: inputRecord,
+              asks: inputRecord,
+            }
+          : undefined,
       });
       expect(selectOrderBookBottomAsk({ orderBook })).toStrictEqual(outputList);
     }

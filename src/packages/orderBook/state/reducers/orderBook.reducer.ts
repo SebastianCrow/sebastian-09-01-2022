@@ -15,14 +15,13 @@ import { computePriceInfoRecord } from '../../services/computePriceInfoRecord.se
 const initialState: OrderBookState = {
   product: Product.Bitcoin_USD,
   connectionStatus: 'unsubscribed',
-  bids: undefined,
-  asks: undefined,
+  prices: undefined,
 };
 
 const updatePriceInfoRecord = (
   priceInfoRecord: Record<Price, PriceInfo> | undefined = {},
   newPriceInfoList: PriceInfo[]
-): Record<Price, PriceInfo> | undefined => {
+): Record<Price, PriceInfo> => {
   const updatedPriceInfoRecord = { ...priceInfoRecord };
   for (const priceInfo of newPriceInfoList) {
     // Replace with the new price info
@@ -44,8 +43,7 @@ const observeProduct = (
   return {
     ...prevState,
     product: action.product,
-    bids: undefined,
-    asks: undefined,
+    prices: undefined,
   };
 };
 
@@ -65,8 +63,11 @@ const snapshotReceived = (
 ): OrderBookState => {
   return {
     ...prevState,
-    bids: computePriceInfoRecord(action.bids),
-    asks: computePriceInfoRecord(action.asks),
+    prices: {
+      numLevels: action.numLevels,
+      bids: computePriceInfoRecord(action.bids),
+      asks: computePriceInfoRecord(action.asks),
+    },
   };
 };
 
@@ -74,10 +75,17 @@ const deltaReceived = (
   prevState: OrderBookState,
   action: DeltaReceived
 ): OrderBookState => {
+  const bids = updatePriceInfoRecord(prevState.prices?.bids, action.bids);
+  const asks = updatePriceInfoRecord(prevState.prices?.asks, action.asks);
   return {
     ...prevState,
-    bids: updatePriceInfoRecord(prevState.bids, action.bids),
-    asks: updatePriceInfoRecord(prevState.asks, action.asks),
+    prices: {
+      numLevels:
+        prevState.prices?.numLevels ??
+        Math.max(Object.keys(bids).length, Object.keys(asks).length),
+      bids,
+      asks,
+    },
   };
 };
 

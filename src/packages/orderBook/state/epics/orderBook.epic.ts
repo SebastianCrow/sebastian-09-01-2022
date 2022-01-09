@@ -18,6 +18,7 @@ import {
   takeUntil,
 } from 'rxjs';
 import { prices$ as pricesNetwork$ } from '../../services/network/orderBookNetwork.service';
+import { logDebug } from '../../../../shared/services/logger/logger';
 
 /**
  * Start observing the prices network and propagate received events.
@@ -53,7 +54,7 @@ export const observeProductEpic =
                   event
                 ): SetConnectionStatus | SnapshotReceived | DeltaReceived => {
                   if (event.type === 'SubscribedReceived') {
-                    console.debug(`Subscribed: ${product}`); // TODO: Proper logger
+                    logDebug(`Subscribed: ${product}`);
                     return {
                       type: 'SetConnectionStatus',
                       connectionStatus: 'subscribed',

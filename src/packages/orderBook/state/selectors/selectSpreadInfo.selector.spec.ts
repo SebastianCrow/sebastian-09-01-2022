@@ -17,14 +17,21 @@ describe('selectSpreadInfo.selector', () => {
       outputSpread: SpreadInfo | undefined
     ) => {
       const orderBook = getOrderBookMockState({
-        bids:
-          topBidPrice !== undefined
-            ? { [topBidPrice]: { price: topBidPrice, size: asSize(1) } }
-            : undefined,
-        asks:
-          topAskPrice !== undefined
-            ? { [topAskPrice]: { price: topAskPrice, size: asSize(1) } }
-            : undefined,
+        prices: {
+          numLevels: 15,
+          bids:
+            topBidPrice !== undefined
+              ? {
+                  [topBidPrice]: { price: topBidPrice, size: asSize(1) },
+                }
+              : {},
+          asks:
+            topAskPrice !== undefined
+              ? {
+                  [topAskPrice]: { price: topAskPrice, size: asSize(1) },
+                }
+              : {},
+        },
       });
       expect(selectSpreadInfo({ orderBook })).toStrictEqual(outputSpread);
     }

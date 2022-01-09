@@ -18,7 +18,7 @@ import {
   takeUntil,
 } from 'rxjs';
 import { prices$ as pricesNetwork$ } from '../../services/network/orderBookNetwork.service';
-import { logDebug } from '../../../../shared/services/logger/logger';
+import { logDebug, logError } from '../../../../shared/services/logger/logger';
 
 /**
  * Start observing the prices network and propagate received events.
@@ -69,7 +69,8 @@ export const observeProductEpic =
                   }
                 }
               ),
-              catchError((): Observable<SetConnectionStatus> => {
+              catchError((error): Observable<SetConnectionStatus> => {
+                logError(error);
                 return of({
                   type: 'SetConnectionStatus',
                   connectionStatus: 'error',

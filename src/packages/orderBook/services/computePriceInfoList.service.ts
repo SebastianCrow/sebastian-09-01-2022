@@ -12,7 +12,7 @@ export const computePriceInfoList = (
   sort: 'asc' | 'desc',
   levelsLimit: number
 ): ComputedPriceInfo[] => {
-  const sortedList = [...Object.values(priceInfoRecord)].sort((a, b) =>
+  const sortedList = Object.values(priceInfoRecord).sort((a, b) =>
     sort === 'asc' ? a.price - b.price : b.price - a.price
   );
 

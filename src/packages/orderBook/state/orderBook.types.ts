@@ -28,14 +28,14 @@ export type ConnectionStatus =
   | 'unsubscribed'
   | 'error';
 
+interface PricesInfo {
+  numLevels: number;
+  bids: Record<Price, PriceInfo>; // Bids/buy
+  asks: Record<Price, PriceInfo>; // Asks/sell
+}
+
 export interface OrderBookState {
   product: Product;
   connectionStatus: ConnectionStatus;
-  prices:
-    | {
-        numLevels: number;
-        bids: Record<Price, PriceInfo>; // Bids/buy
-        asks: Record<Price, PriceInfo>; // Asks/sell
-      }
-    | undefined;
+  prices: PricesInfo | undefined;
 }

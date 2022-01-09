@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useMemo } from 'react';
 import {
   Table as MuiTable,
   TableBody,
@@ -24,11 +24,12 @@ export interface TableProps {
 export const Table: FunctionComponent<TableProps> = ({
   columns,
   data,
-  options: { headerVisible = true } = {},
+  options: { headerVisible = true, tableClass } = {},
 }) => {
   if (columns.length === 0) {
     throw new Error('There needs to be at least one column definition');
   }
+  const colWidth = useMemo(() => `${100 / columns.length}%`, [columns.length]);
   if (!data) {
     return (
       <div className={styles.loadingOverlay}>
@@ -38,25 +39,28 @@ export const Table: FunctionComponent<TableProps> = ({
   }
   return (
     <TableContainer>
-      <MuiTable size="small">
+      <MuiTable size="small" className={tableClass}>
         <colgroup>
           {columns.map(({ key }) => (
-            <col key={key} style={{ width: `${100 / columns.length}%` }} />
+            <col key={key} style={{ width: colWidth }} />
           ))}
         </colgroup>
         {headerVisible && (
           <TableHead>
             <TableRow className={styles.rowHeader}>
-              {columns.map(({ key, title, textAlignment = TEXT_ALIGNMENT }) => (
-                <TableCell
-                  key={key}
-                  align={textAlignment}
-                  className={styles.cell}
-                >
-                  {/* TODO: Wrap title with <Text /> if it's not a custom component */}
-                  {title}
-                </TableCell>
-              ))}
+              {columns.map(
+                ({ key, title, textAlignment = TEXT_ALIGNMENT, cellStyle }) => (
+                  <TableCell
+                    key={key}
+                    align={textAlignment}
+                    className={styles.cell}
+                    style={cellStyle}
+                  >
+                    {/* TODO: Wrap title with <Text /> if it's not a custom component */}
+                    {title}
+                  </TableCell>
+                )
+              )}
             </TableRow>
           </TableHead>
         )}
@@ -68,12 +72,23 @@ export const Table: FunctionComponent<TableProps> = ({
               style={rowStyle}
             >
               {columns.map(({ key }) => {
-                const { value, textAlignment = TEXT_ALIGNMENT } = cells[key]; // TODO: Throw if missing? ErrorBoundary?
+                const cell = cells[key];
+                if (!cell) {
+                  throw new Error(
+                    `Cell info for data id=[${id}] and column key=[${key}] not found`
+                  );
+                }
+                const {
+                  value,
+                  textAlignment = TEXT_ALIGNMENT,
+                  cellStyle,
+                } = cell;
                 return (
                   <TableCell
                     key={key}
                     align={textAlignment}
                     className={styles.cell}
+                    style={cellStyle}
                   >
                     {/* TODO: Wrap value with <Text /> if it's not a custom component */}
                     {value}

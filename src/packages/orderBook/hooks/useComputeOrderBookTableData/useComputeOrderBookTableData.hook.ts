@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { CSSProperties, useMemo } from 'react';
 import { ColumnInfo, RowInfo } from '../../../ui/table/table.types';
 import { ComputedPriceInfo, PriceDataType } from '../../state/orderBook.types';
 import { useSelectHighestTotal } from '../useSelectOrderBookState.hook';
@@ -9,6 +9,7 @@ import {
   OrderBookColumnKey,
 } from './useComputeOrderBookTableData.columns';
 import { computeRowInfo } from './useComputeOrderBookTableData.utils';
+import styles from './useComputeOrderBookTableData.hook.module.scss';
 
 export const useComputeOrderBookTableData = ({
   priceInfoList,
@@ -32,6 +33,13 @@ export const useComputeOrderBookTableData = ({
     return priceDataType === 'asks' && layout === 'mobile';
   }, [layout, priceDataType]);
 
+  const cellStyle: CSSProperties = useMemo(
+    () => ({
+      width: `${100 / Object.keys(ORDER_BOOK_COLUMNS).length}%`,
+    }),
+    []
+  );
+
   const columns: ColumnInfo[] = useMemo(() => {
     const columnsOrder: OrderBookColumnKey[] = (() => {
       if (bidsInDesktop) {
@@ -39,8 +47,11 @@ export const useComputeOrderBookTableData = ({
       }
       return ['price', 'size', 'total'];
     })();
-    return columnsOrder.map((key) => ORDER_BOOK_COLUMNS[key]);
-  }, [bidsInDesktop]);
+    return columnsOrder.map((key) => ({
+      ...ORDER_BOOK_COLUMNS[key],
+      cellStyle,
+    }));
+  }, [bidsInDesktop, cellStyle]);
 
   const data: RowInfo[] | undefined = useMemo(() => {
     const convertedPriceInfoList =
@@ -54,9 +65,17 @@ export const useComputeOrderBookTableData = ({
         priceDataType,
         highestTotal,
         bidsInDesktop,
+        cellStyle,
       })
     );
-  }, [asksInMobile, priceInfoList, priceDataType, highestTotal, bidsInDesktop]);
+  }, [
+    asksInMobile,
+    priceInfoList,
+    priceDataType,
+    highestTotal,
+    bidsInDesktop,
+    cellStyle,
+  ]);
 
   return useMemo(
     () => ({
@@ -65,8 +84,11 @@ export const useComputeOrderBookTableData = ({
       options: bidsInMobile
         ? {
             headerVisible: false,
+            tableClass: styles.table,
           }
-        : undefined,
+        : {
+            tableClass: styles.table,
+          },
     }),
     [bidsInMobile, columns, data]
   );

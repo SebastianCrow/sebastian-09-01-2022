@@ -6,7 +6,7 @@ import {
 import { Text, TextColor } from '../../../ui/text/text.component';
 import { RowInfo } from '../../../ui/table/table.types';
 import { FormattedNumber } from '../../../../translations/components/formattedNumber.component';
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { isFeatureFlagEnabled } from '../../../../shared/services/featureFlags/featureFlags.service';
 import { FeatureFlag } from '../../../../shared/services/featureFlags/featureFlags.types';
 import { computeHighlightBarBackgroundBar } from '../../services/computeHighlightBarLinearGradient';
@@ -22,11 +22,13 @@ export const computeRowInfo = ({
   priceDataType,
   highestTotal,
   bidsInDesktop,
+  cellStyle,
 }: {
   priceInfo: ComputedPriceInfo;
   priceDataType: PriceDataType;
   highestTotal: Total | undefined;
   bidsInDesktop: boolean;
+  cellStyle?: CSSProperties;
 }): RowInfo => {
   return {
     id: price.toString(),
@@ -37,6 +39,7 @@ export const computeRowInfo = ({
             <FormattedNumber value={price} fractionDigits={2} />
           </Text>
         ),
+        cellStyle,
       },
       size: {
         value: (
@@ -44,6 +47,7 @@ export const computeRowInfo = ({
             <FormattedNumber value={size} />
           </Text>
         ),
+        cellStyle,
       },
       total: {
         value: (
@@ -51,6 +55,7 @@ export const computeRowInfo = ({
             <FormattedNumber value={total} />
           </Text>
         ),
+        cellStyle,
       },
     },
     ...(linearGradientFeatureEnabled

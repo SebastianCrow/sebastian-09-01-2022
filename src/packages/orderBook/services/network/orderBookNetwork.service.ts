@@ -45,12 +45,12 @@ export const prices$ = (
         if (isSubscribedResponseDto(dto) && dto.product_ids.length) {
           subscriber.next({
             type: 'SubscribedReceived',
-            product: convertProductIdToProduct(dto.product_ids[0]), // TODO: Is that correct?
+            product: convertProductIdToProduct(dto.product_ids[0]),
           });
         } else if (isUnsubscribedResponseDto(dto) && dto.product_ids.length) {
           subscriber.next({
             type: 'UnsubscribedReceived',
-            product: convertProductIdToProduct(dto.product_ids[0]), // TODO: Is that correct?
+            product: convertProductIdToProduct(dto.product_ids[0]),
           });
         } else if (isSnapshotResponseDto(dto)) {
           subscriber.next({

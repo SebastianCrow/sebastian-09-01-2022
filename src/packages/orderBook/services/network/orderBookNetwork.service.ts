@@ -1,10 +1,8 @@
 import { webSocket } from 'rxjs/webSocket';
 import memoizeOne from 'memoize-one';
-import { throttle } from 'lodash';
 import { Product, ReceivedEvents } from './orderBookNetwork.types';
-import { Observable, Subject, Subscriber } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import {
-  DeltaResponseDto,
   isDeltaResponseDto,
   isSnapshotResponseDto,
   isSubscribedResponseDto,
@@ -16,14 +14,8 @@ import {
 } from './dto/orderBook.dto';
 import { convertProductIdToProduct } from './converters/convertProductIdToProduct.converter';
 import { convertPriceDtoToPriceInfo } from './converters/convertPriceDtoToPriceInfo.converter';
-import { getFeatureValue } from '../../../../shared/services/featureFlags/featureFlags.service';
-import { FeatureValue } from '../../../../shared/services/featureFlags/featureFlags.types';
 
 const WEB_SOCKET_ENDPOINT = 'wss://www.cryptofacilities.com/ws/v1';
-
-const RECEIVED_EVENTS_THROTTLE_DURATION = parseInt(
-  getFeatureValue(FeatureValue.OrderBook_throttle_duration, '100')
-);
 
 const getWebSocketSubject = memoizeOne(() =>
   webSocket<OrderBookRequestDto | OrderBookResponseDto>(WEB_SOCKET_ENDPOINT)
@@ -36,18 +28,6 @@ export const prices$ = ({
   products: Product[];
   networkSubject?: Subject<OrderBookRequestDto | OrderBookResponseDto>;
 }): Observable<ReceivedEvents> => {
-  const onDeltaResponseThrottled = throttle(
-    (dto: DeltaResponseDto, subscriber: Subscriber<ReceivedEvents>) => {
-      subscriber.next({
-        type: 'DeltaReceived',
-        product: convertProductIdToProduct(dto.product_id),
-        bids: dto.bids.map(convertPriceDtoToPriceInfo),
-        asks: dto.asks.map(convertPriceDtoToPriceInfo),
-      });
-    },
-    RECEIVED_EVENTS_THROTTLE_DURATION
-  );
-
   return new Observable<ReceivedEvents>((subscriber) => {
     // Propagate events
     networkSubject.subscribe({
@@ -75,7 +55,12 @@ export const prices$ = ({
             asks: dto.asks.map(convertPriceDtoToPriceInfo),
           });
         } else if (isDeltaResponseDto(dto)) {
-          onDeltaResponseThrottled(dto, subscriber);
+          subscriber.next({
+            type: 'DeltaReceived',
+            product: convertProductIdToProduct(dto.product_id),
+            bids: dto.bids.map(convertPriceDtoToPriceInfo),
+            asks: dto.asks.map(convertPriceDtoToPriceInfo),
+          });
         }
       },
       error: (err) => subscriber.error(err),

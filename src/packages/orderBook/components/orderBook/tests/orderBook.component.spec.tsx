@@ -25,8 +25,8 @@ describe('orderBook.component', () => {
     );
 
     expect(renderer.toJSON()).toMatchSnapshot();
-    expect(renderer.root.findAllByType(OrderBookHeader)).toHaveLength(1);
+    expect(renderer.root.findAllByType(OrderBookHeader)).toHaveLength(0);
     expect(renderer.root.findAllByType(OrderBookContent)).toHaveLength(0);
-    expect(renderer.root.findAllByType(OrderBookFooter)).toHaveLength(1);
+    expect(renderer.root.findAllByType(OrderBookFooter)).toHaveLength(0);
   });
 });

@@ -1,8 +1,11 @@
 import { PriceInfo } from './network/orderBookNetwork.types';
 import { asTotal, ComputedPriceInfo, Price } from '../state/orderBook.types';
+import { getFeatureValue } from '../../../shared/services/featureFlags/featureFlags.service';
+import { FeatureValue } from '../../../shared/services/featureFlags/featureFlags.types';
 
-// TODO: Dynamic limit based on device screen size
-const TODO_ITEMS_LIMIT = 15;
+const LEVELS_LIMIT = parseInt(
+  getFeatureValue(FeatureValue.OrderBook_levels_limit, '15')
+);
 
 export const computePriceInfoList = (
   priceInfoRecord: Record<Price, PriceInfo>,
@@ -22,5 +25,5 @@ export const computePriceInfoList = (
         total: asTotal(total),
       };
     })
-    .slice(0, TODO_ITEMS_LIMIT);
+    .slice(0, LEVELS_LIMIT);
 };

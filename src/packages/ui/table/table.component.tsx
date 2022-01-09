@@ -13,7 +13,7 @@ import styles from './table.component.module.scss';
 import { Loader } from '../loader/loader.component';
 import cns from 'classnames';
 
-// TODO: Forbid using '@mui/material' directly outside of the ui package
+// TODO: Forbid using `@mui/material` directly outside of the `ui` package with ESLint
 
 export interface TableProps {
   columns: ColumnInfo[];

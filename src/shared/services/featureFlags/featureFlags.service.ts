@@ -1,4 +1,4 @@
-import { FeatureFlag } from './featureFlags.types';
+import { FeatureFlag, FeatureValue } from './featureFlags.types';
 
 /**
  * Simple mechanism to check whether the given feature flag is enabled.
@@ -7,4 +7,15 @@ import { FeatureFlag } from './featureFlags.types';
  */
 export const isFeatureFlagEnabled = (flag: FeatureFlag): boolean => {
   return Boolean(localStorage.getItem(flag));
+};
+
+/**
+ * Simple mechanism to get dynamic value behind the particular key.
+ * TODO: Replace with the real dynamic values mechanism
+ */
+export const getFeatureValue = (
+  value: FeatureValue,
+  defaultValue: string
+): string => {
+  return localStorage.getItem(value) ?? defaultValue;
 };

@@ -36,25 +36,27 @@ export const observeProductEpic =
         > => {
           return merge(
             of({
-              type: 'SetConnectionStatus' as const, // TODO: Is it required?
-              connectionStatus: 'subscribing' as const, // TODO: Is it required?
+              type: 'SetConnectionStatus' as const,
+              connectionStatus: 'subscribing' as const,
             }),
-            prices$([product]).pipe(
+            prices$({
+              products: [product],
+            }).pipe(
               filter((event) => {
                 // Ignore late events coming for the previous product
                 return product === event.product;
               }),
               map((event) => {
                 if (event.type === 'SubscribedReceived') {
-                  console.debug(`Subscribed: ${product}`); // TODO: Logger
+                  console.debug(`Subscribed: ${product}`); // TODO: Proper logger
                   return {
-                    type: 'SetConnectionStatus' as const, // TODO: Is it required?
-                    connectionStatus: 'subscribed' as const, // TODO: Is it required?
+                    type: 'SetConnectionStatus' as const,
+                    connectionStatus: 'subscribed' as const,
                   };
                 } else if (event.type === 'UnsubscribedReceived') {
                   return {
-                    type: 'SetConnectionStatus' as const, // TODO: Is it required?
-                    connectionStatus: 'unsubscribed' as const, // TODO: Is it required?
+                    type: 'SetConnectionStatus' as const,
+                    connectionStatus: 'unsubscribed' as const,
                   };
                 } else {
                   return event;
@@ -62,8 +64,8 @@ export const observeProductEpic =
               }),
               catchError(() => {
                 return of({
-                  type: 'SetConnectionStatus' as const, // TODO: Is it required?
-                  connectionStatus: 'error' as const, // TODO: Is it required?
+                  type: 'SetConnectionStatus' as const,
+                  connectionStatus: 'error' as const,
                 });
               }),
               takeUntil(action$.pipe(ofType('StopObservingProduct')))

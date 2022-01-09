@@ -5,7 +5,7 @@ import {
   asSize,
   OrderBookState,
 } from '../../packages/orderBook/state/orderBook.types';
-import { createEpicMiddleware } from 'redux-observable';
+import { createEpicMiddleware, Epic } from 'redux-observable';
 import { rootEpic } from '../../shared/state/rootEpic';
 import { Product } from '../../packages/orderBook/services/network/orderBookNetwork.types';
 
@@ -36,7 +36,6 @@ export const getOrderBookMockState = (
 export const getOrderBookMockStore = (
   state?: Partial<OrderBookState>
 ): MockStoreEnhanced<AppState> => {
-  // TODO: Are Epics needed here?
   const epicMiddleware = createEpicMiddleware();
   const mockStore = configureMockStore<AppState>([epicMiddleware]);
 
@@ -47,7 +46,7 @@ export const getOrderBookMockStore = (
   };
 
   const store = mockStore(appState);
-  epicMiddleware.run(rootEpic);
+  epicMiddleware.run(rootEpic as Epic);
 
   return store;
 };

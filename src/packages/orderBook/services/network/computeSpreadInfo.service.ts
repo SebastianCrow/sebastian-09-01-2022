@@ -18,6 +18,6 @@ export const computeSpreadInfo = ({
   const value = askPrice - bidPrice;
   return {
     value,
-    percent: computePercent(value, askPrice), // TODO: Clarify whether the computations are correct
+    percent: computePercent(value, askPrice),
   };
 };

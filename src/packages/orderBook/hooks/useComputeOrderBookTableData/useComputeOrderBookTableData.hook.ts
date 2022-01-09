@@ -56,7 +56,7 @@ export const useComputeOrderBookTableData = ({
   const data: RowInfo[] | undefined = useMemo(() => {
     const convertedPriceInfoList =
       asksInMobile && priceInfoList
-        ? [...priceInfoList].reverse() // TODO: Is it the best place?
+        ? [...priceInfoList].reverse()
         : priceInfoList;
 
     return convertedPriceInfoList?.map((priceInfo) =>

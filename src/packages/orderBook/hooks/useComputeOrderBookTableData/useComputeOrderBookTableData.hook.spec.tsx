@@ -20,12 +20,29 @@ describe('useComputeOrderBookTableData.hook', () => {
       );
       const output: TableProps = {
         columns: [
-          ORDER_BOOK_COLUMNS.total,
-          ORDER_BOOK_COLUMNS.size,
-          ORDER_BOOK_COLUMNS.price,
+          {
+            ...ORDER_BOOK_COLUMNS.total,
+            cellStyle: {
+              width: '33.333333333333336%',
+            },
+          },
+          {
+            ...ORDER_BOOK_COLUMNS.size,
+            cellStyle: {
+              width: '33.333333333333336%',
+            },
+          },
+          {
+            ...ORDER_BOOK_COLUMNS.price,
+            cellStyle: {
+              width: '33.333333333333336%',
+            },
+          },
         ],
         data: undefined,
-        options: undefined,
+        options: {
+          tableClass: 'table',
+        },
       };
       expect(result.current).toStrictEqual(output);
     });
@@ -54,9 +71,24 @@ describe('useComputeOrderBookTableData.hook', () => {
       );
       const output: TableProps = {
         columns: [
-          ORDER_BOOK_COLUMNS.total,
-          ORDER_BOOK_COLUMNS.size,
-          ORDER_BOOK_COLUMNS.price,
+          {
+            ...ORDER_BOOK_COLUMNS.total,
+            cellStyle: {
+              width: '33.333333333333336%',
+            },
+          },
+          {
+            ...ORDER_BOOK_COLUMNS.size,
+            cellStyle: {
+              width: '33.333333333333336%',
+            },
+          },
+          {
+            ...ORDER_BOOK_COLUMNS.price,
+            cellStyle: {
+              width: '33.333333333333336%',
+            },
+          },
         ],
         data: [
           {
@@ -67,12 +99,21 @@ describe('useComputeOrderBookTableData.hook', () => {
               price: {
                 // TODO: Stricter checks for React elements
                 value: expect.any(Object),
+                cellStyle: {
+                  width: '33.333333333333336%',
+                },
               },
               size: {
                 value: expect.any(Object),
+                cellStyle: {
+                  width: '33.333333333333336%',
+                },
               },
               total: {
                 value: expect.any(Object),
+                cellStyle: {
+                  width: '33.333333333333336%',
+                },
               },
             },
           },
@@ -83,20 +124,31 @@ describe('useComputeOrderBookTableData.hook', () => {
             cells: {
               price: {
                 value: expect.any(Object),
+                cellStyle: {
+                  width: '33.333333333333336%',
+                },
               },
               size: {
                 value: expect.any(Object),
+                cellStyle: {
+                  width: '33.333333333333336%',
+                },
               },
               total: {
                 value: expect.any(Object),
+                cellStyle: {
+                  width: '33.333333333333336%',
+                },
               },
             },
           },
         ],
-        options: undefined,
+        options: {
+          tableClass: 'table',
+        },
       };
 
-      expect(result.current).toMatchObject(output);
+      expect(result.current).toStrictEqual(output);
     });
   });
 
@@ -114,12 +166,29 @@ describe('useComputeOrderBookTableData.hook', () => {
       );
       const output: TableProps = {
         columns: [
-          ORDER_BOOK_COLUMNS.price,
-          ORDER_BOOK_COLUMNS.size,
-          ORDER_BOOK_COLUMNS.total,
+          {
+            ...ORDER_BOOK_COLUMNS.price,
+            cellStyle: {
+              width: '33.333333333333336%',
+            },
+          },
+          {
+            ...ORDER_BOOK_COLUMNS.size,
+            cellStyle: {
+              width: '33.333333333333336%',
+            },
+          },
+          {
+            ...ORDER_BOOK_COLUMNS.total,
+            cellStyle: {
+              width: '33.333333333333336%',
+            },
+          },
         ],
         data: undefined,
-        options: undefined,
+        options: {
+          tableClass: 'table',
+        },
       };
       expect(result.current).toStrictEqual(output);
     });
@@ -148,9 +217,24 @@ describe('useComputeOrderBookTableData.hook', () => {
       );
       const output: TableProps = {
         columns: [
-          ORDER_BOOK_COLUMNS.price,
-          ORDER_BOOK_COLUMNS.size,
-          ORDER_BOOK_COLUMNS.total,
+          {
+            ...ORDER_BOOK_COLUMNS.price,
+            cellStyle: {
+              width: '33.333333333333336%',
+            },
+          },
+          {
+            ...ORDER_BOOK_COLUMNS.size,
+            cellStyle: {
+              width: '33.333333333333336%',
+            },
+          },
+          {
+            ...ORDER_BOOK_COLUMNS.total,
+            cellStyle: {
+              width: '33.333333333333336%',
+            },
+          },
         ],
         data: [
           {
@@ -161,12 +245,21 @@ describe('useComputeOrderBookTableData.hook', () => {
               price: {
                 // TODO: Stricter checks for React elements
                 value: expect.any(Object),
+                cellStyle: {
+                  width: '33.333333333333336%',
+                },
               },
               size: {
                 value: expect.any(Object),
+                cellStyle: {
+                  width: '33.333333333333336%',
+                },
               },
               total: {
                 value: expect.any(Object),
+                cellStyle: {
+                  width: '33.333333333333336%',
+                },
               },
             },
           },
@@ -177,20 +270,31 @@ describe('useComputeOrderBookTableData.hook', () => {
             cells: {
               price: {
                 value: expect.any(Object),
+                cellStyle: {
+                  width: '33.333333333333336%',
+                },
               },
               size: {
                 value: expect.any(Object),
+                cellStyle: {
+                  width: '33.333333333333336%',
+                },
               },
               total: {
                 value: expect.any(Object),
+                cellStyle: {
+                  width: '33.333333333333336%',
+                },
               },
             },
           },
         ],
-        options: undefined,
+        options: {
+          tableClass: 'table',
+        },
       };
 
-      expect(result.current).toMatchObject(output);
+      expect(result.current).toStrictEqual(output);
     });
   });
 });

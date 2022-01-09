@@ -1,3 +1,6 @@
+// TODO: Unfortunately, there is a nasty bug in Safari where the display: table-row elements don't render the background-size correctly.
+// Let's use the customized displays for the table elements for now to display the highlight bars correctly.
+// https://stackoverflow.com/a/54432971/3945641
 .table {
   display: block !important;
 

@@ -2,30 +2,40 @@ import { webSocket } from 'rxjs/webSocket';
 import memoizeOne from 'memoize-one';
 import { throttle } from 'lodash';
 import { Product, ReceivedEvents } from './orderBookNetwork.types';
-import { EMPTY, Observable, Subscriber, takeUntil } from 'rxjs';
+import { Observable, Subject, Subscriber } from 'rxjs';
 import {
   DeltaResponseDto,
   isDeltaResponseDto,
   isSnapshotResponseDto,
   isSubscribedResponseDto,
   isUnsubscribedResponseDto,
+  OrderBookRequestDto,
+  OrderBookResponseDto,
   SubscribeRequestDto,
   UnsubscribeRequestDto,
 } from './dto/orderBook.dto';
 import { convertProductIdToProduct } from './converters/convertProductIdToProduct.converter';
 import { convertPriceDtoToPriceInfo } from './converters/convertPriceDtoToPriceInfo.converter';
+import { getFeatureValue } from '../../../../shared/services/featureFlags/featureFlags.service';
+import { FeatureValue } from '../../../../shared/services/featureFlags/featureFlags.types';
 
 const WEB_SOCKET_ENDPOINT = 'wss://www.cryptofacilities.com/ws/v1';
 
-// TODO: Throttling based on device performance
-const RECEIVED_EVENTS_THROTTLE_DURATION = 100;
+const RECEIVED_EVENTS_THROTTLE_DURATION = parseInt(
+  getFeatureValue(FeatureValue.OrderBook_throttle_duration, '100')
+);
 
-export const prices$ = (
-  products: Product[],
-  cancel$?: Observable<void>
-): Observable<ReceivedEvents> => {
-  const subject = getWebSocketSubject();
+const getWebSocketSubject = memoizeOne(() =>
+  webSocket<OrderBookRequestDto | OrderBookResponseDto>(WEB_SOCKET_ENDPOINT)
+);
 
+export const prices$ = ({
+  products,
+  networkSubject = getWebSocketSubject(),
+}: {
+  products: Product[];
+  networkSubject?: Subject<OrderBookRequestDto | OrderBookResponseDto>;
+}): Observable<ReceivedEvents> => {
   const onDeltaResponseThrottled = throttle(
     (dto: DeltaResponseDto, subscriber: Subscriber<ReceivedEvents>) => {
       subscriber.next({
@@ -38,20 +48,24 @@ export const prices$ = (
     RECEIVED_EVENTS_THROTTLE_DURATION
   );
 
-  const events$ = new Observable<ReceivedEvents>((subscriber) => {
+  return new Observable<ReceivedEvents>((subscriber) => {
     // Propagate events
-    subject.subscribe({
+    networkSubject.subscribe({
       next: (dto) => {
         if (isSubscribedResponseDto(dto) && dto.product_ids.length) {
-          subscriber.next({
-            type: 'SubscribedReceived',
-            product: convertProductIdToProduct(dto.product_ids[0]),
-          });
+          for (const productId of dto.product_ids) {
+            subscriber.next({
+              type: 'SubscribedReceived',
+              product: convertProductIdToProduct(productId),
+            });
+          }
         } else if (isUnsubscribedResponseDto(dto) && dto.product_ids.length) {
-          subscriber.next({
-            type: 'UnsubscribedReceived',
-            product: convertProductIdToProduct(dto.product_ids[0]),
-          });
+          for (const productId of dto.product_ids) {
+            subscriber.next({
+              type: 'UnsubscribedReceived',
+              product: convertProductIdToProduct(productId),
+            });
+          }
         } else if (isSnapshotResponseDto(dto)) {
           subscriber.next({
             type: 'SnapshotReceived',
@@ -74,7 +88,7 @@ export const prices$ = (
       feed: 'book_ui_1',
       product_ids: products,
     };
-    subject.next(subscribeEvent);
+    networkSubject.next(subscribeEvent);
 
     return () => {
       // Unsubscribe from listening the product ids
@@ -83,12 +97,7 @@ export const prices$ = (
         feed: 'book_ui_1',
         product_ids: products,
       };
-      subject.next(unsubscribeEvent);
+      networkSubject.next(unsubscribeEvent);
     };
   });
-  return events$.pipe(takeUntil(cancel$ ?? EMPTY));
 };
-
-const getWebSocketSubject = memoizeOne(() =>
-  webSocket<any>(WEB_SOCKET_ENDPOINT)
-); // TODO: Casting

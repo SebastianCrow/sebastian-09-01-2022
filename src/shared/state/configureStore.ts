@@ -1,18 +1,19 @@
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { createEpicMiddleware } from 'redux-observable';
+import { createEpicMiddleware, Epic } from 'redux-observable';
 import { AppState, rootReducer } from './rootReducer';
 import { rootEpic } from './rootEpic';
 import { Store } from '@reduxjs/toolkit';
+import { OrderBookActions } from '../../packages/orderBook/state/orderBook.actions';
 
-export const configureStore = (): Store<AppState> => {
+export const configureStore = (): Store<AppState, OrderBookActions> => {
   const epicMiddleware = createEpicMiddleware();
 
-  const store = createStore<AppState, any, unknown, unknown>( // TODO: any
+  const store = createStore<AppState, OrderBookActions, unknown, unknown>(
     rootReducer,
     composeWithDevTools(applyMiddleware(epicMiddleware))
   );
-  epicMiddleware.run(rootEpic);
+  epicMiddleware.run(rootEpic as Epic);
 
   return store;
 };

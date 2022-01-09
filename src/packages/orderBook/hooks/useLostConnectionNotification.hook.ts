@@ -25,7 +25,6 @@ export const useLostConnectionNotification = (
     }
     if (FAULTY_STATUSES.includes(connectionStatus)) {
       setNotification({
-        // TODO: Improve ESLint and Prettier
         message: "Ups... we've lost connection. Sorry.", // eslint-disable-line quotes
         severity: 'error',
         action: {

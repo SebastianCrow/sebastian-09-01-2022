@@ -33,7 +33,8 @@
     "eject": "react-scripts eject",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "sanity": "yarn lint",
-    "serve:prod": "serve -s build"
+    "serve:prod": "serve -s build",
+    "snapshots:clean": "find . -name '__snapshots__' -exec rm -r {} \\;"
   },
   "browserslist": {
     "production": [

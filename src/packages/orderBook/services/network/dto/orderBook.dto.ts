@@ -64,21 +64,21 @@ export interface DeltaResponseDto {
 /* Type Guards */
 
 export const isSubscribedResponseDto = (
-  dto: OrderBookResponseDto
+  dto: OrderBookRequestDto | OrderBookResponseDto
 ): dto is SubscribedResponseDto => {
   const { event } = dto as SubscribedResponseDto;
   return event === 'subscribed';
 };
 
 export const isUnsubscribedResponseDto = (
-  dto: OrderBookResponseDto
+  dto: OrderBookRequestDto | OrderBookResponseDto
 ): dto is UnsubscribedResponseDto => {
   const { event } = dto as UnsubscribedResponseDto;
   return event === 'unsubscribed';
 };
 
 export const isSnapshotResponseDto = (
-  dto: OrderBookResponseDto
+  dto: OrderBookRequestDto | OrderBookResponseDto
 ): dto is SnapshotResponseDto => {
   const castedDto = dto as SnapshotResponseDto;
   return Boolean(
@@ -89,7 +89,7 @@ export const isSnapshotResponseDto = (
 };
 
 export const isDeltaResponseDto = (
-  dto: OrderBookResponseDto
+  dto: OrderBookRequestDto | OrderBookResponseDto
 ): dto is DeltaResponseDto => {
   const castedDto = dto as DeltaResponseDto;
   return Boolean(

@@ -1,20 +1,16 @@
 import React from 'react';
-import { act, ReactTestRenderer } from 'react-test-renderer';
 import { createRendererWithOrderBookStore } from '../../../tests/utils/createRendererWithOrderBookStore.util';
 import { findByDataTestId } from '../../../../../tests/utils/findByDataTestId.util';
 import { OrderBookFooter } from '../orderBookFooter.component';
 import { renderWithOrderBookStore } from '../../../tests/utils/renderWithOrderBookStore.util';
 import { fireEvent } from '@testing-library/react';
+import { Product } from '../../../services/network/orderBookNetwork.types';
 
 describe('orderBookFooter.component', () => {
-  let renderer: ReactTestRenderer;
-
   test('renders', () => {
-    act(() => {
-      renderer = createRendererWithOrderBookStore(
-        <OrderBookFooter observeProduct={jest.fn()} />
-      );
-    });
+    const renderer = createRendererWithOrderBookStore(
+      <OrderBookFooter observeProduct={jest.fn()} />
+    );
 
     expect(renderer.toJSON()).toMatchSnapshot();
     expect(findByDataTestId(renderer.root, 'toggle-feed-button')).toBeTruthy();
@@ -22,7 +18,6 @@ describe('orderBookFooter.component', () => {
 
   test('toggle feed button triggers feed observation', () => {
     const observeProduct = jest.fn();
-    // TODO: Is act() required?
     const { getByTestId } = renderWithOrderBookStore(
       <OrderBookFooter observeProduct={observeProduct} />
     );
@@ -35,6 +30,6 @@ describe('orderBookFooter.component', () => {
     );
     expect(observeProduct).toHaveBeenCalledTimes(1);
     // Product has been toggled
-    expect(observeProduct).toHaveBeenCalledWith('Ethereum');
+    expect(observeProduct).toHaveBeenCalledWith(Product.Ethereum_USD);
   });
 });

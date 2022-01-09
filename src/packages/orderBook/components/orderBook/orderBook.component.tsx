@@ -11,11 +11,16 @@ export const OrderBook: FunctionComponent = () => {
   const { connectionStatus } = useSelectOrderBookState();
   const { observeProduct } = useConnectionManager();
 
+  // In case of error, a notification with reconnect button will be displayed
+  if (connectionStatus === 'error') {
+    return null;
+  }
+
   return (
     <ErrorBoundary>
       <div className={styles.container}>
         <OrderBookHeader />
-        {connectionStatus !== 'error' && <OrderBookContent />}
+        <OrderBookContent />
         <OrderBookFooter observeProduct={observeProduct} />
       </div>
     </ErrorBoundary>

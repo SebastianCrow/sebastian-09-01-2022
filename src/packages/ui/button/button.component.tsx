@@ -3,6 +3,8 @@ import cns from 'classnames';
 import { Button as MuiButton } from '@mui/material';
 import styles from './button.component.module.scss';
 
+// TODO: Ensure that all used UI elements are accessible (like using `aria-*` attributes)
+
 const computeMuiVariant = (
   variant: ButtonVariant
 ): 'contained' | 'text' | 'outlined' => {

@@ -1,6 +1,7 @@
 .alert {
+  align-items: center;
+
   :global(.MuiAlert-action) {
-    align-items: center;
     padding-top: 0;
   }
 }

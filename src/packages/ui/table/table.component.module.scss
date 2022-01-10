@@ -1,6 +1,7 @@
 @import '../../../styles/variables';
 @import '../../../styles/themes/dark';
 
+$padding-vertical: 4px;
 $padding-horizontal-cell: 5 * $spacing;
 
 .loadingOverlay {
@@ -11,6 +12,9 @@ $padding-horizontal-cell: 5 * $spacing;
 }
 
 .cellBase {
+  padding-top: $padding-vertical;
+  padding-bottom: $padding-vertical;
+
   &:first-of-type {
     padding-left: $padding-horizontal-cell;
   }

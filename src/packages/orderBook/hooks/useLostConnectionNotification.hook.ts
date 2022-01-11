@@ -24,7 +24,7 @@ export const useLostConnectionNotification = (
 
   const prevConnectionStatus = usePrevious(connectionStatus);
   useEffect(() => {
-    if (!prevConnectionStatus || prevConnectionStatus === connectionStatus) {
+    if (prevConnectionStatus === connectionStatus) {
       return;
     }
     if (FAULTY_STATUSES.includes(connectionStatus)) {

@@ -1,25 +1,14 @@
-// TODO: Unfortunately, there is a nasty bug in Safari where the display: table-row elements don't render the background-size correctly.
-// Let's use the customized displays for the table elements for now to display the highlight bars correctly.
-// https://stackoverflow.com/a/54432971/3945641
-.table {
-  display: block !important;
-
-  thead, tbody {
-    display: block;
-  }
-
-  tr {
-    display: flex;
-  }
+// Approach with the existing background images is more performant than the programmatically generated `background: linear-gradient`
+.rowBase {
+  background-repeat: no-repeat;
 }
 
-// Approach with the existing background images is more performant than the programmatically generated `background: linear-gradient`
 .rowBid {
+  @extend .rowBase;
   background-image: url('../../../../../resources/orderBook/highlightBids.png');
-  background-repeat: no-repeat;
 }
 
 .rowAsk {
+  @extend .rowBase;
   background-image: url('../../../../../resources/orderBook/highlightAsks.png');
-  background-repeat: no-repeat;
 }

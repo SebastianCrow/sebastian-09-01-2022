@@ -1,8 +1,9 @@
 @import '../../../styles/variables';
 @import '../../../styles/themes/dark';
 
-$padding-vertical: 4px;
-$padding-horizontal-cell: 5 * $spacing;
+$cell-padding-vertical: 0.5 * $spacing;
+$cell-padding-horizontal: 2 * $spacing;
+$cell-padding-horizontal-edge: 5 * $spacing;
 
 .loadingOverlay {
   display: flex;
@@ -12,18 +13,27 @@ $padding-horizontal-cell: 5 * $spacing;
 }
 
 .cellBase {
-  padding-top: $padding-vertical;
-  padding-bottom: $padding-vertical;
+  padding: $cell-padding-vertical $cell-padding-horizontal;
 
   &:first-of-type {
-    padding-left: $padding-horizontal-cell;
+    padding-left: $cell-padding-horizontal-edge;
   }
   &:last-of-type {
-    padding-right: $padding-horizontal-cell;
+    padding-right: $cell-padding-horizontal-edge;
+  }
+
+  &.alignRight {
+    text-align: right;
   }
 }
 
+.rowBase {
+  display: flex;
+}
+
 .rowHeader {
+  @extend .rowBase;
+
   .cell {
     @extend .cellBase;
 
@@ -36,6 +46,8 @@ $padding-horizontal-cell: 5 * $spacing;
 }
 
 .rowData {
+  @extend .rowBase;
+
   .cell {
     @extend .cellBase;
     border-bottom: none;

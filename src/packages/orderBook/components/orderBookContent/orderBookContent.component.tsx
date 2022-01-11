@@ -7,22 +7,23 @@ import { OrderBookTable } from '../orderBookTable/orderBookTable.component';
 import {
   useSelectOrderBookAsks,
   useSelectOrderBookBids,
+  useSelectOrderBookState,
 } from '../../hooks/useSelectOrderBookState.hook';
 
 export const OrderBookContent: FunctionComponent = () => {
+  const { connectionStatus } = useSelectOrderBookState();
+
   const bids = useSelectOrderBookBids();
   const asks = useSelectOrderBookAsks();
 
-  const dataLoaded = Boolean(bids && asks);
-
   return (
     <div className={styles.tablesContainer}>
-      {!dataLoaded && (
+      {connectionStatus === 'subscribing' && (
         <div className={styles.loadingOverlay}>
           <Loader />
         </div>
       )}
-      {bids && asks && (
+      {connectionStatus !== 'subscribing' && bids && asks && (
         <div className={styles.tablesContent}>
           <div className={styles.tableColumn}>
             <OrderBookTable priceInfoList={bids} priceDataType="bids" />

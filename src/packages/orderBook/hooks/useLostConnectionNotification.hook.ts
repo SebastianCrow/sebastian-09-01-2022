@@ -1,9 +1,10 @@
+import { useCallback, useEffect } from 'react';
 import { useSelectOrderBookState } from './useSelectOrderBookState.hook';
 import { usePrevious } from '../../../shared/hooks/usePrevious.hook';
-import { useCallback, useEffect } from 'react';
 import { useSetNotification } from '../../ui/notification/useSetNotification.hook';
 import { Product } from '../services/network/orderBookNetwork.types';
 import { ConnectionStatus } from '../state/orderBook.types';
+import { useIntl } from 'react-intl';
 
 const FAULTY_STATUSES: ConnectionStatus[] = ['unsubscribed', 'error'];
 
@@ -16,6 +17,7 @@ export const useLostConnectionNotification = (
 ): void => {
   const setNotification = useSetNotification();
 
+  const { formatMessage } = useIntl();
   const { product, connectionStatus } = useSelectOrderBookState();
 
   const reconnect = useCallback(() => {
@@ -29,7 +31,9 @@ export const useLostConnectionNotification = (
     }
     if (FAULTY_STATUSES.includes(connectionStatus)) {
       setNotification({
-        message: "Ups... we've lost connection. Sorry.", // eslint-disable-line quotes
+        message: formatMessage({
+          id: 'Ups... connection is not established. Sorry.', // eslint-disable-line quotes
+        }),
         severity: 'error',
         action: {
           title: 'Reconnect',
@@ -39,5 +43,11 @@ export const useLostConnectionNotification = (
     } else {
       setNotification(undefined);
     }
-  }, [connectionStatus, prevConnectionStatus, reconnect, setNotification]);
+  }, [
+    connectionStatus,
+    prevConnectionStatus,
+    reconnect,
+    formatMessage,
+    setNotification,
+  ]);
 };

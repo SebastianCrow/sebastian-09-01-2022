@@ -4,7 +4,6 @@ export interface ColumnInfo {
   key: string;
   title: ReactNode;
   textAlignment?: TextAlignment;
-  cellStyle?: CSSProperties;
 }
 
 export interface RowInfo {
@@ -17,12 +16,10 @@ export interface RowInfo {
 interface CellInfo {
   value: ReactNode;
   textAlignment?: TextAlignment;
-  cellStyle?: CSSProperties;
 }
 
 export type TextAlignment = 'left' | 'right';
 
 export interface TableInfo {
   headerVisible?: boolean;
-  tableClass?: string;
 }

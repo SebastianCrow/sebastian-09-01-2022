@@ -13,5 +13,10 @@ export const createRendererWithStore = (
   Component: ReactElement,
   store: MockStoreEnhanced<AppState>
 ) => {
-  return create(<AppProviders store={store}>{Component}</AppProviders>);
+  return create(<AppProviders store={store}>{Component}</AppProviders>, {
+    // Required for Mui library testing: https://github.com/mui-org/material-ui/issues/17119#issuecomment-524266401
+    createNodeMock: (node) => {
+      return document.createElement(node.type as string);
+    },
+  });
 };

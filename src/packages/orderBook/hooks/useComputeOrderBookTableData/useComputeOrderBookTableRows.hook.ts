@@ -1,11 +1,5 @@
 import { RowInfo } from '../../../ui/table/table.types';
-import {
-  CSSProperties,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   ComputedPriceInfo,
   PriceDataType,
@@ -29,12 +23,10 @@ export const useComputeOrderBookTableRows = ({
   priceInfoList,
   priceDataType,
   layout,
-  cellStyle,
 }: {
   priceInfoList: ComputedPriceInfo[] | undefined;
   priceDataType: PriceDataType;
   layout: Layout;
-  cellStyle: CSSProperties;
 }): RowInfo[] | undefined => {
   const [rows, setRows] = useState<RowInfo[]>();
 
@@ -63,12 +55,11 @@ export const useComputeOrderBookTableRows = ({
             priceDataType,
             highestTotal,
             bidsInDesktop,
-            cellStyle,
           })
         )
       );
     },
-    [asksInMobile, bidsInDesktop, cellStyle, priceDataType]
+    [asksInMobile, bidsInDesktop, priceDataType]
   );
 
   const computeRowsThrottled = useMemo(() => {

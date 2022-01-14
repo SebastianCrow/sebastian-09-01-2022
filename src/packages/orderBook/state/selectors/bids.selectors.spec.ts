@@ -7,8 +7,8 @@ import {
   Price,
 } from '../orderBook.types';
 import {
-  selectOrderBookBids,
   selectOrderBookBottomBid,
+  selectOrderBookPrices,
   selectOrderBookTopBid,
 } from './orderBook.selectors';
 import { PriceInfo } from '../../services/network/orderBookNetwork.types';
@@ -42,11 +42,13 @@ describe('bids.selectors', () => {
           ? {
               numLevels: 15,
               bids: inputRecord,
-              asks: inputRecord,
+              asks: [],
             }
           : undefined,
       });
-      expect(selectOrderBookBids({ orderBook })).toStrictEqual(outputList);
+      expect(selectOrderBookPrices({ orderBook }).bids).toStrictEqual(
+        outputList
+      );
     }
   );
 

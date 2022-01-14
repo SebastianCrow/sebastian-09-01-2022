@@ -11,6 +11,11 @@ export const asTotal = (total: number): Total => total as Total;
 
 export type PriceDataType = 'bids' | 'asks';
 
+export interface ComputedPricesInfo {
+  bids: ComputedPriceInfo[] | undefined;
+  asks: ComputedPriceInfo[] | undefined;
+}
+
 export interface ComputedPriceInfo {
   price: Price;
   size: Size;

@@ -5,7 +5,7 @@
   "Price": "Price",
   "Size": "Size",
   "Total": "Total",
-  "Ups... we've lost connection. Sorry.": "Ups... we've lost connection. Sorry.",
+  "Ups... connection is not established. Sorry.": "Ups... connection is not established. Sorry.",
   "Reconnect": "Reconnect",
   "Try Again": "Try Again"
 }

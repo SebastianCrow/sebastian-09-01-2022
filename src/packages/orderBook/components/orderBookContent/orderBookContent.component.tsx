@@ -5,24 +5,23 @@ import styles from './orderBookContent.component.module.scss';
 import { Loader } from '../../../ui/loader/loader.component';
 import { OrderBookTable } from '../orderBookTable/orderBookTable.component';
 import {
-  useSelectOrderBookAsks,
-  useSelectOrderBookBids,
+  useSelectOrderBookPrices,
+  useSelectOrderBookState,
 } from '../../hooks/useSelectOrderBookState.hook';
 
 export const OrderBookContent: FunctionComponent = () => {
-  const bids = useSelectOrderBookBids();
-  const asks = useSelectOrderBookAsks();
+  const { connectionStatus } = useSelectOrderBookState();
 
-  const dataLoaded = Boolean(bids && asks);
+  const { bids, asks } = useSelectOrderBookPrices();
 
   return (
     <div className={styles.tablesContainer}>
-      {!dataLoaded && (
+      {connectionStatus === 'subscribing' && (
         <div className={styles.loadingOverlay}>
           <Loader />
         </div>
       )}
-      {bids && asks && (
+      {connectionStatus !== 'subscribing' && bids && asks && (
         <div className={styles.tablesContent}>
           <div className={styles.tableColumn}>
             <OrderBookTable priceInfoList={bids} priceDataType="bids" />

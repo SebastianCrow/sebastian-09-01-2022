@@ -14,7 +14,7 @@ import { computePriceInfoRecord } from '../../services/computePriceInfoRecord.se
 
 const initialState: OrderBookState = {
   product: Product.Bitcoin_USD,
-  connectionStatus: 'unsubscribed',
+  connectionStatus: 'subscribing',
   prices: undefined,
 };
 

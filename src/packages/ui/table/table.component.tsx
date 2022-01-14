@@ -44,37 +44,35 @@ export const Table: FunctionComponent<TableProps> = ({
           ))}
         </div>
       )}
-      <div>
-        {data.map(({ id, rowClass, rowStyle, cells }) => (
-          <div
-            key={id}
-            className={cns(styles.rowData, rowClass)}
-            style={rowStyle}
-          >
-            {columns.map(({ key }) => {
-              const cell = cells[key];
-              if (!cell) {
-                throw new Error(
-                  `Cell info for data id=[${id}] and column key=[${key}] not found`
-                );
-              }
-              const { value, textAlignment = TEXT_ALIGNMENT } = cell;
-              return (
-                <div
-                  key={key}
-                  className={cns(styles.cell, {
-                    [styles.alignRight]: textAlignment === 'right',
-                  })}
-                  style={{ width: colWidth }}
-                >
-                  {/* TODO: Wrap value with <Text /> if it's not a custom component */}
-                  {value}
-                </div>
+      {data.map(({ id, rowClass, rowStyle, cells }, index) => (
+        <div
+          key={`${id}_${index}`}
+          className={cns(styles.rowData, rowClass)}
+          style={rowStyle}
+        >
+          {columns.map(({ key }) => {
+            const cell = cells[key];
+            if (!cell) {
+              throw new Error(
+                `Cell info for data id=[${id}] and column key=[${key}] not found`
               );
-            })}
-          </div>
-        ))}
-      </div>
+            }
+            const { value, textAlignment = TEXT_ALIGNMENT } = cell;
+            return (
+              <div
+                key={key}
+                className={cns(styles.cell, {
+                  [styles.alignRight]: textAlignment === 'right',
+                })}
+                style={{ width: colWidth }}
+              >
+                {/* TODO: Wrap value with <Text /> if it's not a custom component */}
+                {value}
+              </div>
+            );
+          })}
+        </div>
+      ))}
     </div>
   );
 };

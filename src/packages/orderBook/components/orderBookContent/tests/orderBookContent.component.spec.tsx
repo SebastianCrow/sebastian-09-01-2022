@@ -21,7 +21,7 @@ describe('orderBookContent.component', () => {
     const renderer = createRendererWithStore(
       <OrderBookContent />,
       getOrderBookMockStore({
-        prices: undefined,
+        connectionStatus: 'subscribing',
       })
     );
 

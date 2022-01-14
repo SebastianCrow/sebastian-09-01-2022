@@ -1,5 +1,10 @@
 import { AppState } from '../../../../shared/state/rootReducer';
-import { ComputedPriceInfo, OrderBookState, Total } from '../orderBook.types';
+import {
+  ComputedPriceInfo,
+  ComputedPricesInfo,
+  OrderBookState,
+  Total,
+} from '../orderBook.types';
 import { createSelector } from '@reduxjs/toolkit';
 import { computePriceInfoList } from '../../services/computePriceInfoList.service';
 import { computeSpreadInfo } from '../../services/network/computeSpreadInfo.service';
@@ -39,7 +44,7 @@ const selectPriceLevelsLimit = createSelector(
   }
 );
 
-export const selectOrderBookBids = createSelector(
+const selectOrderBookBids = createSelector(
   selectOrderBookState,
   selectPriceLevelsLimit,
   ({ prices }, limit): ComputedPriceInfo[] | undefined => {
@@ -63,7 +68,7 @@ export const selectOrderBookBottomBid = createSelector(
   }
 );
 
-export const selectOrderBookAsks = createSelector(
+const selectOrderBookAsks = createSelector(
   selectOrderBookState,
   selectPriceLevelsLimit,
   ({ prices }, limit): ComputedPriceInfo[] | undefined => {
@@ -84,6 +89,17 @@ export const selectOrderBookBottomAsk = createSelector(
   selectOrderBookAsks,
   (asks): ComputedPriceInfo | undefined => {
     return last(asks);
+  }
+);
+
+export const selectOrderBookPrices = createSelector(
+  selectOrderBookBids,
+  selectOrderBookAsks,
+  (bids, asks): ComputedPricesInfo => {
+    return {
+      bids,
+      asks,
+    };
   }
 );
 

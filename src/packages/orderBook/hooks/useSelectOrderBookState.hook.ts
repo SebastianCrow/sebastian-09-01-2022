@@ -1,14 +1,13 @@
 import { useSelector } from 'react-redux';
 import {
-  ComputedPriceInfo,
+  ComputedPricesInfo,
   OrderBookState,
   SpreadInfo,
   Total,
 } from '../state/orderBook.types';
 import {
   selectHighestTotal,
-  selectOrderBookAsks,
-  selectOrderBookBids,
+  selectOrderBookPrices,
   selectOrderBookState,
   selectSpreadInfo,
 } from '../state/selectors/orderBook.selectors';
@@ -17,12 +16,8 @@ export const useSelectOrderBookState = (): OrderBookState => {
   return useSelector(selectOrderBookState);
 };
 
-export const useSelectOrderBookBids = (): ComputedPriceInfo[] | undefined => {
-  return useSelector(selectOrderBookBids);
-};
-
-export const useSelectOrderBookAsks = (): ComputedPriceInfo[] | undefined => {
-  return useSelector(selectOrderBookAsks);
+export const useSelectOrderBookPrices = (): ComputedPricesInfo => {
+  return useSelector(selectOrderBookPrices);
 };
 
 export const useSelectSpreadInfo = (): SpreadInfo | undefined => {

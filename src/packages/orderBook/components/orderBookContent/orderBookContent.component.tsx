@@ -5,16 +5,14 @@ import styles from './orderBookContent.component.module.scss';
 import { Loader } from '../../../ui/loader/loader.component';
 import { OrderBookTable } from '../orderBookTable/orderBookTable.component';
 import {
-  useSelectOrderBookAsks,
-  useSelectOrderBookBids,
+  useSelectOrderBookPrices,
   useSelectOrderBookState,
 } from '../../hooks/useSelectOrderBookState.hook';
 
 export const OrderBookContent: FunctionComponent = () => {
   const { connectionStatus } = useSelectOrderBookState();
 
-  const bids = useSelectOrderBookBids();
-  const asks = useSelectOrderBookAsks();
+  const { bids, asks } = useSelectOrderBookPrices();
 
   return (
     <div className={styles.tablesContainer}>

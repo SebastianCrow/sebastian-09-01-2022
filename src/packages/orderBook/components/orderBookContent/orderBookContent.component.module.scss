@@ -3,7 +3,7 @@
 .tablesContainer {
   display: flex;
   height: 100%;
-  overflow-y: auto;
+  overflow: auto;
 
   .loadingOverlay {
     display: flex;

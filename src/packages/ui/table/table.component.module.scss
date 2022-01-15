@@ -13,7 +13,6 @@ $cell-padding-horizontal-edge: 5 * $spacing;
 }
 
 .cellBase {
-  padding: $cell-padding-vertical $cell-padding-horizontal;
   box-sizing: border-box;
 
   &:first-of-type {
@@ -37,6 +36,7 @@ $cell-padding-horizontal-edge: 5 * $spacing;
 
   .cell {
     @extend .cellBase;
+    padding: (2 * $cell-padding-vertical) $cell-padding-horizontal;
 
     $border: 1px solid $border-color;
     border-top: $border;
@@ -51,6 +51,8 @@ $cell-padding-horizontal-edge: 5 * $spacing;
 
   .cell {
     @extend .cellBase;
+
+    padding: $cell-padding-vertical $cell-padding-horizontal;
     border-bottom: none;
   }
 }

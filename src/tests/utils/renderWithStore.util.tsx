@@ -5,7 +5,7 @@ import { MockStoreEnhanced } from 'redux-mock-store';
 import { AppState } from '../../shared/state/rootReducer';
 
 /**
- * Render {@param Component} wrapped with given or default store
+ * Render {@param Component} wrapped with given or default store using `@testing-library/react` to the DOM tree
  * @param Component Component to render
  * @param store Store
  */

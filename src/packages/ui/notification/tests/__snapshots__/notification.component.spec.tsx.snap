@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`notification.component does not render closed notification 1`] = `
+<div
+  aria-hidden={true}
+  className="MuiBackdrop-root backdrop css-sox5kk-MuiBackdrop-root"
+  style={
+    Object {
+      "opacity": 0,
+      "visibility": "hidden",
+    }
+  }
+/>
+`;
+
+exports[`notification.component renders opened notification 1`] = `
+Array [
+  <div
+    className="MuiSnackbar-root MuiSnackbar-anchorOriginBottomLeft css-cpgvjg-MuiSnackbar-root"
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    onTouchEnd={[Function]}
+  >
+    <div
+      className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 MuiAlert-root MuiAlert-standardInfo MuiAlert-standard alert css-12mvehg-MuiPaper-root-MuiAlert-root"
+      direction="up"
+      role="alert"
+      style={
+        Object {
+          "opacity": 1,
+          "transform": "scale(1, 1)",
+          "visibility": undefined,
+        }
+      }
+    >
+      <div
+        className="MuiAlert-icon css-1ytlwq5-MuiAlert-icon"
+      >
+        <svg
+          aria-hidden={true}
+          className="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit css-1vooibu-MuiSvgIcon-root"
+          data-testid="InfoOutlinedIcon"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20, 12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10, 10 0 0,0 12,2M11,17H13V11H11V17Z"
+          />
+        </svg>
+      </div>
+      <div
+        className="MuiAlert-message css-acap47-MuiAlert-message"
+      >
+        Order Book
+      </div>
+    </div>
+  </div>,
+  <div
+    aria-hidden={true}
+    className="MuiBackdrop-root backdrop css-sox5kk-MuiBackdrop-root"
+    style={
+      Object {
+        "opacity": 0,
+        "visibility": "hidden",
+      }
+    }
+  />,
+]
+`;

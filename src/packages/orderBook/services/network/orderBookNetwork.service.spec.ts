@@ -27,7 +27,7 @@ describe('orderBookNetwork.service', () => {
 
   beforeEach(() => {
     testScheduler = new TestScheduler((actual, expected) => {
-      expect(actual).toEqual(expected);
+      expect(actual).toStrictEqual(expected);
     });
   });
 

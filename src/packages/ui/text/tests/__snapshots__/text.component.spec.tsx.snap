@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`text.component renders 1`] = `
+<p
+  className="MuiTypography-root MuiTypography-body1 primary css-ahj2mt-MuiTypography-root"
+>
+  Test
+</p>
+`;

@@ -1,6 +1,5 @@
 import { useCallback, useEffect } from 'react';
 import { useSelectOrderBookState } from './useSelectOrderBookState.hook';
-import { usePrevious } from '../../../shared/hooks/usePrevious.hook';
 import { useSetNotification } from '../../ui/notification/useSetNotification.hook';
 import { Product } from '../services/network/orderBookNetwork.types';
 import { ConnectionStatus } from '../state/orderBook.types';
@@ -24,15 +23,11 @@ export const useLostConnectionNotification = (
     observeProduct(product);
   }, [observeProduct, product]);
 
-  const prevConnectionStatus = usePrevious(connectionStatus);
   useEffect(() => {
-    if (prevConnectionStatus === connectionStatus) {
-      return;
-    }
     if (FAULTY_STATUSES.includes(connectionStatus)) {
       setNotification({
         message: formatMessage({
-          id: 'Ups... connection is not established. Sorry.', // eslint-disable-line quotes
+          id: 'Ups... connection is not established. Sorry.',
         }),
         severity: 'error',
         action: {
@@ -43,11 +38,5 @@ export const useLostConnectionNotification = (
     } else {
       setNotification(undefined);
     }
-  }, [
-    connectionStatus,
-    prevConnectionStatus,
-    reconnect,
-    formatMessage,
-    setNotification,
-  ]);
+  }, [connectionStatus, reconnect, formatMessage, setNotification]);
 };

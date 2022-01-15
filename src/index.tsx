@@ -4,8 +4,8 @@ import './shared/utils/polyfills';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/index.scss';
-import { App } from './packages/app/components/app';
-import reportWebVitals from './reportWebVitals';
+
+import { App } from './packages/app/components/app.component';
 
 // The same id as in the public/index.html. They need to be synced.
 const ROOT_ELEMENT_ID = 'root';
@@ -16,8 +16,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById(ROOT_ELEMENT_ID)
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react-hooks';
-import { AppProviders } from '../../app/components/appProviders';
+import { AppProviders } from '../../app/components/appProviders.component';
 import * as useSetNotificationHook from '../../ui/notification/useSetNotification.hook';
 import { getOrderBookMockStore } from '../../../tests/mocks/getOrderBookMockStore';
 import { useLostConnectionNotification } from './useLostConnectionNotification.hook';

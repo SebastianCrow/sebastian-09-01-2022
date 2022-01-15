@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react-hooks';
 import { useStartObservingProduct } from './useStartObservingProduct.hook';
-import { AppProviders } from '../../app/components/appProviders';
+import { AppProviders } from '../../app/components/appProviders.component';
 import * as useDispatchOrderBookHook from './useDispatchOrderBook.hook';
 import { ObserveProduct } from '../state/orderBook.actions';
 import { Product } from '../services/network/orderBookNetwork.types';

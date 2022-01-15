@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react-hooks';
 import { useComputeOrderBookTableData } from './useComputeOrderBookTableData.hook';
 import { TableProps } from '../../../ui/table/table.component';
-import { AppProviders } from '../../../app/components/appProviders';
+import { AppProviders } from '../../../app/components/appProviders.component';
 import { ORDER_BOOK_COLUMNS } from './useComputeOrderBookTableData.columns';
 import { asPrice, asSize, asTotal } from '../../state/orderBook.types';
 

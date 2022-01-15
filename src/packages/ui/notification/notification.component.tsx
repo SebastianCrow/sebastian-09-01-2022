@@ -49,7 +49,7 @@ export const Notification: FunctionComponent<NotificationProps> = ({
     [severity]
   );
 
-  const actionComponent: ReactNode = useMemo(() => {
+  const ActionComponent: ReactNode = useMemo(() => {
     return action ? (
       <Button size="small" onClick={action.onClick}>
         <FormattedMessage id={action.title} />
@@ -62,7 +62,7 @@ export const Notification: FunctionComponent<NotificationProps> = ({
       <Snackbar anchorOrigin={anchorOrigin} open={open}>
         <Alert
           severity={severity}
-          action={actionComponent}
+          action={ActionComponent}
           className={styles.alert}
         >
           <FormattedMessage id={message} />

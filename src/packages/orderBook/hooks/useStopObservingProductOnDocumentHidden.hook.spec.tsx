@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react-hooks';
-import { AppProviders } from '../../app/components/appProviders';
+import { AppProviders } from '../../app/components/appProviders.component';
 import * as useDispatchOrderBookHook from './useDispatchOrderBook.hook';
 import * as useDocumentVisibilityStateHook from '../../../shared/hooks/useDocumentVisibilityState.hook';
 import { useStopObservingProductOnDocumentHidden } from './useStopObservingProductOnDocumentHidden.hook';

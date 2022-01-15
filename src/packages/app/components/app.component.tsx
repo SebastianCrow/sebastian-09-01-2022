@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { OrderBook } from '../../orderBook';
-import { AppProviders } from './appProviders';
+import { AppProviders } from './appProviders.component';
 
 /**
  * Main component

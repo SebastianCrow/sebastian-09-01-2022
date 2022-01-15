@@ -1,5 +1,5 @@
 import { create } from 'react-test-renderer';
-import { AppProviders } from '../../packages/app/components/appProviders';
+import { AppProviders } from '../../packages/app/components/appProviders.component';
 import React, { ReactElement } from 'react';
 import { MockStoreEnhanced } from 'redux-mock-store';
 import { AppState } from '../../shared/state/rootReducer';

@@ -5,6 +5,7 @@ import { AppState, rootReducer } from './rootReducer';
 import { rootEpic } from './rootEpic';
 import { Store } from '@reduxjs/toolkit';
 import { OrderBookActions } from '../../packages/orderBook/state/orderBook.actions';
+import { isProduction } from '../utils/env.util';
 
 /**
  * Configure Redux store with Epic and Dev Tools middlewares
@@ -12,9 +13,11 @@ import { OrderBookActions } from '../../packages/orderBook/state/orderBook.actio
 export const configureStore = (): Store<AppState> => {
   const epicMiddleware = createEpicMiddleware();
 
+  const storeEnhancer = applyMiddleware(epicMiddleware);
+
   const store = createStore<AppState, OrderBookActions, unknown, unknown>(
     rootReducer,
-    composeWithDevTools(applyMiddleware(epicMiddleware))
+    isProduction() ? storeEnhancer : composeWithDevTools(storeEnhancer)
   );
   epicMiddleware.run(rootEpic as Epic);
 

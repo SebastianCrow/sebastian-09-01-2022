@@ -17,11 +17,11 @@ describe('orderBookContent.component', () => {
     expect(renderer.root.findAllByType(SpreadHeader)).toHaveLength(1);
   });
 
-  test('renders loading overlay', () => {
+  test('renders loading overlay for missing data', () => {
     const renderer = createRendererWithStore(
       <OrderBookContent />,
       getOrderBookMockStore({
-        connectionStatus: 'subscribing',
+        prices: undefined,
       })
     );
 

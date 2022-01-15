@@ -1,5 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`orderBookContent.component does not render content for missing data 1`] = `
+<div
+  className="tablesContainer"
+/>
+`;
+
 exports[`orderBookContent.component renders 1`] = `
 <div
   className="tablesContainer"
@@ -98,7 +104,7 @@ exports[`orderBookContent.component renders 1`] = `
 </div>
 `;
 
-exports[`orderBookContent.component renders loading overlay for missing data 1`] = `
+exports[`orderBookContent.component renders loading overlay for \`subscribing\` state 1`] = `
 <div
   className="tablesContainer"
 >

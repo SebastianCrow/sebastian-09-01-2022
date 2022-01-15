@@ -4,21 +4,23 @@ import { SpreadHeader } from '../spreadHeader/spreadHeader.component';
 import styles from './orderBookContent.component.module.scss';
 import { Loader } from '../../../ui/loader/loader.component';
 import { OrderBookTable } from '../orderBookTable/orderBookTable.component';
-import { useSelectOrderBookPrices } from '../../hooks/useSelectOrderBookState.hook';
+import {
+  useSelectOrderBookPrices,
+  useSelectOrderBookState,
+} from '../../hooks/useSelectOrderBookState.hook';
 
 export const OrderBookContent: FunctionComponent = () => {
+  const { connectionStatus } = useSelectOrderBookState();
   const { bids, asks } = useSelectOrderBookPrices();
-
-  const hasData = Boolean(bids && asks);
 
   return (
     <div className={styles.tablesContainer}>
-      {!hasData && (
+      {connectionStatus === 'subscribing' && (
         <div className={styles.loadingOverlay}>
           <Loader />
         </div>
       )}
-      {hasData && bids && asks && (
+      {connectionStatus !== 'subscribing' && bids && asks && (
         <div className={styles.tablesContent}>
           <div className={styles.tableColumn}>
             <OrderBookTable priceInfoList={bids} priceDataType="bids" />

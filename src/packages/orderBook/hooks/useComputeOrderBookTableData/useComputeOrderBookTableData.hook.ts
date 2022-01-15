@@ -4,7 +4,7 @@ import { useLayout } from '../../../../shared/hooks/useLayout.hook';
 import { TableProps } from '../../../ui/table/table.component';
 import { useComputeOrderBookTableColumns } from './useComputeOrderBookTableColumns.hook';
 import { useComputeOrderBookTableRows } from './useComputeOrderBookTableRows.hook';
-import { useComputeOrderBookTableOptions } from '../useComputeOrderBookTableOptions.hook';
+import { useComputeOrderBookTableOptions } from './useComputeOrderBookTableOptions.hook';
 
 export const useComputeOrderBookTableData = ({
   priceInfoList,

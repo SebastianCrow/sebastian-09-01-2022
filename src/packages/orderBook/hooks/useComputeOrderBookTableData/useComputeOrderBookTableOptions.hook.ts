@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
-import { TableInfo } from '../../ui/table/table.types';
-import { PriceDataType } from '../state/orderBook.types';
-import { Layout } from '../../../shared/hooks/useLayout.hook';
+import { TableInfo } from '../../../ui/table/table.types';
+import { PriceDataType } from '../../state/orderBook.types';
+import { Layout } from '../../../../shared/hooks/useLayout.hook';
 
 export const useComputeOrderBookTableOptions = ({
   priceDataType,

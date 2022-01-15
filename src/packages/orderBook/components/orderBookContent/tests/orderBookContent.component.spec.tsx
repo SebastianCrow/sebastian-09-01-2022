@@ -17,15 +17,32 @@ describe('orderBookContent.component', () => {
     expect(renderer.root.findAllByType(SpreadHeader)).toHaveLength(1);
   });
 
-  test('renders loading overlay for missing data', () => {
+  test('renders loading overlay for `subscribing` state', () => {
     const renderer = createRendererWithStore(
       <OrderBookContent />,
       getOrderBookMockStore({
-        prices: undefined,
+        connectionStatus: 'subscribing',
       })
     );
 
     expect(renderer.toJSON()).toMatchSnapshot();
     expect(renderer.root.findAllByType(Loader)).toHaveLength(1);
+    expect(renderer.root.findAllByType(OrderBookTable)).toHaveLength(0);
+    expect(renderer.root.findAllByType(SpreadHeader)).toHaveLength(0);
+  });
+
+  test('does not render content for missing data', () => {
+    const renderer = createRendererWithStore(
+      <OrderBookContent />,
+      getOrderBookMockStore({
+        connectionStatus: 'unsubscribed',
+        prices: undefined,
+      })
+    );
+
+    expect(renderer.toJSON()).toMatchSnapshot();
+    expect(renderer.root.findAllByType(Loader)).toHaveLength(0);
+    expect(renderer.root.findAllByType(OrderBookTable)).toHaveLength(0);
+    expect(renderer.root.findAllByType(SpreadHeader)).toHaveLength(0);
   });
 });

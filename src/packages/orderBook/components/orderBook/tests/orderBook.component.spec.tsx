@@ -1,11 +1,10 @@
 import React from 'react';
-import { getOrderBookMockStore } from '../../../../../tests/mocks/getOrderBookMockStore';
 import { OrderBookContent } from '../../orderBookContent/orderBookContent.component';
 import { OrderBookHeader } from '../../orderBookHeader/orderBookHeader.component';
 import { OrderBookFooter } from '../../orderBookFooter/orderBookFooter.component';
 import { OrderBook } from '../orderBook.component';
 import { createRendererWithOrderBookStore } from '../../../tests/utils/createRendererWithOrderBookStore.util';
-import { Notification } from '../../../../ui/notification/notification.component';
+import { getOrderBookMockStore } from '../../../../../tests/mocks/getOrderBookMockStore';
 
 describe('orderBook.component', () => {
   test('renders', () => {
@@ -26,9 +25,8 @@ describe('orderBook.component', () => {
     );
 
     expect(renderer.toJSON()).toMatchSnapshot();
-    expect(renderer.root.findAllByType(OrderBookHeader)).toHaveLength(0);
-    expect(renderer.root.findAllByType(OrderBookContent)).toHaveLength(0);
-    expect(renderer.root.findAllByType(OrderBookFooter)).toHaveLength(0);
-    expect(renderer.root.findAllByType(Notification)).toHaveLength(1);
+    expect(renderer.root.findAllByType(OrderBookHeader)).toHaveLength(1);
+    expect(renderer.root.findAllByType(OrderBookContent)).toHaveLength(1);
+    expect(renderer.root.findAllByType(OrderBookFooter)).toHaveLength(1);
   });
 });

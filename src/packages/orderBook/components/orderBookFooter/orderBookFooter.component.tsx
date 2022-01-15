@@ -26,7 +26,7 @@ export const OrderBookFooter: FunctionComponent<OrderBookFooterProps> = ({
     <div className={styles.toggleFeedContainer}>
       <Button
         onClick={toggleFeed}
-        disabled={connectionStatus === 'error'}
+        disabled={connectionStatus !== 'subscribed'}
         data-testid="toggle-feed-button"
       >
         <FormattedMessage id="Toggle Feed" />

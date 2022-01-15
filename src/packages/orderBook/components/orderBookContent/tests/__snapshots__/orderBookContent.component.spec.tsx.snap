@@ -6,7 +6,7 @@ exports[`orderBookContent.component does not render content for missing data 1`]
 />
 `;
 
-exports[`orderBookContent.component renders 1`] = `
+exports[`orderBookContent.component renders content for \`error\` connection status 1`] = `
 <div
   className="tablesContainer"
 >
@@ -104,7 +104,337 @@ exports[`orderBookContent.component renders 1`] = `
 </div>
 `;
 
-exports[`orderBookContent.component renders loading overlay for \`subscribing\` state 1`] = `
+exports[`orderBookContent.component renders content for \`subscribed\` connection status 1`] = `
+<div
+  className="tablesContainer"
+>
+  <div
+    className="tablesContent"
+  >
+    <div
+      className="tableColumn"
+    >
+      <div>
+        <div
+          className="rowHeader"
+        >
+          <div
+            className="cell alignRight"
+            style={
+              Object {
+                "width": "33.333333333333336%",
+              }
+            }
+          >
+            <p
+              className="MuiTypography-root MuiTypography-body1 secondary css-ahj2mt-MuiTypography-root"
+            >
+              Total
+            </p>
+          </div>
+          <div
+            className="cell alignRight"
+            style={
+              Object {
+                "width": "33.333333333333336%",
+              }
+            }
+          >
+            <p
+              className="MuiTypography-root MuiTypography-body1 secondary css-ahj2mt-MuiTypography-root"
+            >
+              Size
+            </p>
+          </div>
+          <div
+            className="cell alignRight"
+            style={
+              Object {
+                "width": "33.333333333333336%",
+              }
+            }
+          >
+            <p
+              className="MuiTypography-root MuiTypography-body1 secondary css-ahj2mt-MuiTypography-root"
+            >
+              Price
+            </p>
+          </div>
+        </div>
+        <div
+          className="rowData rowBid"
+          style={
+            Object {
+              "backgroundPositionX": "right",
+              "backgroundSize": "35.75685339690107% 100%",
+            }
+          }
+        >
+          <div
+            className="cell alignRight"
+            style={
+              Object {
+                "width": "33.333333333333336%",
+              }
+            }
+          >
+            <p
+              className="MuiTypography-root MuiTypography-body1 code primary css-ahj2mt-MuiTypography-root"
+            >
+              1,200
+            </p>
+          </div>
+          <div
+            className="cell alignRight"
+            style={
+              Object {
+                "width": "33.333333333333336%",
+              }
+            }
+          >
+            <p
+              className="MuiTypography-root MuiTypography-body1 code primary css-ahj2mt-MuiTypography-root"
+            >
+              1,200
+            </p>
+          </div>
+          <div
+            className="cell alignRight"
+            style={
+              Object {
+                "width": "33.333333333333336%",
+              }
+            }
+          >
+            <p
+              className="MuiTypography-root MuiTypography-body1 code success css-ahj2mt-MuiTypography-root"
+            >
+              34,062.50
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="spreadContainer mobile"
+    >
+      <p
+        className="MuiTypography-root MuiTypography-body1 secondary css-ahj2mt-MuiTypography-root"
+      >
+        Spread: 
+        17.00
+         (
+        0.05
+        %)
+      </p>
+    </div>
+    <div
+      className="tableColumn"
+    >
+      <div>
+        <div
+          className="rowHeader"
+        >
+          <div
+            className="cell alignRight"
+            style={
+              Object {
+                "width": "33.333333333333336%",
+              }
+            }
+          >
+            <p
+              className="MuiTypography-root MuiTypography-body1 secondary css-ahj2mt-MuiTypography-root"
+            >
+              Price
+            </p>
+          </div>
+          <div
+            className="cell alignRight"
+            style={
+              Object {
+                "width": "33.333333333333336%",
+              }
+            }
+          >
+            <p
+              className="MuiTypography-root MuiTypography-body1 secondary css-ahj2mt-MuiTypography-root"
+            >
+              Size
+            </p>
+          </div>
+          <div
+            className="cell alignRight"
+            style={
+              Object {
+                "width": "33.333333333333336%",
+              }
+            }
+          >
+            <p
+              className="MuiTypography-root MuiTypography-body1 secondary css-ahj2mt-MuiTypography-root"
+            >
+              Total
+            </p>
+          </div>
+        </div>
+        <div
+          className="rowData rowAsk"
+          style={
+            Object {
+              "backgroundPositionX": "left",
+              "backgroundSize": "100% 100%",
+            }
+          }
+        >
+          <div
+            className="cell alignRight"
+            style={
+              Object {
+                "width": "33.333333333333336%",
+              }
+            }
+          >
+            <p
+              className="MuiTypography-root MuiTypography-body1 code danger css-ahj2mt-MuiTypography-root"
+            >
+              34,079.50
+            </p>
+          </div>
+          <div
+            className="cell alignRight"
+            style={
+              Object {
+                "width": "33.333333333333336%",
+              }
+            }
+          >
+            <p
+              className="MuiTypography-root MuiTypography-body1 code primary css-ahj2mt-MuiTypography-root"
+            >
+              3,356
+            </p>
+          </div>
+          <div
+            className="cell alignRight"
+            style={
+              Object {
+                "width": "33.333333333333336%",
+              }
+            }
+          >
+            <p
+              className="MuiTypography-root MuiTypography-body1 code primary css-ahj2mt-MuiTypography-root"
+            >
+              3,356
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`orderBookContent.component renders content for \`unsubscribed\` connection status 1`] = `
+<div
+  className="tablesContainer"
+>
+  <div
+    className="tablesContent"
+  >
+    <div
+      className="tableColumn"
+    >
+      <div
+        className="loadingOverlay"
+      >
+        <div
+          className="container"
+        >
+          <span
+            className="MuiCircularProgress-root MuiCircularProgress-indeterminate MuiCircularProgress-colorPrimary loader css-18lrjg1-MuiCircularProgress-root"
+            role="progressbar"
+            style={
+              Object {
+                "height": 40,
+                "width": 40,
+              }
+            }
+          >
+            <svg
+              className="MuiCircularProgress-svg css-1idz92c-MuiCircularProgress-svg"
+              viewBox="22 22 44 44"
+            >
+              <circle
+                className="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate css-176wh8e-MuiCircularProgress-circle"
+                cx={44}
+                cy={44}
+                fill="none"
+                r={20.2}
+                strokeWidth={3.6}
+                style={Object {}}
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      className="spreadContainer mobile"
+    >
+      <p
+        className="MuiTypography-root MuiTypography-body1 secondary css-ahj2mt-MuiTypography-root"
+      >
+        Spread: 
+        17.00
+         (
+        0.05
+        %)
+      </p>
+    </div>
+    <div
+      className="tableColumn"
+    >
+      <div
+        className="loadingOverlay"
+      >
+        <div
+          className="container"
+        >
+          <span
+            className="MuiCircularProgress-root MuiCircularProgress-indeterminate MuiCircularProgress-colorPrimary loader css-18lrjg1-MuiCircularProgress-root"
+            role="progressbar"
+            style={
+              Object {
+                "height": 40,
+                "width": 40,
+              }
+            }
+          >
+            <svg
+              className="MuiCircularProgress-svg css-1idz92c-MuiCircularProgress-svg"
+              viewBox="22 22 44 44"
+            >
+              <circle
+                className="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate css-176wh8e-MuiCircularProgress-circle"
+                cx={44}
+                cy={44}
+                fill="none"
+                r={20.2}
+                strokeWidth={3.6}
+                style={Object {}}
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`orderBookContent.component renders loading overlay for \`subscribing\` connection status 1`] = `
 <div
   className="tablesContainer"
 >

@@ -7,7 +7,7 @@ import { useStartObservingProduct } from './useStartObservingProduct.hook';
  * Hook managing the network connection:
  * 1. Establishing the connection
  * 2. Stop listening when the document is hidden
- * 3. Displaying the warning in UI about lost connection
+ * 3. Displaying the warning in UI about lost connection with the reconnect button
  */
 export const useConnectionManager = (): {
   observeProduct: (product: Product) => void;

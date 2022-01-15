@@ -18,7 +18,7 @@ describe('useLostConnectionNotification.hook', () => {
 
   const FAULTY_STATUSES: ConnectionStatus[][] = [['unsubscribed'], ['error']];
   test.each(FAULTY_STATUSES)(
-    'displays a notification on `%s` connection state',
+    'displays a notification on `%s` connection status',
     (connectionStatus: ConnectionStatus) => {
       const { rerender } = renderHook(
         () => useLostConnectionNotification(noop),
@@ -55,7 +55,7 @@ describe('useLostConnectionNotification.hook', () => {
 
   const CORRECT_STATUSES: ConnectionStatus[][] = [['subscribed']];
   test.each(CORRECT_STATUSES)(
-    'hides a notification on `%s` connection state',
+    'hides a notification on `%s` connection status',
     (connectionStatus: ConnectionStatus) => {
       const { rerender } = renderHook(
         () => useLostConnectionNotification(noop),
@@ -80,7 +80,7 @@ describe('useLostConnectionNotification.hook', () => {
     }
   );
 
-  test('does not trigger a notification on the same connection state', () => {
+  test('does not trigger a notification on the same connection status', () => {
     const { rerender } = renderHook(() => useLostConnectionNotification(noop), {
       wrapper: AppProviders,
     });

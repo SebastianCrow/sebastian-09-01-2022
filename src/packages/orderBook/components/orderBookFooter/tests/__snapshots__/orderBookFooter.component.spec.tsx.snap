@@ -1,6 +1,93 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`orderBookFooter.component renders 1`] = `
+exports[`orderBookFooter.component renders with disabled button for \`error\` connection status 1`] = `
+<div
+  className="toggleFeedContainer"
+>
+  <button
+    className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButtonBase-root Mui-disabled primary css-sghohy-MuiButtonBase-root-MuiButton-root"
+    data-testid="toggle-feed-button"
+    disabled={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onContextMenu={[Function]}
+    onDragLeave={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    tabIndex={-1}
+    type="button"
+  >
+    Toggle Feed
+  </button>
+</div>
+`;
+
+exports[`orderBookFooter.component renders with disabled button for \`subscribing\` connection status 1`] = `
+<div
+  className="toggleFeedContainer"
+>
+  <button
+    className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButtonBase-root Mui-disabled primary css-sghohy-MuiButtonBase-root-MuiButton-root"
+    data-testid="toggle-feed-button"
+    disabled={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onContextMenu={[Function]}
+    onDragLeave={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    tabIndex={-1}
+    type="button"
+  >
+    Toggle Feed
+  </button>
+</div>
+`;
+
+exports[`orderBookFooter.component renders with disabled button for \`unsubscribed\` connection status 1`] = `
+<div
+  className="toggleFeedContainer"
+>
+  <button
+    className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButtonBase-root Mui-disabled primary css-sghohy-MuiButtonBase-root-MuiButton-root"
+    data-testid="toggle-feed-button"
+    disabled={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onContextMenu={[Function]}
+    onDragLeave={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    tabIndex={-1}
+    type="button"
+  >
+    Toggle Feed
+  </button>
+</div>
+`;
+
+exports[`orderBookFooter.component renders with enabled button for \`subscribed\` status 1`] = `
 <div
   className="toggleFeedContainer"
 >

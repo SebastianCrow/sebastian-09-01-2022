@@ -237,5 +237,290 @@ Array [
       }
     }
   />,
+  <div
+    className="container"
+  >
+    <div
+      className="header"
+    >
+      <div
+        className="title"
+      >
+        <p
+          className="MuiTypography-root MuiTypography-body1 title primary css-ahj2mt-MuiTypography-root"
+        >
+          Order Book
+        </p>
+      </div>
+      <div
+        className="spreadContainer desktop"
+      >
+        <p
+          className="MuiTypography-root MuiTypography-body1 secondary css-ahj2mt-MuiTypography-root"
+        >
+          Spread: 
+          17.00
+           (
+          0.05
+          %)
+        </p>
+      </div>
+    </div>
+    <div
+      className="tablesContainer"
+    >
+      <div
+        className="tablesContent"
+      >
+        <div
+          className="tableColumn"
+        >
+          <div>
+            <div
+              className="rowHeader"
+            >
+              <div
+                className="cell alignRight"
+                style={
+                  Object {
+                    "width": "33.333333333333336%",
+                  }
+                }
+              >
+                <p
+                  className="MuiTypography-root MuiTypography-body1 secondary css-ahj2mt-MuiTypography-root"
+                >
+                  Total
+                </p>
+              </div>
+              <div
+                className="cell alignRight"
+                style={
+                  Object {
+                    "width": "33.333333333333336%",
+                  }
+                }
+              >
+                <p
+                  className="MuiTypography-root MuiTypography-body1 secondary css-ahj2mt-MuiTypography-root"
+                >
+                  Size
+                </p>
+              </div>
+              <div
+                className="cell alignRight"
+                style={
+                  Object {
+                    "width": "33.333333333333336%",
+                  }
+                }
+              >
+                <p
+                  className="MuiTypography-root MuiTypography-body1 secondary css-ahj2mt-MuiTypography-root"
+                >
+                  Price
+                </p>
+              </div>
+            </div>
+            <div
+              className="rowData rowBid"
+              style={
+                Object {
+                  "backgroundPositionX": "right",
+                  "backgroundSize": "35.75685339690107% 100%",
+                }
+              }
+            >
+              <div
+                className="cell alignRight"
+                style={
+                  Object {
+                    "width": "33.333333333333336%",
+                  }
+                }
+              >
+                <p
+                  className="MuiTypography-root MuiTypography-body1 code primary css-ahj2mt-MuiTypography-root"
+                >
+                  1,200
+                </p>
+              </div>
+              <div
+                className="cell alignRight"
+                style={
+                  Object {
+                    "width": "33.333333333333336%",
+                  }
+                }
+              >
+                <p
+                  className="MuiTypography-root MuiTypography-body1 code primary css-ahj2mt-MuiTypography-root"
+                >
+                  1,200
+                </p>
+              </div>
+              <div
+                className="cell alignRight"
+                style={
+                  Object {
+                    "width": "33.333333333333336%",
+                  }
+                }
+              >
+                <p
+                  className="MuiTypography-root MuiTypography-body1 code success css-ahj2mt-MuiTypography-root"
+                >
+                  34,062.50
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="spreadContainer mobile"
+        >
+          <p
+            className="MuiTypography-root MuiTypography-body1 secondary css-ahj2mt-MuiTypography-root"
+          >
+            Spread: 
+            17.00
+             (
+            0.05
+            %)
+          </p>
+        </div>
+        <div
+          className="tableColumn"
+        >
+          <div>
+            <div
+              className="rowHeader"
+            >
+              <div
+                className="cell alignRight"
+                style={
+                  Object {
+                    "width": "33.333333333333336%",
+                  }
+                }
+              >
+                <p
+                  className="MuiTypography-root MuiTypography-body1 secondary css-ahj2mt-MuiTypography-root"
+                >
+                  Price
+                </p>
+              </div>
+              <div
+                className="cell alignRight"
+                style={
+                  Object {
+                    "width": "33.333333333333336%",
+                  }
+                }
+              >
+                <p
+                  className="MuiTypography-root MuiTypography-body1 secondary css-ahj2mt-MuiTypography-root"
+                >
+                  Size
+                </p>
+              </div>
+              <div
+                className="cell alignRight"
+                style={
+                  Object {
+                    "width": "33.333333333333336%",
+                  }
+                }
+              >
+                <p
+                  className="MuiTypography-root MuiTypography-body1 secondary css-ahj2mt-MuiTypography-root"
+                >
+                  Total
+                </p>
+              </div>
+            </div>
+            <div
+              className="rowData rowAsk"
+              style={
+                Object {
+                  "backgroundPositionX": "left",
+                  "backgroundSize": "100% 100%",
+                }
+              }
+            >
+              <div
+                className="cell alignRight"
+                style={
+                  Object {
+                    "width": "33.333333333333336%",
+                  }
+                }
+              >
+                <p
+                  className="MuiTypography-root MuiTypography-body1 code danger css-ahj2mt-MuiTypography-root"
+                >
+                  34,079.50
+                </p>
+              </div>
+              <div
+                className="cell alignRight"
+                style={
+                  Object {
+                    "width": "33.333333333333336%",
+                  }
+                }
+              >
+                <p
+                  className="MuiTypography-root MuiTypography-body1 code primary css-ahj2mt-MuiTypography-root"
+                >
+                  3,356
+                </p>
+              </div>
+              <div
+                className="cell alignRight"
+                style={
+                  Object {
+                    "width": "33.333333333333336%",
+                  }
+                }
+              >
+                <p
+                  className="MuiTypography-root MuiTypography-body1 code primary css-ahj2mt-MuiTypography-root"
+                >
+                  3,356
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="toggleFeedContainer"
+    >
+      <button
+        className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButtonBase-root Mui-disabled primary css-sghohy-MuiButtonBase-root-MuiButton-root"
+        data-testid="toggle-feed-button"
+        disabled={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onContextMenu={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={-1}
+        type="button"
+      >
+        Toggle Feed
+      </button>
+    </div>
+  </div>,
 ]
 `;

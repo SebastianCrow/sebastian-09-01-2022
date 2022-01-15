@@ -10,7 +10,7 @@ export const useComputeOrderBookTableData = ({
   priceInfoList,
   priceDataType,
 }: {
-  priceInfoList: ComputedPriceInfo[] | undefined;
+  priceInfoList: ComputedPriceInfo[];
   priceDataType: PriceDataType;
 }): TableProps => {
   const layout = useLayout();

@@ -11,7 +11,7 @@ describe('useComputeOrderBookTableData.hook', () => {
       const { result } = renderHook(
         () =>
           useComputeOrderBookTableData({
-            priceInfoList: undefined,
+            priceInfoList: [],
             priceDataType: 'bids',
           }),
         {
@@ -30,7 +30,7 @@ describe('useComputeOrderBookTableData.hook', () => {
             ...ORDER_BOOK_COLUMNS.price,
           },
         ],
-        data: undefined,
+        data: [],
         options: {},
       };
       expect(result.current).toStrictEqual(output);
@@ -117,7 +117,7 @@ describe('useComputeOrderBookTableData.hook', () => {
       const { result } = renderHook(
         () =>
           useComputeOrderBookTableData({
-            priceInfoList: undefined,
+            priceInfoList: [],
             priceDataType: 'asks',
           }),
         {
@@ -136,7 +136,7 @@ describe('useComputeOrderBookTableData.hook', () => {
             ...ORDER_BOOK_COLUMNS.total,
           },
         ],
-        data: undefined,
+        data: [],
         options: {},
       };
       expect(result.current).toStrictEqual(output);

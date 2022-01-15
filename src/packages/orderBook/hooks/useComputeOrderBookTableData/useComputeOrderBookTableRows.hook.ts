@@ -24,7 +24,7 @@ export const useComputeOrderBookTableRows = ({
   priceDataType,
   layout,
 }: {
-  priceInfoList: ComputedPriceInfo[] | undefined;
+  priceInfoList: ComputedPriceInfo[];
   priceDataType: PriceDataType;
   layout: Layout;
 }): RowInfo[] | undefined => {
@@ -41,13 +41,8 @@ export const useComputeOrderBookTableRows = ({
   }, [layout, priceDataType]);
 
   const computeRows = useCallback(
-    (
-      prices: ComputedPriceInfo[] | undefined,
-      highestTotal: Total | undefined
-    ) => {
-      const convertedPrices =
-        asksInMobile && prices ? [...prices].reverse() : prices;
-
+    (prices: ComputedPriceInfo[], highestTotal: Total | undefined) => {
+      const convertedPrices = asksInMobile ? [...prices].reverse() : prices;
       setRows(
         convertedPrices?.map((priceInfo) =>
           computeRowInfo({

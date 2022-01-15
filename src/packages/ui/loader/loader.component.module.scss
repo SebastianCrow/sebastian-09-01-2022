@@ -1,5 +1,10 @@
+@import '../../../styles/variables';
 @import '../../../styles/themes/dark';
 
-.loader {
-  color: $color-action !important;
+.container {
+  padding: 4 * $spacing;
+
+  .loader {
+    color: $color-action !important;
+  }
 }

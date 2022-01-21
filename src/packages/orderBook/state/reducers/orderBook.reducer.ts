@@ -1,4 +1,4 @@
-import { OrderBookState, Price } from '../orderBook.types';
+import { OrderBookState } from '../orderBook.types';
 import {
   DeltaReceived,
   ObserveProduct,
@@ -6,34 +6,14 @@ import {
   SetConnectionStatus,
   SnapshotReceived,
 } from '../orderBook.actions';
-import {
-  PriceInfo,
-  Product,
-} from '../../services/network/orderBookNetwork.types';
+import { Product } from '../../services/network/orderBookNetwork.types';
 import { computePriceInfoRecord } from '../../services/computePriceInfoRecord.service';
+import { updatePriceInfoRecord } from '../../services/updatePriceInfoRecord.service';
 
 const initialState: OrderBookState = {
   product: Product.Bitcoin_USD,
   connectionStatus: 'subscribing',
   prices: undefined,
-};
-
-const updatePriceInfoRecord = (
-  priceInfoRecord: Record<Price, PriceInfo> | undefined = {},
-  newPriceInfoList: PriceInfo[]
-): Record<Price, PriceInfo> => {
-  const updatedPriceInfoRecord = { ...priceInfoRecord };
-  for (const priceInfo of newPriceInfoList) {
-    // Replace with the new price info
-    if (priceInfo.size > 0) {
-      updatedPriceInfoRecord[priceInfo.price] = priceInfo;
-    }
-    // Delete obsolete price info
-    else {
-      delete updatedPriceInfoRecord[priceInfo.price];
-    }
-  }
-  return updatedPriceInfoRecord;
 };
 
 const observeProduct = (

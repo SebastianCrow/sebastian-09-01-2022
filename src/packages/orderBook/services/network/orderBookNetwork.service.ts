@@ -33,19 +33,19 @@ export const prices$ = ({
     networkSubject.subscribe({
       next: (dto) => {
         if (isSubscribedResponseDto(dto) && dto.product_ids.length) {
-          for (const productId of dto.product_ids) {
+          dto.product_ids.forEach((productId) => {
             subscriber.next({
               type: 'SubscribedReceived',
               product: convertProductIdToProduct(productId),
             });
-          }
+          });
         } else if (isUnsubscribedResponseDto(dto) && dto.product_ids.length) {
-          for (const productId of dto.product_ids) {
+          dto.product_ids.forEach((productId) => {
             subscriber.next({
               type: 'UnsubscribedReceived',
               product: convertProductIdToProduct(productId),
             });
-          }
+          });
         } else if (isSnapshotResponseDto(dto)) {
           subscriber.next({
             type: 'SnapshotReceived',

@@ -7,7 +7,7 @@ interface FormattedNumberProps {
 }
 
 /**
- * Format number to the current locale optionally speicifying an exact number of fraction digits
+ * Format number to the current locale optionally specifying an exact number of fraction digits
  * @param value Value to format
  * @param fractionDigits Fraction digits
  * @constructor
